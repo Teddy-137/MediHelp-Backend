@@ -42,14 +42,16 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data.pop("confirm_password")
-        user = User.objects.create_user(**validated_data)
+        user = User(**validated_data)
+        user.set_password(validated_data["password"])
+        user.save()
         return user
 
 
 class UserLoginSerializer(serializers.Serializer):
-    email = serializers.EmailField(required=True)
+    email = serializers.EmailField()
     password = serializers.CharField(
-        write_only=True, style={"input_type": "password"}, trim_whitespace=False
+        write_only=True, trim_whitespace=False, style={"input_type": "password"}
     )
 
     def validate(self, attrs):
@@ -57,8 +59,11 @@ class UserLoginSerializer(serializers.Serializer):
         password = attrs.get("password")
 
         user = User.objects.filter(email=email).first()
+
         if not user or not user.check_password(password):
             raise serializers.ValidationError("Invalid email or password.")
 
         attrs["user"] = user
+
         return attrs
+
