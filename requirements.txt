@@ -2,12 +2,14 @@ asgiref==3.8.1
 attrs==25.3.0
 Django==5.2
 django-cors-headers==4.7.0
+django-phonenumber-field==8.1.0
 djangorestframework==3.16.0
 djangorestframework_simplejwt==5.5.0
 drf-spectacular==0.28.0
 inflection==0.5.1
 jsonschema==4.23.0
 jsonschema-specifications==2025.4.1
+phonenumbers==9.0.4
 PyJWT==2.9.0
 PyYAML==6.0.2
 referencing==0.36.2
