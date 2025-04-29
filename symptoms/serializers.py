@@ -3,68 +3,77 @@ from .models import Symptom, Condition, SymptomCheck
 from .ai import generate_diagnosis
 import logging
 from django.urls import reverse
+from django.utils.encoding import force_str
 
 logger = logging.getLogger(__name__)
 
 
+def _clean_json(value):
+    """Recursively convert values to JSON-safe types"""
+    if isinstance(value, dict):
+        return {k: _clean_json(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_clean_json(v) for v in value]
+    return force_str(value)
+
+
+class SymptomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Symptom
+        fields = ["id", "name", "description", "created_at", "updated_at"]
+        read_only_fields = ["id", "created_at", "updated_at"]
+
+
 class ConditionSerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(
-        view_name="condition-detail", lookup_field="pk"
+    severity_display = serializers.CharField(
+        source="get_severity_display", read_only=True
     )
 
     class Meta:
         model = Condition
-        fields = ["id", "url", "name", "severity", "description"]
-        read_only_fields = ["id", "url"]
+        fields = [
+            "id",
+            "name",
+            "severity",
+            "severity_display",
+            "description",
+            "created_at",
+            "updated_at",
+        ]
+        read_only_fields = ["id", "created_at", "updated_at"]
 
 
 class SymptomCheckSerializer(serializers.ModelSerializer):
-    symptoms = serializers.HyperlinkedRelatedField(
+    symptoms = serializers.PrimaryKeyRelatedField(
         many=True,
-        view_name="symptom-detail",
         queryset=Symptom.objects.all(),
-        lookup_field="pk",
+        help_text="List of symptom IDs to analyze",
     )
     conditions = ConditionSerializer(many=True, read_only=True)
-    recommendations = serializers.ListField(
-        child=serializers.CharField(),
-        source="ai_diagnosis.recommendations",
-        read_only=True,
-    )
-    urgency = serializers.CharField(source="ai_diagnosis.urgency", read_only=True)
-    links = serializers.SerializerMethodField()
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    diagnosis = serializers.SerializerMethodField()
 
     class Meta:
         model = SymptomCheck
-        fields = [
-            "id",
-            "user",
-            "symptoms",
-            "conditions",
-            "recommendations",
-            "urgency",
-            "created_at",
-            "links",
-        ]
-        read_only_fields = ["user", "created_at", "conditions"]
+        fields = ["id", "user", "symptoms", "conditions", "diagnosis", "created_at"]
+        read_only_fields = ["user", "conditions", "created_at"]
 
-    def get_links(self, obj):
-        request = self.context.get("request")
+    def get_diagnosis(self, obj):
+        """Structure AI diagnosis data for output"""
+        if obj.ai_diagnosis is None:
+            return {
+                "urgency": "unknown",
+                "recommendations": [],
+            }
         return {
-            "self": request.build_absolute_uri(
-                reverse("symptom-check-detail", kwargs={"pk": obj.pk})
-            ),
-            "user": request.build_absolute_uri(
-                reverse("user-detail", kwargs={"pk": obj.user.pk})
-            ),
+            "urgency": obj.ai_diagnosis.get("urgency", "unknown"),
+            "recommendations": obj.ai_diagnosis.get("recommendations", []),
         }
 
     def validate_symptoms(self, value):
-        """Validate at least one symptom is provided"""
-        if len(value) < 1:
-            raise serializers.ValidationError(
-                "At least one symptom is required for diagnosis"
-            )
+        """Ensure at least one symptom is provided"""
+        if not value:
+            raise serializers.ValidationError("At least one symptom is required")
         return value
 
     def create(self, validated_data):
@@ -77,31 +86,24 @@ class SymptomCheckSerializer(serializers.ModelSerializer):
             check = SymptomCheck.objects.create(user=user)
             check.symptoms.set(symptoms)
 
-            # Process AI diagnosis
-            diagnosis_data = generate_diagnosis(symptoms)
+            # Generate AI diagnosis
+            raw_data = generate_diagnosis(symptoms)
+            diagnosis_data = _clean_json(raw_data)
 
-            if isinstance(diagnosis_data, dict) and "error" in diagnosis_data:
-                check.ai_diagnosis = diagnosis_data
-                check.save()
-                return check
+            # Store and process results
+            check.ai_diagnosis = diagnosis_data
 
-            # Process conditions
-            if "conditions" in diagnosis_data:
-                conditions = []
-                for name in diagnosis_data["conditions"]:
-                    condition, _ = Condition.objects.get_or_create(
-                        name=name.strip().title()
-                    )
-                    conditions.append(condition)
+            # Link conditions if available
+            if isinstance(diagnosis_data, dict):
+                conditions = Condition.objects.filter(
+                    name__in=[
+                        name.strip().title()
+                        for name in diagnosis_data.get("conditions", [])
+                    ]
+                )
                 check.conditions.set(conditions)
 
-            # Store structured diagnosis data
-            check.ai_diagnosis = {
-                "recommendations": diagnosis_data.get("recommendations", []),
-                "urgency": diagnosis_data.get("urgency", "unknown"),
-            }
             check.save()
-
             return check
 
         except Exception as e:
@@ -109,14 +111,6 @@ class SymptomCheckSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {
                     "code": "diagnosis_failed",
-                    "message": "Failed to process diagnosis. Please try again.",
+                    "message": "Could not process diagnosis. Please try again.",
                 }
             )
-
-
-class SymptomSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Symptom
-        fields = ["id", "url", "name", "description"]
-        read_only_fields = ["id", "url"]
-        extra_kwargs = {"url": {"view_name": "symptom-detail", "lookup_field": "pk"}}

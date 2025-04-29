@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Symptom, Condition, SymptomCheck
 
-# Register your models here.
+admin.site.register(Symptom)
+admin.site.register(Condition)
+admin.site.register(SymptomCheck)

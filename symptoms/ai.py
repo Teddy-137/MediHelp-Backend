@@ -18,56 +18,54 @@ def configure_gemini():
 
 
 def generate_diagnosis(symptoms):
+    """
+    Call Google Gemini to analyze a list of symptoms.
+    Returns a dict with 'conditions', 'recommendations', 'urgency' on success,
+    or {'error': ..., 'details': ...} on failure.
+    """
     configure_gemini()
     model = genai.GenerativeModel("gemini-2.0-flash")
 
     symptom_list = [s.name for s in symptoms]
-    prompt = f"""Analyze these symptoms: {', '.join(symptom_list)}.
-    Respond in raw JSON format only (no markdown) with these keys:
-    {{
-        "conditions": ["list", "of", "possible", "conditions"],
-        "recommendations": ["list", "of", "recommended", "actions"],
-        "urgency": "low/medium/high"
-    }}"""
+    prompt = (
+        f"Analyze these symptoms: {', '.join(symptom_list)}. "
+        "Respond only with raw JSON, no markdown, using keys: "
+        "conditions (list of condition names), recommendations (list of steps), urgency (low/medium/high)."
+    )
 
-    for attempt in range(MAX_RETRIES):
+    for attempt in range(1, MAX_RETRIES + 1):
         try:
+            logger.info(f"Gemini attempt {attempt}: sending prompt")
             response = model.generate_content(
                 prompt,
                 generation_config=genai.types.GenerationConfig(
-                    temperature=0.3, max_output_tokens=500
+                    temperature=0.3,
+                    max_output_tokens=500,
                 ),
-                safety_settings={
-                    "HARM_CATEGORY_MEDICAL": "BLOCK_NONE",
-                },
+                # remove safety_settings to simplify initial debugging
             )
+            raw = response.text.strip()
+            logger.debug(f"Raw Gemini response: {raw}")
 
-            content = response.text.strip()
-            if content.startswith("```json"):
-                content = content.removeprefix("```json").strip()
-            if content.endswith("```"):
-                content = content.removesuffix("```").strip()
+            # strip code fences if present
+            if raw.startswith("```json"):
+                raw = raw[len("```json"):].strip()
+            if raw.endswith("```"):
+                raw = raw[:-3].strip()
 
-            diagnosis = json.loads(content)
-
-            required_keys = {"conditions", "recommendations", "urgency"}
-            if not all(key in diagnosis for key in required_keys):
-                raise ValueError("Missing required keys in AI response")
-
+            diagnosis = json.loads(raw)
+            # ensure required keys
+            missing = {k for k in ["conditions","recommendations","urgency"] if k not in diagnosis}
+            if missing:
+                raise ValueError(f"Missing keys: {missing}")
             return diagnosis
 
-        except json.JSONDecodeError:
-            logger.warning(f"Invalid JSON response (attempt {attempt+1}): {content}")
-            if attempt < MAX_RETRIES - 1:
-                sleep(0.5 * (attempt + 1))
-                continue
-            return {"error": _("Invalid response format from AI service")}
-
+        except json.JSONDecodeError as je:
+            logger.warning(f"JSON parse error on attempt {attempt}: {je}")
         except Exception as e:
-            logger.error(f"AI service error: {str(e)}")
-            if attempt < MAX_RETRIES - 1:
-                sleep(1)
-                continue
-            return {"error": _("AI service unavailable"), "details": str(e)}
+            logger.error(f"Gemini error on attempt {attempt}: {e}")
 
-    return {"error": _("Failed to get valid diagnosis after multiple attempts")}
+        if attempt < MAX_RETRIES:
+            sleep(attempt * 0.5)
+
+    return {"error": str(_("Failed to get valid diagnosis after multiple attempts"))}
