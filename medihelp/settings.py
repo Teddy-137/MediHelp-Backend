@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # custom apps
     "accounts",
     "symptoms",
+    "firstaid",
     # installed dependencies
     "rest_framework",
     "rest_framework_simplejwt",

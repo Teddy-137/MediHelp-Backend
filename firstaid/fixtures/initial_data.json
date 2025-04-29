@@ -1,0 +1,60 @@
+[
+    {
+      "model": "symptoms.condition",
+      "pk": 2,
+      "fields": {
+        "name": "Cuts",
+        "severity": 1,
+        "description": "Minor cuts or lacerations requiring simple first aid.",
+        "created_at": "2025-04-29T00:00:00Z",
+        "updated_at": "2025-04-29T00:00:00Z"
+      }
+    },
+    {
+      "model": "symptoms.condition",
+      "pk": 3,
+      "fields": {
+        "name": "Fracture",
+        "severity": 3,
+        "description": "Suspected bone fracture requiring immobilization.",
+        "created_at": "2025-04-29T00:00:00Z",
+        "updated_at": "2025-04-29T00:00:00Z"
+      }
+    },
+    {
+      "model": "firstaid.firstaidinstruction",
+      "pk": 1,
+      "fields": {
+        "title": "First Aid for Cuts",
+        "condition": 2,
+        "steps": [
+          "Clean the wound with clean water",
+          "Apply antiseptic",
+          "Cover with a sterile bandage"
+        ],
+        "description": "Basic care for minor cuts and scrapes.",
+        "severity_level": 1,
+        "created_at": "2025-04-29T00:00:00Z",
+        "updated_at": "2025-04-29T00:00:00Z"
+      }
+    },
+    {
+      "model": "firstaid.firstaidinstruction",
+      "pk": 2,
+      "fields": {
+        "title": "Immobilize Suspected Fracture",
+        "condition": 3,
+        "steps": [
+          "Do not move the injured limb",
+          "Make a splint using a board or rolled-up newspaper",
+          "Secure splint with cloth but avoid cutting off circulation",
+          "Seek medical attention immediately"
+        ],
+        "description": "How to stabilize a suspected broken bone until help arrives.",
+        "severity_level": 3,
+        "created_at": "2025-04-29T00:00:00Z",
+        "updated_at": "2025-04-29T00:00:00Z"
+      }
+    }
+  ]
+  
