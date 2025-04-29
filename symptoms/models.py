@@ -46,7 +46,7 @@ class SymptomCheck(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     symptoms = models.ManyToManyField(Symptom)
     conditions = models.ManyToManyField(Condition, blank=True)
-    ai_diagnosis = models.TextField()  # Gemini API response
+    ai_diagnosis = models.JSONField(null=True, blank=True)  # Gemini API response
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

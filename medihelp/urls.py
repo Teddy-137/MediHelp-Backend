@@ -35,7 +35,7 @@ schema_patterns = [
 
 api_patterns = [
     path("auth/", include("accounts.urls")),
-    path("symptoms/", include("symptoms.urls")),
+    path("health/", include("symptoms.urls")),
 ]
 
 urlpatterns = [
