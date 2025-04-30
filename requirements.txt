@@ -46,7 +46,3 @@ typing-inspection==0.4.0
 typing_extensions==4.13.2
 uritemplate==4.1.1
 urllib3==2.4.0
-<<<<<<< HEAD
-django-filter==25.1
-=======
->>>>>>> 18d60c9 (fix: Ensure newline at end of requirements.txt for proper formatting)
