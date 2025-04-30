@@ -1,36 +1,65 @@
+# firstaid/serializers.py
 from rest_framework import serializers
 from .models import FirstAidInstruction, HomeRemedy
 from symptoms.models import Condition, Symptom
 
 
-class ConditionSerializer(serializers.ModelSerializer):
+class FirstAidConditionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Condition
         fields = ["id", "name", "severity"]
+        read_only = True
 
 
 class FirstAidInstructionSerializer(serializers.ModelSerializer):
-    condition = ConditionSerializer(read_only=True)
-    condition_id = serializers.PrimaryKeyRelatedField(
-        queryset=Condition.objects.all(),
-        source="condition",
-        write_only=True,
-        help_text="ID of related condition",
+    condition = FirstAidConditionSerializer(read_only=True)
+    severity_level_display = serializers.CharField(
+        source="get_severity_level_display", read_only=True
     )
-    severity_level_display = serializers.CharField(source='get_severity_level_display', read_only=True)
+    type = serializers.SerializerMethodField()
 
     class Meta:
         model = FirstAidInstruction
-        fields = ["id", "title", "condition", "condition_id", "steps", "severity_level", "severity_level_display", "description", "created_at"]
+        fields = [
+            "id",
+            "type",
+            "title",
+            "condition",
+            "steps",
+            "severity_level",
+            "severity_level_display",
+            "description",
+            "created_at",
+        ]
+        read_only_fields = ["type", "created_at"]
+
+    def get_type(self, obj):
+        return "firstaid"
 
 
 class HomeRemedySerializer(serializers.ModelSerializer):
     symptoms = serializers.PrimaryKeyRelatedField(
-        many=True,
-        queryset=Symptom.objects.all(),
-        help_text="List of symptom IDs this remedy addresses",
+        many=True, queryset=Symptom.objects.all(), help_text="Related symptom IDs"
     )
+    type = serializers.SerializerMethodField()
 
     class Meta:
         model = HomeRemedy
-        fields = ["id", "name", "symptoms", "ingredients", "preparation", "created_at"]
+        fields = [
+            "id",
+            "type",
+            "name",
+            "symptoms",
+            "ingredients",
+            "preparation",
+            "created_at",
+        ]
+        read_only_fields = ["type", "created_at"]
+
+    def get_type(self, obj):
+        return "homeremedy"
+
+    def validate_ingredients(self, value):
+        if len(value) < 1:
+            raise serializers.ValidationError("At least one ingredient required")
+        return value

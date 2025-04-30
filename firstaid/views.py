@@ -1,40 +1,92 @@
-from rest_framework import viewsets, filters, pagination, permissions
+# firstaid/views.py
+from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework import filters, permissions, status
+from rest_framework.response import Response
+from rest_framework.throttling import ScopedRateThrottle
+from django.db.models import Q
+from django.utils.translation import gettext_lazy as _
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from .models import FirstAidInstruction, HomeRemedy
-from .serializers import FirstAidInstructionSerializer, HomeRemedySerializer
+from .serializers import (
+    FirstAidInstructionSerializer,
+    HomeRemedySerializer,
+)
 
 
-class StandardPagination(pagination.PageNumberPagination):
-    page_size = 10
-    page_size_query_param = "page_size"
-
-
-class FirstAidViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = FirstAidInstruction.objects.all()
-    serializer_class = FirstAidInstructionSerializer
+class FirstAidBaseAPIView:
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    pagination_class = StandardPagination
-    ordering_fields = ["severity_level", "created_at"]
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "firstaid"
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-    search_fields = ["title", "condition__name"]
+    ordering_fields = ["created_at", "severity_level"]
     search_param = "q"
+    ordering = ["-created_at"]
+
+
+@extend_schema(
+    parameters=[
+        OpenApiParameter(
+            name="type",
+            type=str,
+            enum=["firstaid", "homeremedy"],
+            description="Filter by instruction type",
+        ),
+        OpenApiParameter(
+            name="q",
+            type=str,
+            description="Search query (searches title, description, and symptoms)",
+        ),
+    ]
+)
+class FirstAidListAPIView(FirstAidBaseAPIView, ListAPIView):
+    serializer_class = FirstAidInstructionSerializer
+    search_fields = ["title", "description", "condition__name"]
 
     def get_queryset(self):
+        item_type = self.request.query_params.get("type", "firstaid").lower()
+        search_query = self.request.query_params.get("q", "")
+
+        if item_type == "homeremedy":
+            return self.get_homeremedies_queryset(search_query)
+        return self.get_firstaids_queryset(search_query)
+
+    def get_firstaids_queryset(self, search_query):
         queryset = FirstAidInstruction.objects.select_related("condition")
-        if condition_id := self.request.query_params.get("condition"):
-            return queryset.filter(condition_id=condition_id)
+        if search_query:
+            queryset = queryset.filter(
+                Q(title__icontains=search_query)
+                | Q(description__icontains=search_query)
+                | Q(condition__name__icontains=search_query)
+            )
         return queryset
 
-
-class HomeRemedyViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = HomeRemedySerializer
-    pagination_class = StandardPagination
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    filter_backends = [filters.SearchFilter]
-    search_fields = ["name", "symptoms__name"]
-    search_param = "q"
-
-    def get_queryset(self):
+    def get_homeremedies_queryset(self, search_query):
         queryset = HomeRemedy.objects.prefetch_related("symptoms")
-        if symptom_ids := self.request.query_params.get("symptoms"):
-            return queryset.filter(symptoms__id__in=symptom_ids.split(","))
+        if search_query:
+            queryset = queryset.filter(
+                Q(name__icontains=search_query)
+                | Q(ingredients__icontains=search_query)
+                | Q(symptoms__name__icontains=search_query)
+            ).distinct()
         return queryset
+
+    def list(self, request, *args, **kwargs):
+        try:
+            return super().list(request, *args, **kwargs)
+        except Exception as e:
+            return Response(
+                {"error": _("Failed to retrieve data")},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+
+class FirstAidDetailAPIView(FirstAidBaseAPIView, RetrieveAPIView):
+    queryset = FirstAidInstruction.objects.select_related("condition")
+    serializer_class = FirstAidInstructionSerializer
+    lookup_field = "id"
+
+
+class HomeRemedyDetailAPIView(FirstAidBaseAPIView, RetrieveAPIView):
+    queryset = HomeRemedy.objects.prefetch_related("symptoms")
+    serializer_class = HomeRemedySerializer
+    lookup_field = "id"

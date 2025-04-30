@@ -1,4 +1,5 @@
 from rest_framework import viewsets, filters, pagination, permissions
+from drf_spectacular.utils import extend_schema_view, extend_schema
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Article, Video
 from .serializers import ArticleSerializer, VideoSerializer
@@ -10,11 +11,23 @@ class EducationPagination(pagination.PageNumberPagination):
     max_page_size = 100
 
 
+class EducationAdminPermission(permissions.BasePermission):
+    message = "Only admin users can modify educational content"
+
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return request.user and request.user.is_staff
+
+
+@extend_schema_view(
+    list=extend_schema(description="List educational articles"),
+    retrieve=extend_schema(description="Get article details"),
+)
 class ArticleViewSet(viewsets.ModelViewSet):
     serializer_class = ArticleSerializer
     permission_classes = [
-        permissions.IsAuthenticatedOrReadOnly,
-        permissions.DjangoModelPermissions,
+        EducationAdminPermission,
     ]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = {
@@ -31,11 +44,14 @@ class ArticleViewSet(viewsets.ModelViewSet):
         return Article.objects.prefetch_related("related_conditions").all()
 
 
+@extend_schema_view(
+    list=extend_schema(description="List educational videos"),
+    retrieve=extend_schema(description="Get video details"),
+)
 class VideoViewSet(viewsets.ModelViewSet):
     serializer_class = VideoSerializer
     permission_classes = [
-        permissions.IsAuthenticatedOrReadOnly,
-        permissions.DjangoModelPermissions,
+        EducationAdminPermission,
     ]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = {
@@ -43,7 +59,7 @@ class VideoViewSet(viewsets.ModelViewSet):
         "is_published": ["exact"],
         "duration_minutes": ["gte", "lte"],
     }
-    search_fields = ["title"]
+    search_fields = ["title", "related_symptoms__name"]
     search_param = "q"
     ordering_fields = ["published_date", "duration_minutes"]
     pagination_class = EducationPagination

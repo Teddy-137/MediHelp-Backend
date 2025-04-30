@@ -1,60 +1,148 @@
 [
-    {
-      "model": "symptoms.condition",
-      "pk": 2,
-      "fields": {
-        "name": "Cuts",
-        "severity": 1,
-        "description": "Minor cuts or lacerations requiring simple first aid.",
-        "created_at": "2025-04-29T00:00:00Z",
-        "updated_at": "2025-04-29T00:00:00Z"
-      }
-    },
-    {
-      "model": "symptoms.condition",
-      "pk": 3,
-      "fields": {
-        "name": "Fracture",
-        "severity": 3,
-        "description": "Suspected bone fracture requiring immobilization.",
-        "created_at": "2025-04-29T00:00:00Z",
-        "updated_at": "2025-04-29T00:00:00Z"
-      }
-    },
-    {
-      "model": "firstaid.firstaidinstruction",
-      "pk": 1,
-      "fields": {
-        "title": "First Aid for Cuts",
-        "condition": 2,
-        "steps": [
-          "Clean the wound with clean water",
-          "Apply antiseptic",
-          "Cover with a sterile bandage"
-        ],
-        "description": "Basic care for minor cuts and scrapes.",
-        "severity_level": 1,
-        "created_at": "2025-04-29T00:00:00Z",
-        "updated_at": "2025-04-29T00:00:00Z"
-      }
-    },
-    {
-      "model": "firstaid.firstaidinstruction",
-      "pk": 2,
-      "fields": {
-        "title": "Immobilize Suspected Fracture",
-        "condition": 3,
-        "steps": [
-          "Do not move the injured limb",
-          "Make a splint using a board or rolled-up newspaper",
-          "Secure splint with cloth but avoid cutting off circulation",
-          "Seek medical attention immediately"
-        ],
-        "description": "How to stabilize a suspected broken bone until help arrives.",
-        "severity_level": 3,
-        "created_at": "2025-04-29T00:00:00Z",
-        "updated_at": "2025-04-29T00:00:00Z"
-      }
+  {
+    "model": "firstaid.firstaidinstruction",
+    "pk": 1,
+    "fields": {
+      "title": "Burn Treatment",
+      "steps": [
+        "Cool the burn under cool running water for 20 minutes",
+        "Remove jewelry or tight clothing",
+        "Cover with sterile non-stick dressing"
+      ],
+      "description": "First degree burn treatment protocol",
+      "condition": 1,
+      "severity_level": 2,
+      "created_at": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00"
     }
-  ]
-  
+  },
+  {
+    "model": "firstaid.firstaidinstruction",
+    "pk": 2,
+    "fields": {
+      "title": "Choking First Aid",
+      "steps": [
+        "Encourage the person to cough",
+        "Perform 5 back blows",
+        "Perform 5 abdominal thrusts"
+      ],
+      "description": "Steps to assist a choking victim",
+      "condition": 2,
+      "severity_level": 3,
+      "created_at": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00"
+    }
+  },
+  {
+    "model": "firstaid.firstaidinstruction",
+    "pk": 3,
+    "fields": {
+      "title": "Sprain Treatment",
+      "steps": [
+        "Rest the injured area",
+        "Apply ice to reduce swelling",
+        "Compress with an elastic bandage",
+        "Elevate the injured area"
+      ],
+      "description": "Protocol for treating sprains",
+      "condition": 3,
+      "severity_level": 1,
+      "created_at": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00"
+    }
+  },
+  {
+    "model": "firstaid.firstaidinstruction",
+    "pk": 4,
+    "fields": {
+      "title": "Nosebleed Management",
+      "steps": [
+        "Sit upright and lean forward",
+        "Pinch the soft part of the nose",
+        "Apply a cold compress to the nose"
+      ],
+      "description": "Steps to stop a nosebleed",
+      "condition": 4,
+      "severity_level": 1,
+      "created_at": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00"
+    }
+  },
+  {
+    "model": "firstaid.firstaidinstruction",
+    "pk": 5,
+    "fields": {
+      "title": "CPR for Adults",
+      "steps": [
+        "Check for responsiveness and breathing",
+        "Call emergency services",
+        "Perform chest compressions at a rate of 100-120 per minute"
+      ],
+      "description": "Basic CPR protocol for adults",
+      "condition": 5,
+      "severity_level": 3,
+      "created_at": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00"
+    }
+  },
+  {
+    "model": "firstaid.homeremedy",
+    "pk": 1,
+    "fields": {
+      "name": "Honey for Sore Throat",
+      "ingredients": ["Raw honey", "Warm water", "Lemon juice"],
+      "preparation": "Mix 1 tbsp honey with warm water and lemon. Gargle 2-3x daily.",
+      "symptoms": [1],
+      "created_at": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00"
+    }
+  },
+  {
+    "model": "firstaid.homeremedy",
+    "pk": 2,
+    "fields": {
+      "name": "Ginger Tea for Nausea",
+      "ingredients": ["Fresh ginger", "Hot water", "Honey"],
+      "preparation": "Steep sliced ginger in hot water for 10 minutes. Add honey to taste.",
+      "symptoms": [2],
+      "created_at": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00"
+    }
+  },
+  {
+    "model": "firstaid.homeremedy",
+    "pk": 3,
+    "fields": {
+      "name": "Aloe Vera for Burns",
+      "ingredients": ["Fresh aloe vera gel"],
+      "preparation": "Apply aloe vera gel directly to the burn area.",
+      "symptoms": [3],
+      "created_at": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00"
+    }
+  },
+  {
+    "model": "firstaid.homeremedy",
+    "pk": 4,
+    "fields": {
+      "name": "Peppermint Oil for Headache",
+      "ingredients": ["Peppermint essential oil"],
+      "preparation": "Massage a few drops of peppermint oil onto the temples.",
+      "symptoms": [4],
+      "created_at": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00"
+    }
+  },
+  {
+    "model": "firstaid.homeremedy",
+    "pk": 5,
+    "fields": {
+      "name": "Turmeric Milk for Inflammation",
+      "ingredients": ["Turmeric powder", "Warm milk", "Honey"],
+      "preparation": "Mix 1 tsp turmeric powder into warm milk. Add honey for taste.",
+      "symptoms": [5],
+      "created_at": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00"
+    }
+  }
+]

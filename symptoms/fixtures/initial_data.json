@@ -1,0 +1,112 @@
+[
+    {
+        "model": "symptoms.symptom",
+        "pk": 1,
+        "fields": {
+            "name": "Headache",
+            "description": "Pain in the head or neck region",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 2,
+        "fields": {
+            "name": "Fever",
+            "description": "Elevated body temperature above 38°C (100.4°F)",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 3,
+        "fields": {
+            "name": "Cough",
+            "description": "A sudden, forceful hacking sound to release air and clear irritation in the throat or airway",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 4,
+        "fields": {
+            "name": "Sore Throat",
+            "description": "Pain, scratchiness, or irritation of the throat",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 5,
+        "fields": {
+            "name": "Fatigue",
+            "description": "A state of extreme tiredness resulting from mental or physical exertion",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.condition",
+        "pk": 1,
+        "fields": {
+            "name": "Migraine",
+            "severity": 3,
+            "description": "Neurological condition characterized by severe headaches",
+            "symptoms": [1],
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.condition",
+        "pk": 2,
+        "fields": {
+            "name": "Common Cold",
+            "severity": 1,
+            "description": "Viral infection of the upper respiratory tract",
+            "symptoms": [2],
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.condition",
+        "pk": 3,
+        "fields": {
+            "name": "Flu",
+            "severity": 2,
+            "description": "Viral infection that affects the respiratory system",
+            "symptoms": [1, 2],
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.condition",
+        "pk": 4,
+        "fields": {
+            "name": "COVID-19",
+            "severity": 4,
+            "description": "Infectious disease caused by the SARS-CoV-2 virus",
+            "symptoms": [1, 2],
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.condition",
+        "pk": 5,
+        "fields": {
+            "name": "Allergy",
+            "severity": 1,
+            "description": "Immune response to a substance that is usually harmless",
+            "symptoms": [2],
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    }
+]

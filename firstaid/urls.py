@@ -1,9 +1,16 @@
-from rest_framework import routers
-from .views import FirstAidViewSet, HomeRemedyViewSet
+from django.urls import path
+from .views import (
+    FirstAidListAPIView,
+    FirstAidDetailAPIView,
+    HomeRemedyDetailAPIView,
+)
 
-router = routers.DefaultRouter()
-router.register(r"first-aids", FirstAidViewSet, basename="first-aid")
-router.register(r"home-remedies", HomeRemedyViewSet, basename="home-remedy")
-
-
-urlpatterns = router.urls
+urlpatterns = [
+    path("", FirstAidListAPIView.as_view(), name="firstaid-list"),
+    path("<int:id>/", FirstAidDetailAPIView.as_view(), name="firstaid-detail"),
+    path(
+        "remedies/<int:id>/",
+        HomeRemedyDetailAPIView.as_view(),
+        name="homeremedy-detail",
+    ),
+]

@@ -1,7 +1,13 @@
 @baseUrl = http://localhost:8000/api
 @authUrl = {{baseUrl}}/auth
 @healthUrl = {{baseUrl}}/health
-@educationUrl = {{baseUrl}}/education
+@educationUrl = {{baseUrl}}/content
+@firstaidUrl = {{baseUrl}}/firstaid
+@coreUrl = {{baseUrl}}/core
+
+#######################
+### Authentication ###
+#######################
 
 ### Register new user
 # @name register
@@ -18,6 +24,15 @@ Content-Type: application/json
     "confirm_password": "TestPassword123!"
 }
 
+### Register with invalid data (error case)
+POST {{authUrl}}/register/
+Content-Type: application/json
+
+{
+    "email": "invalid-email",
+    "password": "short"
+}
+
 ### Login to get access token
 # @name login
 POST {{authUrl}}/login/
@@ -28,26 +43,82 @@ Content-Type: application/json
     "password": "TestPassword123!"
 }
 
-### Save token from login response
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1OTk5NjgxLCJpYXQiOjE3NDU5OTYwODEsImp0aSI6IjY5YTNlN2Q0N2EyMjQ0YjFhODM5MzhhNTJmOTRmN2Q0IiwidXNlcl9pZCI6Mn0.kDMuyHcey6LGFkAIBpZiscIzoy58XkzNOaexjm85fhA
-### Get list of available symptoms
+### Save tokens from login response
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MDExOTA1LCJpYXQiOjE3NDYwMDgzMDUsImp0aSI6IjJmNWE5MmM0Y2IzZTRlOGVhYjQyZTlkZjBhZDllOTdjIiwidXNlcl9pZCI6MX0.hT13Qla99GQ44vH3ceiqpHn07-ZGnIfPUdJp44LEUfk
+@refreshToken = {{login.response.body.refresh}}
+
+### Refresh access token
+# @name refresh
+POST {{authUrl}}/token/refresh/
+Content-Type: application/json
+
+{
+    "refresh": "{{refreshToken}}"
+}
+
+### Refresh with invalid token (error case)
+POST {{authUrl}}/token/refresh/
+Content-Type: application/json
+
+{
+    "refresh": "invalid-token"
+}
+
+### Logout
+POST {{authUrl}}/logout/
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "refresh": "{{refreshToken}}"
+}
+
+#######################
+### Health/Symptoms ###
+#######################
+
+### List all symptoms
 # @name symptoms
 GET {{healthUrl}}/symptoms/
 Authorization: Bearer {{accessToken}}
 
-### Get specific symptom details
+### List symptoms with pagination
+GET {{healthUrl}}/symptoms/?page=1&page_size=5
+Authorization: Bearer {{accessToken}}
+
+### Get specific symptom
 GET {{healthUrl}}/symptoms/1/
 Authorization: Bearer {{accessToken}}
 
-### Get list of conditions
+### Get non-existent symptom (error case)
+GET {{healthUrl}}/symptoms/999/
+Authorization: Bearer {{accessToken}}
+
+### Search symptoms
+GET {{healthUrl}}/symptoms/?q=fever
+Authorization: Bearer {{accessToken}}
+
+### List all conditions
 GET {{healthUrl}}/conditions/
 Authorization: Bearer {{accessToken}}
 
-### Get specific condition details
+### List conditions with pagination
+GET {{healthUrl}}/conditions/?page=1&page_size=5
+Authorization: Bearer {{accessToken}}
+
+### Get specific condition
 GET {{healthUrl}}/conditions/1/
 Authorization: Bearer {{accessToken}}
 
-### Create a new symptom check with AI diagnosis
+### Get non-existent condition (error case)
+GET {{healthUrl}}/conditions/999/
+Authorization: Bearer {{accessToken}}
+
+### Search conditions
+GET {{healthUrl}}/conditions/?q=diabetes
+Authorization: Bearer {{accessToken}}
+
+### Create symptom check
 # @name createCheck
 POST {{healthUrl}}/checks/
 Authorization: Bearer {{accessToken}}
@@ -57,54 +128,133 @@ Content-Type: application/json
     "symptoms": [1]
 }
 
-### List all my symptom checks
+### Save symptom check ID
+@checkId = {{createCheck.response.body.id}}
+
+### Create symptom check with invalid data (error case)
+POST {{healthUrl}}/checks/
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "symptoms": [999]
+}
+
+### Create symptom check with additional info
+POST {{healthUrl}}/checks/
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "symptoms": [1, 2],
+    "additional_info": "Symptoms started yesterday evening"
+}
+
+### List my symptom checks
 GET {{healthUrl}}/checks/
 Authorization: Bearer {{accessToken}}
 
-### Get details of a specific symptom check
-GET {{healthUrl}}/checks/{{createCheck.response.body.data.id}}/
+### List symptom checks with pagination
+GET {{healthUrl}}/checks/?page=1&page_size=5
 Authorization: Bearer {{accessToken}}
 
-
-
-
-
-
-
-
-
-
-### Get list of first aid guides
-GET {{healthUrl}}/first-aids/
+### Get specific symptom check
+GET {{healthUrl}}/checks/{{checkId}}/
 Authorization: Bearer {{accessToken}}
 
+### Get non-existent symptom check (error case)
+GET {{healthUrl}}/checks/999/
+Authorization: Bearer {{accessToken}}
+
+#######################
+### First Aid ###
+#######################
+
+### List first aid guides and remedies
+GET {{firstaidUrl}}/
+Authorization: Bearer {{accessToken}}
+
+### List with pagination
+GET {{firstaidUrl}}/?page=1&page_size=5
+Authorization: Bearer {{accessToken}}
+
+### List first aid guides only
+GET {{firstaidUrl}}/?type=firstaid
+Authorization: Bearer {{accessToken}}
+
+### List home remedies only
+GET {{firstaidUrl}}/?type=homeremedy
+Authorization: Bearer {{accessToken}}
 
 ### Get specific first aid guide
-GET {{healthUrl}}/first-aids/1/
+GET {{firstaidUrl}}/1/
 Authorization: Bearer {{accessToken}}
 
-### Get list of home remedies
-GET {{healthUrl}}/home-remedies/
+### Get non-existent first aid guide (error case)
+GET {{firstaidUrl}}/999/
+Authorization: Bearer {{accessToken}}
+
+### Search all items
+GET {{firstaidUrl}}/?q=burn
+Authorization: Bearer {{accessToken}}
+
+### Search first aid guides only
+GET {{firstaidUrl}}/?q=burn&type=firstaid
+Authorization: Bearer {{accessToken}}
+
+### Search home remedies only
+GET {{firstaidUrl}}/?q=headache&type=homeremedy
 Authorization: Bearer {{accessToken}}
 
 ### Get specific home remedy
-GET {{healthUrl}}/home-remedies/1/
+GET {{firstaidUrl}}/remedies/1/
 Authorization: Bearer {{accessToken}}
 
+### Get non-existent home remedy (error case)
+GET {{firstaidUrl}}/remedies/999/
+Authorization: Bearer {{accessToken}}
 
+### Search with sorting
+GET {{firstaidUrl}}/?q=headache&ordering=-created_at
+Authorization: Bearer {{accessToken}}
 
+### Filter by severity level
+GET {{firstaidUrl}}/?type=firstaid&severity_level=high
+Authorization: Bearer {{accessToken}}
 
+#######################
+### Education ###
+#######################
 
-
-### List all articles
+### List articles
 GET {{educationUrl}}/articles/
+Authorization: Bearer {{accessToken}}
+
+### List articles with pagination
+GET {{educationUrl}}/articles/?page=1&page_size=5
+Authorization: Bearer {{accessToken}}
+
+### List articles with filters
+GET {{educationUrl}}/articles/?is_published=true&related_conditions=1
+Authorization: Bearer {{accessToken}}
+
+### List articles with date range filter
+GET {{educationUrl}}/articles/?published_date__gte=2025-01-01&published_date__lte=2025-12-31
 Authorization: Bearer {{accessToken}}
 
 ### Get specific article
 GET {{educationUrl}}/articles/1/
 Authorization: Bearer {{accessToken}}
 
-### Create new article
+### Get non-existent article (error case)
+GET {{educationUrl}}/articles/999/
+Authorization: Bearer {{accessToken}}
+
+### Search articles
+GET {{educationUrl}}/articles/?q=diabetes
+Authorization: Bearer {{accessToken}}
+
+### Create article (admin only)
 POST {{educationUrl}}/articles/
 Authorization: Bearer {{accessToken}}
 Content-Type: application/json
@@ -118,7 +268,17 @@ Content-Type: application/json
     "related_conditions": [1]
 }
 
-### Update article
+### Create article with invalid data (error case)
+POST {{educationUrl}}/articles/
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "title": "",
+    "related_conditions": [999]
+}
+
+### Update article (admin only)
 PATCH {{educationUrl}}/articles/1/
 Authorization: Bearer {{accessToken}}
 Content-Type: application/json
@@ -128,32 +288,63 @@ Content-Type: application/json
     "is_published": true
 }
 
-### Delete article
+### Delete article (admin only)
 DELETE {{educationUrl}}/articles/1/
 Authorization: Bearer {{accessToken}}
 
-### List all videos
+### List videos
 GET {{educationUrl}}/videos/
+Authorization: Bearer {{accessToken}}
+
+### List videos with pagination
+GET {{educationUrl}}/videos/?page=1&page_size=5
+Authorization: Bearer {{accessToken}}
+
+### List videos with filters
+GET {{educationUrl}}/videos/?is_published=true&related_symptoms=1
+Authorization: Bearer {{accessToken}}
+
+### List videos with duration filter
+GET {{educationUrl}}/videos/?duration_minutes__gte=10&duration_minutes__lte=30
 Authorization: Bearer {{accessToken}}
 
 ### Get specific video
 GET {{educationUrl}}/videos/1/
 Authorization: Bearer {{accessToken}}
 
-### Create new video
+### Get non-existent video (error case)
+GET {{educationUrl}}/videos/999/
+Authorization: Bearer {{accessToken}}
+
+### Search videos
+GET {{educationUrl}}/videos/?q=first%20aid
+Authorization: Bearer {{accessToken}}
+
+### Create video (admin only)
 POST {{educationUrl}}/videos/
 Authorization: Bearer {{accessToken}}
 Content-Type: application/json
 
 {
     "title": "First Aid for Burns",
-    "url": "https://example.com/video123",
+    "youtube_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     "duration_minutes": 15,
     "is_published": true,
     "related_symptoms": [1]
 }
 
-### Update video
+### Create video with invalid data (error case)
+POST {{educationUrl}}/videos/
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "title": "",
+    "youtube_url": "not-a-url",
+    "duration_minutes": -1
+}
+
+### Update video (admin only)
 PATCH {{educationUrl}}/videos/1/
 Authorization: Bearer {{accessToken}}
 Content-Type: application/json
@@ -163,15 +354,23 @@ Content-Type: application/json
     "duration_minutes": 20
 }
 
-### Delete video
+### Delete video (admin only)
 DELETE {{educationUrl}}/videos/1/
 Authorization: Bearer {{accessToken}}
 
-### Logout
-POST {{authUrl}}/logout/
-Authorization: Bearer {{accessToken}}
-Content-Type: application/json
+#######################
+### Core ###
+#######################
 
-{
-    "refresh": "{{login.response.body.refresh}}"
-}
+### Get server status
+GET {{coreUrl}}/healthz/
+
+### Get server metrics (admin only)
+GET {{coreUrl}}/metrics/
+Authorization: Bearer {{accessToken}}
+
+### Get server metrics without auth (error case)
+GET {{coreUrl}}/metrics/
+
+### Get non-existent endpoint (error case)
+GET {{coreUrl}}/not-found/

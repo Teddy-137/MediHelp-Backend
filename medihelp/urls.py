@@ -37,7 +37,7 @@ api_patterns = [
     path("auth/", include("accounts.urls")),
     path("health/", include("symptoms.urls")),
     path("firstaid/", include("firstaid.urls")),
-    path("education/", include("education.urls")),
+    path("content/", include("education.urls")),
     path("core/", include("core.urls")),
 ]
 

@@ -3,56 +3,140 @@
     "model": "education.article",
     "pk": 1,
     "fields": {
-      "title": "How to Manage Minor Cuts",
-      "summary": "Basic steps to clean and bandage minor skin wounds.",
-      "content": "Keeping a minor cut clean is the first step... [full article content here]",
-      "related_conditions": [1],
-      "tags": ["wound", "bleeding", "first aid"],
-      "cover_image": "https://example.com/images/cuts.jpg",
+      "title": "Understanding Migraines",
+      "summary": "Comprehensive guide to migraine causes and management",
+      "content": "Migraines are complex neurological events...",
+      "cover_image": "https://example.com/migraine-cover.jpg",
+      "tags": ["neurology", "headache", "pain management"],
       "is_published": true,
-      "published_date": "2025-04-29T00:00:00Z",
-      "updated_at": "2025-04-29T00:00:00Z"
+      "published_date": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00",
+      "related_conditions": [1]
     }
   },
   {
     "model": "education.article",
     "pk": 2,
     "fields": {
-      "title": "Recognizing Signs of Dehydration",
-      "summary": "How to spot and respond to mild to moderate dehydration.",
-      "content": "Dehydration happens when you lose more fluids than you take in...",
-      "related_conditions": [2],
-      "tags": ["hydration", "health", "prevention"],
-      "cover_image": "https://example.com/images/dehydration.png",
+      "title": "Managing Common Colds",
+      "summary": "Tips and tricks to manage common colds effectively",
+      "content": "The common cold is caused by a viral infection...",
+      "cover_image": "https://example.com/cold-cover.jpg",
+      "tags": ["cold", "respiratory", "health tips"],
       "is_published": true,
-      "published_date": "2025-04-29T00:00:00Z",
-      "updated_at": "2025-04-29T00:00:00Z"
+      "published_date": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00",
+      "related_conditions": [2]
+    }
+  },
+  {
+    "model": "education.article",
+    "pk": 3,
+    "fields": {
+      "title": "Flu Prevention Strategies",
+      "summary": "How to protect yourself from seasonal flu",
+      "content": "Flu prevention starts with vaccination...",
+      "cover_image": "https://example.com/flu-cover.jpg",
+      "tags": ["flu", "prevention", "vaccination"],
+      "is_published": true,
+      "published_date": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00",
+      "related_conditions": [3]
+    }
+  },
+  {
+    "model": "education.article",
+    "pk": 4,
+    "fields": {
+      "title": "COVID-19: What You Need to Know",
+      "summary": "Essential information about COVID-19 symptoms and prevention",
+      "content": "COVID-19 is caused by the SARS-CoV-2 virus...",
+      "cover_image": "https://example.com/covid-cover.jpg",
+      "tags": ["covid-19", "pandemic", "health"],
+      "is_published": true,
+      "published_date": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00",
+      "related_conditions": [4]
+    }
+  },
+  {
+    "model": "education.article",
+    "pk": 5,
+    "fields": {
+      "title": "Allergy Management Tips",
+      "summary": "How to manage allergies effectively",
+      "content": "Allergies are caused by an overreaction of the immune system...",
+      "cover_image": "https://example.com/allergy-cover.jpg",
+      "tags": ["allergy", "immune system", "health tips"],
+      "is_published": true,
+      "published_date": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00",
+      "related_conditions": [5]
     }
   },
   {
     "model": "education.video",
     "pk": 1,
     "fields": {
-      "title": "CPR Basics",
-      "youtube_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "title": "First Aid for Burns",
+      "youtube_url": "https://www.youtube.com/watch?v=example123",
       "duration_minutes": 5,
-      "related_symptoms": [1],
       "is_published": true,
-      "published_date": "2025-04-29T00:00:00Z",
-      "updated_at": "2025-04-29T00:00:00Z"
+      "published_date": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00",
+      "related_symptoms": [1]
     }
   },
   {
     "model": "education.video",
     "pk": 2,
     "fields": {
-      "title": "Understanding Fever in Children",
-      "youtube_url": "https://www.youtube.com/watch?v=abcdefghij",
+      "title": "How to Treat a Fever",
+      "youtube_url": "https://www.youtube.com/watch?v=example456",
       "duration_minutes": 7,
-      "related_symptoms": [2],
       "is_published": true,
-      "published_date": "2025-04-29T00:00:00Z",
-      "updated_at": "2025-04-29T00:00:00Z"
+      "published_date": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00",
+      "related_symptoms": [2]
+    }
+  },
+  {
+    "model": "education.video",
+    "pk": 3,
+    "fields": {
+      "title": "Cough Remedies That Work",
+      "youtube_url": "https://www.youtube.com/watch?v=example789",
+      "duration_minutes": 6,
+      "is_published": true,
+      "published_date": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00",
+      "related_symptoms": [3]
+    }
+  },
+  {
+    "model": "education.video",
+    "pk": 4,
+    "fields": {
+      "title": "Sore Throat Relief Tips",
+      "youtube_url": "https://www.youtube.com/watch?v=example101",
+      "duration_minutes": 4,
+      "is_published": true,
+      "published_date": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00",
+      "related_symptoms": [4]
+    }
+  },
+  {
+    "model": "education.video",
+    "pk": 5,
+    "fields": {
+      "title": "How to Overcome Fatigue",
+      "youtube_url": "https://www.youtube.com/watch?v=example202",
+      "duration_minutes": 8,
+      "is_published": true,
+      "published_date": "2025-04-30T09:58:27+00:00",
+      "updated_at": "2025-04-30T09:58:27+00:00",
+      "related_symptoms": [5]
     }
   }
 ]

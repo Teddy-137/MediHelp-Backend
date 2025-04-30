@@ -70,6 +70,7 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_THROTTLE_RATES": {
         "symptom_checks": "10/hour",  # Limit symptom checks to 5 per hour per user
+        "firstaid": "60/minute",  # Allow 60 requests per minute for first aid information
     },
 }
 
