@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import FirstAidInstruction, HomeRemedy
 
-# Register your models here.
+
+admin.site.register(FirstAidInstruction)
+admin.site.register(HomeRemedy)

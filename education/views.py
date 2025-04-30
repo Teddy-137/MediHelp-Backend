@@ -23,6 +23,7 @@ class ArticleViewSet(viewsets.ModelViewSet):
         "published_date": ["gte", "lte"],
     }
     search_fields = ["title", "summary", "content", "tags"]
+    search_param = "q"
     ordering_fields = ["published_date", "updated_at"]
     pagination_class = EducationPagination
 
@@ -43,6 +44,7 @@ class VideoViewSet(viewsets.ModelViewSet):
         "duration_minutes": ["gte", "lte"],
     }
     search_fields = ["title"]
+    search_param = "q"
     ordering_fields = ["published_date", "duration_minutes"]
     pagination_class = EducationPagination
 

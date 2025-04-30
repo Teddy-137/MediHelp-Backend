@@ -16,6 +16,7 @@ class FirstAidViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = ["severity_level", "created_at"]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ["title", "condition__name"]
+    search_param = "q"
 
     def get_queryset(self):
         queryset = FirstAidInstruction.objects.select_related("condition")
@@ -30,6 +31,7 @@ class HomeRemedyViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filter_backends = [filters.SearchFilter]
     search_fields = ["name", "symptoms__name"]
+    search_param = "q"
 
     def get_queryset(self):
         queryset = HomeRemedy.objects.prefetch_related("symptoms")
