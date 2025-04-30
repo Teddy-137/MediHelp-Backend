@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "symptoms",
     "firstaid",
     "education",
+    "core",
     # installed dependencies
     "rest_framework",
     "rest_framework_simplejwt",
