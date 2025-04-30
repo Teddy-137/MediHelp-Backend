@@ -1,0 +1,100 @@
+@baseUrl = http://localhost:8000/api
+@authUrl = {{baseUrl}}/auth
+@healthUrl = {{baseUrl}}/health
+
+### Register new user
+# @name register
+POST {{authUrl}}/register/
+Content-Type: application/json
+
+{
+    "email": "test@example.com",
+    "first_name": "Test",
+    "last_name": "User",
+    "phone": "+251912345678",
+    "date_of_birth": "1990-01-01",
+    "password": "TestPassword123!",
+    "confirm_password": "TestPassword123!"
+}
+
+### Login to get access token
+# @name login
+POST {{authUrl}}/login/
+Content-Type: application/json
+
+{
+    "email": "test@example.com",
+    "password": "TestPassword123!"
+}
+
+### Save token from login response
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1OTUxMTAyLCJpYXQiOjE3NDU5NDc1MDIsImp0aSI6ImYxY2IxNWI2NThkMjQ5ZDViMWRmOWM2MWJkNjNjMmMyIiwidXNlcl9pZCI6Mn0.Z-IdRaleI5VZuxec1GX8ly7XiFxLh0iKKaDlZtFEhN8
+### Get list of available symptoms
+# @name symptoms
+GET {{healthUrl}}/symptoms/
+Authorization: Bearer {{accessToken}}
+
+### Get specific symptom details
+GET {{healthUrl}}/symptoms/1/
+Authorization: Bearer {{accessToken}}
+
+### Get list of conditions
+GET {{healthUrl}}/conditions/
+Authorization: Bearer {{accessToken}}
+
+### Get specific condition details
+GET {{healthUrl}}/conditions/1/
+Authorization: Bearer {{accessToken}}
+
+### Create a new symptom check with AI diagnosis
+# @name createCheck
+POST {{healthUrl}}/checks/
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "symptoms": [1]
+}
+
+### List all my symptom checks
+GET {{healthUrl}}/checks/
+Authorization: Bearer {{accessToken}}
+
+### Get details of a specific symptom check
+GET {{healthUrl}}/checks/{{createCheck.response.body.data.id}}/
+Authorization: Bearer {{accessToken}}
+
+
+
+
+
+
+
+
+
+
+### Get list of first aid guides
+GET {{healthUrl}}/first-aids/
+Authorization: Bearer {{accessToken}}
+
+
+### Get specific first aid guide
+GET {{healthUrl}}/first-aids/1/
+Authorization: Bearer {{accessToken}}
+
+### Get list of home remedies
+GET {{healthUrl}}/home-remedies/
+Authorization: Bearer {{accessToken}}
+
+### Get specific home remedy
+GET {{healthUrl}}/home-remedies/1/
+Authorization: Bearer {{accessToken}}
+
+### Logout
+POST {{authUrl}}/logout/
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "refresh": "{{login.response.body.refresh}}"
+}
