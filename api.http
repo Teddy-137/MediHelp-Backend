@@ -1,6 +1,7 @@
 @baseUrl = http://localhost:8000/api
 @authUrl = {{baseUrl}}/auth
 @healthUrl = {{baseUrl}}/health
+@educationUrl = {{baseUrl}}/education
 
 ### Register new user
 # @name register
@@ -28,7 +29,7 @@ Content-Type: application/json
 }
 
 ### Save token from login response
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1OTUxMTAyLCJpYXQiOjE3NDU5NDc1MDIsImp0aSI6ImYxY2IxNWI2NThkMjQ5ZDViMWRmOWM2MWJkNjNjMmMyIiwidXNlcl9pZCI6Mn0.Z-IdRaleI5VZuxec1GX8ly7XiFxLh0iKKaDlZtFEhN8
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1OTk5NjgxLCJpYXQiOjE3NDU5OTYwODEsImp0aSI6IjY5YTNlN2Q0N2EyMjQ0YjFhODM5MzhhNTJmOTRmN2Q0IiwidXNlcl9pZCI6Mn0.kDMuyHcey6LGFkAIBpZiscIzoy58XkzNOaexjm85fhA
 ### Get list of available symptoms
 # @name symptoms
 GET {{healthUrl}}/symptoms/
@@ -88,6 +89,82 @@ Authorization: Bearer {{accessToken}}
 
 ### Get specific home remedy
 GET {{healthUrl}}/home-remedies/1/
+Authorization: Bearer {{accessToken}}
+
+
+
+
+
+
+### List all articles
+GET {{educationUrl}}/articles/
+Authorization: Bearer {{accessToken}}
+
+### Get specific article
+GET {{educationUrl}}/articles/1/
+Authorization: Bearer {{accessToken}}
+
+### Create new article
+POST {{educationUrl}}/articles/
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "title": "Understanding Diabetes",
+    "summary": "A comprehensive guide about diabetes",
+    "content": "Diabetes is a chronic condition that affects how your body turns food into energy...",
+    "tags": ["diabetes", "health", "chronic conditions"],
+    "is_published": true,
+    "related_conditions": [1]
+}
+
+### Update article
+PATCH {{educationUrl}}/articles/1/
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "title": "Understanding Type 2 Diabetes",
+    "is_published": true
+}
+
+### Delete article
+DELETE {{educationUrl}}/articles/1/
+Authorization: Bearer {{accessToken}}
+
+### List all videos
+GET {{educationUrl}}/videos/
+Authorization: Bearer {{accessToken}}
+
+### Get specific video
+GET {{educationUrl}}/videos/1/
+Authorization: Bearer {{accessToken}}
+
+### Create new video
+POST {{educationUrl}}/videos/
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "title": "First Aid for Burns",
+    "url": "https://example.com/video123",
+    "duration_minutes": 15,
+    "is_published": true,
+    "related_symptoms": [1]
+}
+
+### Update video
+PATCH {{educationUrl}}/videos/1/
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "title": "Advanced First Aid for Burns",
+    "duration_minutes": 20
+}
+
+### Delete video
+DELETE {{educationUrl}}/videos/1/
 Authorization: Bearer {{accessToken}}
 
 ### Logout

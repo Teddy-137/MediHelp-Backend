@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "accounts",
     "symptoms",
     "firstaid",
+    "education",
     # installed dependencies
     "rest_framework",
     "rest_framework_simplejwt",
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "drf_spectacular",
     "phonenumber_field",
+    "django_filters",
 ]
 
 REST_FRAMEWORK = {

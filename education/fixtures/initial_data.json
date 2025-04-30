@@ -1,0 +1,58 @@
+[
+  {
+    "model": "education.article",
+    "pk": 1,
+    "fields": {
+      "title": "How to Manage Minor Cuts",
+      "summary": "Basic steps to clean and bandage minor skin wounds.",
+      "content": "Keeping a minor cut clean is the first step... [full article content here]",
+      "related_conditions": [1],
+      "tags": ["wound", "bleeding", "first aid"],
+      "cover_image": "https://example.com/images/cuts.jpg",
+      "is_published": true,
+      "published_date": "2025-04-29T00:00:00Z",
+      "updated_at": "2025-04-29T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.article",
+    "pk": 2,
+    "fields": {
+      "title": "Recognizing Signs of Dehydration",
+      "summary": "How to spot and respond to mild to moderate dehydration.",
+      "content": "Dehydration happens when you lose more fluids than you take in...",
+      "related_conditions": [2],
+      "tags": ["hydration", "health", "prevention"],
+      "cover_image": "https://example.com/images/dehydration.png",
+      "is_published": true,
+      "published_date": "2025-04-29T00:00:00Z",
+      "updated_at": "2025-04-29T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.video",
+    "pk": 1,
+    "fields": {
+      "title": "CPR Basics",
+      "youtube_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "duration_minutes": 5,
+      "related_symptoms": [1],
+      "is_published": true,
+      "published_date": "2025-04-29T00:00:00Z",
+      "updated_at": "2025-04-29T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.video",
+    "pk": 2,
+    "fields": {
+      "title": "Understanding Fever in Children",
+      "youtube_url": "https://www.youtube.com/watch?v=abcdefghij",
+      "duration_minutes": 7,
+      "related_symptoms": [2],
+      "is_published": true,
+      "published_date": "2025-04-29T00:00:00Z",
+      "updated_at": "2025-04-29T00:00:00Z"
+    }
+  }
+]
