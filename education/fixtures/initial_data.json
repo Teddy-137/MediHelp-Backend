@@ -1,142 +1,1062 @@
 [
-  {
-    "model": "education.article",
-    "pk": 1,
-    "fields": {
-      "title": "Understanding Migraines",
-      "summary": "Comprehensive guide to migraine causes and management",
-      "content": "Migraines are complex neurological events...",
-      "cover_image": "https://example.com/migraine-cover.jpg",
-      "tags": ["neurology", "headache", "pain management"],
-      "is_published": true,
-      "published_date": "2025-04-30T09:58:27+00:00",
-      "updated_at": "2025-04-30T09:58:27+00:00",
-      "related_conditions": [1]
-    }
-  },
-  {
-    "model": "education.article",
-    "pk": 2,
-    "fields": {
-      "title": "Managing Common Colds",
-      "summary": "Tips and tricks to manage common colds effectively",
-      "content": "The common cold is caused by a viral infection...",
-      "cover_image": "https://example.com/cold-cover.jpg",
-      "tags": ["cold", "respiratory", "health tips"],
-      "is_published": true,
-      "published_date": "2025-04-30T09:58:27+00:00",
-      "updated_at": "2025-04-30T09:58:27+00:00",
-      "related_conditions": [2]
-    }
-  },
-  {
-    "model": "education.article",
-    "pk": 3,
-    "fields": {
-      "title": "Flu Prevention Strategies",
-      "summary": "How to protect yourself from seasonal flu",
-      "content": "Flu prevention starts with vaccination...",
-      "cover_image": "https://example.com/flu-cover.jpg",
-      "tags": ["flu", "prevention", "vaccination"],
-      "is_published": true,
-      "published_date": "2025-04-30T09:58:27+00:00",
-      "updated_at": "2025-04-30T09:58:27+00:00",
-      "related_conditions": [3]
-    }
-  },
-  {
-    "model": "education.article",
-    "pk": 4,
-    "fields": {
-      "title": "COVID-19: What You Need to Know",
-      "summary": "Essential information about COVID-19 symptoms and prevention",
-      "content": "COVID-19 is caused by the SARS-CoV-2 virus...",
-      "cover_image": "https://example.com/covid-cover.jpg",
-      "tags": ["covid-19", "pandemic", "health"],
-      "is_published": true,
-      "published_date": "2025-04-30T09:58:27+00:00",
-      "updated_at": "2025-04-30T09:58:27+00:00",
-      "related_conditions": [4]
-    }
-  },
-  {
-    "model": "education.article",
-    "pk": 5,
-    "fields": {
-      "title": "Allergy Management Tips",
-      "summary": "How to manage allergies effectively",
-      "content": "Allergies are caused by an overreaction of the immune system...",
-      "cover_image": "https://example.com/allergy-cover.jpg",
-      "tags": ["allergy", "immune system", "health tips"],
-      "is_published": true,
-      "published_date": "2025-04-30T09:58:27+00:00",
-      "updated_at": "2025-04-30T09:58:27+00:00",
-      "related_conditions": [5]
-    }
-  },
-  {
-    "model": "education.video",
-    "pk": 1,
-    "fields": {
-      "title": "First Aid for Burns",
-      "youtube_url": "https://www.youtube.com/watch?v=example123",
-      "duration_minutes": 5,
-      "is_published": true,
-      "published_date": "2025-04-30T09:58:27+00:00",
-      "updated_at": "2025-04-30T09:58:27+00:00",
-      "related_symptoms": [1]
-    }
-  },
-  {
-    "model": "education.video",
-    "pk": 2,
-    "fields": {
-      "title": "How to Treat a Fever",
-      "youtube_url": "https://www.youtube.com/watch?v=example456",
-      "duration_minutes": 7,
-      "is_published": true,
-      "published_date": "2025-04-30T09:58:27+00:00",
-      "updated_at": "2025-04-30T09:58:27+00:00",
-      "related_symptoms": [2]
-    }
-  },
-  {
-    "model": "education.video",
-    "pk": 3,
-    "fields": {
-      "title": "Cough Remedies That Work",
-      "youtube_url": "https://www.youtube.com/watch?v=example789",
-      "duration_minutes": 6,
-      "is_published": true,
-      "published_date": "2025-04-30T09:58:27+00:00",
-      "updated_at": "2025-04-30T09:58:27+00:00",
-      "related_symptoms": [3]
-    }
-  },
-  {
-    "model": "education.video",
-    "pk": 4,
-    "fields": {
-      "title": "Sore Throat Relief Tips",
-      "youtube_url": "https://www.youtube.com/watch?v=example101",
-      "duration_minutes": 4,
-      "is_published": true,
-      "published_date": "2025-04-30T09:58:27+00:00",
-      "updated_at": "2025-04-30T09:58:27+00:00",
-      "related_symptoms": [4]
-    }
-  },
-  {
-    "model": "education.video",
-    "pk": 5,
-    "fields": {
-      "title": "How to Overcome Fatigue",
-      "youtube_url": "https://www.youtube.com/watch?v=example202",
-      "duration_minutes": 8,
-      "is_published": true,
-      "published_date": "2025-04-30T09:58:27+00:00",
-      "updated_at": "2025-04-30T09:58:27+00:00",
-      "related_symptoms": [5]
-    }
-  }
+    {
+        "model": "symptoms.symptom",
+        "pk": 1,
+        "fields": {
+            "name": "Headache",
+            "description": "Pain in the head or neck region",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 2,
+        "fields": {
+            "name": "Fever",
+            "description": "Elevated body temperature above 38°C (100.4°F)",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 3,
+        "fields": {
+            "name": "Cough",
+            "description": "A sudden, forceful hacking sound to release air and clear irritation in the throat or airway",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 4,
+        "fields": {
+            "name": "Sore Throat",
+            "description": "Pain, scratchiness, or irritation of the throat",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 5,
+        "fields": {
+            "name": "Fatigue",
+            "description": "A state of extreme tiredness resulting from mental or physical exertion",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 6,
+        "fields": {
+          "name": "Runny Nose",
+          "description": "Excess drainage from the nose, often due to a cold or allergy",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 7,
+        "fields": {
+          "name": "Nasal Congestion",
+          "description": "Blocked nasal passages due to inflammation or mucus",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 8,
+        "fields": {
+          "name": "Sneezing",
+          "description": "A sudden, forceful expulsion of air from the nose and mouth",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 9,
+        "fields": {
+          "name": "Shortness of Breath",
+          "description": "Difficulty or discomfort in breathing",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 10,
+        "fields": {
+          "name": "Chest Pain",
+          "description": "Pain or discomfort in the chest area",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 11,
+        "fields": {
+          "name": "Body Aches",
+          "description": "General muscle and joint pain throughout the body",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 12,
+        "fields": {
+          "name": "Nausea",
+          "description": "Uneasy feeling in the stomach often preceding vomiting",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 13,
+        "fields": {
+          "name": "Vomiting",
+          "description": "Forceful expulsion of stomach contents through the mouth",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 14,
+        "fields": {
+          "name": "Diarrhea",
+          "description": "Frequent, loose, or watery bowel movements",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 15,
+        "fields": {
+          "name": "Loss of Smell",
+          "description": "Reduced or complete loss of the ability to smell",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 16,
+        "fields": {
+          "name": "Chills",
+          "description": "A feeling of coldness often accompanied by shivering, commonly occurring with fever",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 17,
+        "fields": {
+          "name": "Muscle Aches",
+          "description": "Pain or discomfort in the muscles, often due to infection or exertion",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 18,
+        "fields": {
+          "name": "Sweating",
+          "description": "Excessive perspiration that can occur with fever or stress",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 19,
+        "fields": {
+          "name": "Loss of Appetite",
+          "description": "Decreased desire to eat, often associated with illness",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 20,
+        "fields": {
+          "name": "Loss of Taste",
+          "description": "Reduced or absent ability to taste flavors",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 21,
+        "fields": {
+          "name": "Skin Rashes",
+          "description": "Visible changes in the skin’s appearance, often as red, itchy patches",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 22,
+        "fields": {
+          "name": "Post-nasal Drip",
+          "description": "Mucus dripping down the back of the throat from the nasal passages",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 23,
+        "fields": {
+          "name": "Watery Eyes",
+          "description": "Excessive tear production from the eyes",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 24,
+        "fields": {
+          "name": "Sudden Onset Sore Throat",
+          "description": "A sore throat that begins abruptly, often due to bacterial infection",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 25,
+        "fields": {
+          "name": "Pain When Swallowing",
+          "description": "Discomfort or pain felt in the throat while swallowing",
+          "created_at": "2025-04-30T10:00:00+00:00",
+          "updated_at": "2025-04-30T10:00:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 26,
+        "fields": {
+          "name": "Swollen Lymph Nodes",
+          "description": "Enlargement of the glands in the neck, armpits, or groin, often indicating infection",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 27,
+        "fields": {
+          "name": "Joint Pain",
+          "description": "Discomfort, soreness, or aching in one or more joints",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 28,
+        "fields": {
+          "name": "Dizziness",
+          "description": "A sensation of lightheadedness, unsteadiness, or loss of balance",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 29,
+        "fields": {
+          "name": "Blurred Vision",
+          "description": "Loss of sharpness of eyesight, making objects appear out of focus",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 30,
+        "fields": {
+          "name": "Numbness",
+          "description": "Loss of sensation in a part of the body",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 31,
+        "fields": {
+          "name": "Tingling",
+          "description": "A prickly or stinging sensation, often in the hands or feet",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 32,
+        "fields": {
+          "name": "Heart Palpitations",
+          "description": "A feeling of rapid, fluttering, or pounding heartbeats",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 33,
+        "fields": {
+          "name": "Wheezing",
+          "description": "A high-pitched whistling sound during breathing, often due to narrowed airways",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 34,
+        "fields": {
+          "name": "Abdominal Pain",
+          "description": "Pain or discomfort felt in the belly area",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 35,
+        "fields": {
+          "name": "Back Pain",
+          "description": "Aches or soreness felt in the back, ranging from mild to severe",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 36,
+        "fields": {
+          "name": "Constipation",
+          "description": "Infrequent bowel movements or difficulty passing stool",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 37,
+        "fields": {
+          "name": "Heartburn",
+          "description": "A burning sensation in the chest, often caused by stomach acid reflux",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 38,
+        "fields": {
+          "name": "Indigestion",
+          "description": "Discomfort or pain in the upper abdomen, often after eating",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 39,
+        "fields": {
+          "name": "Bloating",
+          "description": "A feeling of fullness or swelling in the abdomen",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 40,
+        "fields": {
+          "name": "Frequent Urination",
+          "description": "Needing to urinate more often than usual",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 41,
+        "fields": {
+          "name": "Painful Urination",
+          "description": "Discomfort or burning sensation while urinating",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 42,
+        "fields": {
+          "name": "Blood in Urine",
+          "description": "The presence of red blood cells in the urine",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 43,
+        "fields": {
+          "name": "Weight Loss (Unintentional)",
+          "description": "Losing a significant amount of weight without trying",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 44,
+        "fields": {
+          "name": "Night Sweats",
+          "description": "Excessive sweating that occurs during sleep",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 45,
+        "fields": {
+          "name": "Skin Bruising Easily",
+          "description": "Developing bruises more readily than usual from minor injuries",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 46,
+        "fields": {
+          "name": "Persistent Hoarseness",
+          "description": "A rough or raspy voice that lasts for an extended period",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 47,
+        "fields": {
+          "name": "Difficulty Sleeping (Insomnia)",
+          "description": "Trouble falling asleep or staying asleep",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 48,
+        "fields": {
+          "name": "Swollen Ankles",
+          "description": "Accumulation of fluid causing puffiness in the ankles and feet",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 49,
+        "fields": {
+          "name": "Change in Bowel Habits",
+          "description": "Noticeable and persistent alterations in the frequency or consistency of bowel movements",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 50,
+        "fields": {
+          "name": "Unexplained Bruising",
+          "description": "Bruises appearing on the skin without a known injury",
+          "created_at": "2025-04-30T10:05:00+00:00",
+          "updated_at": "2025-04-30T10:05:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 51,
+        "fields": {
+          "name": "Persistent Dry Cough",
+          "description": "A cough that lasts for several weeks or more and does not produce mucus. It can be triggered by various factors like allergies, asthma, or infections.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 52,
+        "fields": {
+          "name": "Productive Cough",
+          "description": "A cough that brings up mucus or phlegm from the lungs. The color and consistency of the mucus can provide clues about the underlying cause, such as a bacterial or viral infection.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 53,
+        "fields": {
+          "name": "Sputum Production",
+          "description": "The act of coughing up and expelling mucus or other material from the lower airways. The characteristics of the sputum (color, thickness, odor) are important diagnostic indicators.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 54,
+        "fields": {
+          "name": "Nasal Discharge",
+          "description": "The release of fluid from the nose, which can vary in consistency and color depending on the cause, ranging from clear and watery (allergies) to thick and yellow or green (infection).",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 55,
+        "fields": {
+          "name": "Sinus Pressure",
+          "description": "A feeling of fullness, pain, or tenderness in the sinuses, which are air-filled cavities in the skull. This is often associated with inflammation or infection of the sinuses (sinusitis).",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 56,
+        "fields": {
+          "name": "Ear Pain",
+          "description": "Discomfort or aching in one or both ears, which can be a symptom of an ear infection (otitis media or otitis externa), pressure changes, or referred pain from other areas.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 57,
+        "fields": {
+          "name": "Hearing Loss",
+          "description": "A partial or total inability to hear sounds. This can occur suddenly or gradually and can be caused by various factors, including ear infections, noise exposure, or age-related changes.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 58,
+        "fields": {
+          "name": "Tinnitus",
+          "description": "The perception of sound when no external noise is present, often described as ringing, buzzing, hissing, or clicking in the ears. It can be a symptom of underlying conditions or noise exposure.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 59,
+        "fields": {
+          "name": "Eye Redness",
+          "description": "Inflammation of the blood vessels in the sclera (white part of the eye), causing it to appear pink or red. This can be due to allergies, infections (conjunctivitis), or irritation.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 60,
+        "fields": {
+          "name": "Eye Itching",
+          "description": "An irritating sensation in one or both eyes that creates an urge to rub them. This is a common symptom of allergies (allergic conjunctivitis) or dry eye syndrome.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 61,
+        "fields": {
+          "name": "Excessive Tearing",
+          "description": "The production of more tears than normal, which can be caused by eye irritation, allergies, blocked tear ducts, or certain medical conditions.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 62,
+        "fields": {
+          "name": "Swollen Eyelids",
+          "description": "Inflammation or fluid buildup in the eyelids, causing them to appear puffy or swollen. This can be due to allergies, infections (like styes), or other medical conditions.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 63,
+        "fields": {
+          "name": "Mouth Sores",
+          "description": "Painful lesions or ulcers that can appear on the lips, gums, tongue, or inner cheeks. Common causes include canker sores, herpes simplex virus (cold sores), or fungal infections.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 64,
+        "fields": {
+          "name": "Bad Breath (Halitosis)",
+          "description": "An unpleasant odor emanating from the mouth, which can be caused by poor oral hygiene, dry mouth, certain foods, or underlying medical conditions.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 65,
+        "fields": {
+          "name": "Gum Swelling",
+          "description": "Inflammation of the gums, making them appear red, puffy, or enlarged. This is often a sign of gum disease (gingivitis or periodontitis).",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 66,
+        "fields": {
+          "name": "Toothache",
+          "description": "Pain in or around a tooth, which can be caused by tooth decay, gum disease, a cracked tooth, or an abscess.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 67,
+        "fields": {
+          "name": "Nosebleeds (Epistaxis)",
+          "description": "Bleeding from the nose, which can be caused by dry air, nose picking, injury, allergies, or certain medical conditions.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 68,
+        "fields": {
+          "name": "Difficulty Breathing at Night (Orthopnea)",
+          "description": "Shortness of breath that occurs when lying flat, relieved by sitting or standing up. This is often a sign of heart or lung conditions.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 69,
+        "fields": {
+          "name": "Swollen Legs",
+          "description": "Edema or swelling in the legs and feet due to fluid retention, which can be caused by prolonged standing, heart failure, kidney disease, or vein problems.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 70,
+        "fields": {
+          "name": "Skin Itching (Pruritus)",
+          "description": "An uncomfortable sensation on the skin that leads to the urge to scratch. It can be caused by dry skin, allergies, eczema, or underlying medical conditions.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 71,
+        "fields": {
+          "name": "Hives (Urticaria)",
+          "description": "Raised, itchy welts on the skin that can vary in size and appear suddenly, often as a result of an allergic reaction.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 72,
+        "fields": {
+          "name": "Dry Skin (Xerosis)",
+          "description": "A common condition characterized by rough, scaly, and itchy skin due to a lack of moisture in the outer layer.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 73,
+        "fields": {
+          "name": "Hair Loss (Alopecia)",
+          "description": "The thinning or shedding of hair from the scalp or other parts of the body, which can have various causes including genetics, hormonal changes, or medical conditions.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 74,
+        "fields": {
+          "name": "Brittle Nails",
+          "description": "Nails that are prone to splitting, cracking, or breaking easily, often due to dryness, aging, or nutritional deficiencies.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 75,
+        "fields": {
+          "name": "Headache with Stiff Neck",
+          "description": "A combination of head pain and difficulty moving the neck, often associated with muscle tension, meningitis, or other serious conditions.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 76,
+        "fields": {
+          "name": "Severe Abdominal Cramps",
+          "description": "Intense, often wave-like pain in the abdominal area, which can be caused by gas, indigestion, infections, or other gastrointestinal issues.",
+          "created_at": "2025-04-30T10:10:00+00:00",
+          "updated_at": "2025-04-30T10:10:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 77,
+        "fields": {
+          "name": "Blood in Stool",
+          "description": "The presence of red or dark, tarry blood in bowel movements, which can indicate bleeding in the digestive tract from various causes such as hemorrhoids, anal fissures, or more serious conditions like inflammatory bowel disease or cancer.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 78,
+        "fields": {
+          "name": "Heartburn (Acid Reflux)",
+          "description": "A burning sensation in the chest, often rising up towards the throat, caused by stomach acid flowing back into the esophagus. It can be triggered by certain foods, lying down after eating, or hiatal hernia.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 79,
+        "fields": {
+          "name": "Frequent Heartburn",
+          "description": "Experiencing heartburn multiple times a week, which could be a sign of gastroesophageal reflux disease (GERD), a chronic condition requiring medical attention.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 80,
+        "fields": {
+          "name": "Difficulty Swallowing (Dysphagia)",
+          "description": "Trouble or discomfort when swallowing food or liquids, which can be caused by various conditions affecting the throat or esophagus, including infections, blockages, or neurological disorders.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 81,
+        "fields": {
+          "name": "Abdominal Bloating and Gas",
+          "description": "A feeling of fullness and pressure in the abdomen accompanied by excessive flatulence. This can be caused by diet, food intolerances, or gastrointestinal disorders like irritable bowel syndrome (IBS).",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 82,
+        "fields": {
+          "name": "Change in Bowel Movement Frequency",
+          "description": "A noticeable and persistent alteration in how often one has bowel movements, which can range from increased frequency (diarrhea) to decreased frequency (constipation) and may indicate an underlying issue.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 83,
+        "fields": {
+          "name": "Change in Stool Consistency",
+          "description": "Alterations in the form and texture of stool, such as becoming very hard and difficult to pass, or very loose and watery, which can be related to diet, hydration, or gastrointestinal problems.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 84,
+        "fields": {
+          "name": "Feeling Full Quickly (Early Satiety)",
+          "description": "Experiencing a sense of fullness after eating only a small amount of food, which can be a symptom of various conditions affecting the stomach or digestive system.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 85,
+        "fields": {
+          "name": "Unexplained Weight Gain",
+          "description": "Putting on weight without any changes in diet or activity level, which can be a sign of hormonal imbalances, fluid retention, or other medical conditions.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 86,
+        "fields": {
+          "name": "Increased Thirst (Polydipsia)",
+          "description": "Feeling unusually thirsty and having a strong urge to drink more fluids than normal, which can be a symptom of diabetes, dehydration, or certain medications.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 87,
+        "fields": {
+          "name": "Frequent Nighttime Urination (Nocturia)",
+          "description": "Waking up during the night to urinate more often than usual, which can be caused by fluid imbalances, prostate issues (in men), or other medical conditions.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 88,
+        "fields": {
+          "name": "Muscle Weakness",
+          "description": "A reduction in the strength of one or more muscles, making it difficult to perform everyday tasks. It can be caused by nerve damage, muscle disorders, or general illness.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 89,
+        "fields": {
+          "name": "Balance Problems",
+          "description": "Difficulty maintaining stability while standing or walking, often accompanied by dizziness or unsteadiness. This can be due to inner ear problems, neurological conditions, or medication side effects.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 90,
+        "fields": {
+          "name": "Memory Problems",
+          "description": "Difficulties with remembering recent events, names, or information, which can range from mild forgetfulness to more significant cognitive impairment.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 91,
+        "fields": {
+          "name": "Concentration Difficulties",
+          "description": "Trouble focusing or maintaining attention, which can be a symptom of stress, fatigue, ADHD, or other underlying conditions.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 92,
+        "fields": {
+          "name": "Mood Swings",
+          "description": "Rapid and significant shifts in emotional state, which can be a normal reaction to circumstances or a symptom of hormonal changes or mood disorders.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 93,
+        "fields": {
+          "name": "Anxiety",
+          "description": "A feeling of worry, nervousness, or unease, typically about an imminent event or something with an uncertain outcome. When excessive or persistent, it can be a sign of an anxiety disorder.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 94,
+        "fields": {
+          "name": "Depressed Mood",
+          "description": "A persistent feeling of sadness, loss of interest, or hopelessness, which, if prolonged, can be a symptom of depression.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 95,
+        "fields": {
+          "name": "Chest Tightness",
+          "description": "A feeling of constriction or pressure in the chest, which can be associated with anxiety, asthma, or heart problems.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 96,
+        "fields": {
+          "name": "Rapid Heartbeat (Tachycardia)",
+          "description": "A heart rate that is faster than normal, which can be caused by exercise, stress, fever, or underlying heart conditions.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 97,
+        "fields": {
+          "name": "Irregular Heartbeat (Arrhythmia)",
+          "description": "An abnormal rhythm of the heart, which can feel like skipping beats, fluttering, or pounding. Some arrhythmias are harmless, while others can be serious.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 98,
+        "fields": {
+          "name": "Swollen Joints",
+          "description": "Enlargement of one or more joints due to inflammation or fluid buildup, often accompanied by pain and stiffness, and can be a sign of arthritis or injury.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 99,
+        "fields": {
+          "name": "Joint Stiffness",
+          "description": "A feeling of restricted movement in one or more joints, often worse in the morning or after periods of inactivity, and commonly associated with arthritis.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+        "model": "symptoms.symptom",
+        "pk": 100,
+        "fields": {
+          "name": "Limited Range of Motion",
+          "description": "Difficulty moving a joint through its full normal range, which can be due to injury, inflammation, or stiffness.",
+          "created_at": "2025-04-30T10:15:00+00:00",
+          "updated_at": "2025-04-30T10:15:00+00:00"
+        }
+      },
+      {
+          "model": "symptoms.condition",
+          "pk": 101,
+          "fields": {
+              "name": "Migraine",
+              "severity": 3,
+              "description": "Neurological condition characterized by severe headaches",
+              "symptoms": [1],
+              "created_at": "2025-04-30T09:58:27+00:00",
+              "updated_at": "2025-04-30T09:58:27+00:00"
+          }
+      },
+      {
+          "model": "symptoms.condition",
+          "pk": 102,
+          "fields": {
+              "name": "Common Cold",
+              "severity": 1,
+              "description": "Viral infection of the upper respiratory tract",
+              "symptoms": [2],
+              "created_at": "2025-04-30T09:58:27+00:00",
+              "updated_at": "2025-04-30T09:58:27+00:00"
+          }
+      },
+      {
+          "model": "symptoms.condition",
+          "pk": 103,
+          "fields": {
+              "name": "Flu",
+              "severity": 2,
+              "description": "Viral infection that affects the respiratory system",
+              "symptoms": [1, 2],
+              "created_at": "2025-04-30T09:58:27+00:00",
+              "updated_at": "2025-04-30T09:58:27+00:00"
+          }
+      },
+      {
+          "model": "symptoms.condition",
+          "pk": 104,
+          "fields": {
+              "name": "COVID-19",
+              "severity": 4,
+              "description": "Infectious disease caused by the SARS-CoV-2 virus",
+              "symptoms": [1, 2],
+              "created_at": "2025-04-30T09:58:27+00:00",
+              "updated_at": "2025-04-30T09:58:27+00:00"
+          }
+      },
+      {
+          "model": "symptoms.condition",
+          "pk": 105,
+          "fields": {
+              "name": "Allergy",
+              "severity": 1,
+              "description": "Immune response to a substance that is usually harmless",
+              "symptoms": [2],
+              "created_at": "2025-04-30T09:58:27+00:00",
+              "updated_at": "2025-04-30T09:58:27+00:00"
+          }
+      }
 ]
