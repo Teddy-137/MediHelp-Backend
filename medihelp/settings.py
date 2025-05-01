@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "firstaid",
     "education",
     "core",
+    "doctors",
     # installed dependencies
     "rest_framework",
     "rest_framework_simplejwt",

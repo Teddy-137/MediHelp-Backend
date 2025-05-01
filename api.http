@@ -4,6 +4,7 @@
 @educationUrl = {{baseUrl}}/content
 @firstaidUrl = {{baseUrl}}/firstaid
 @coreUrl = {{baseUrl}}/core
+@doctorsUrl = {{baseUrl}}/doctors
 
 #######################
 ### Authentication ###
@@ -44,7 +45,7 @@ Content-Type: application/json
 }
 
 ### Save tokens from login response
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MDExOTA1LCJpYXQiOjE3NDYwMDgzMDUsImp0aSI6IjJmNWE5MmM0Y2IzZTRlOGVhYjQyZTlkZjBhZDllOTdjIiwidXNlcl9pZCI6MX0.hT13Qla99GQ44vH3ceiqpHn07-ZGnIfPUdJp44LEUfk
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MDI2OTI2LCJpYXQiOjE3NDYwMjMzMjYsImp0aSI6IjgzMzJhNmFjZjM3ODRhMjJiMDZjYzg5YWNlZWJhOTNlIiwidXNlcl9pZCI6MX0.U2nIxKQD6tX8qu5Cfri5YaQx3DgLXQZqFDCc9Mx7MCg
 @refreshToken = {{login.response.body.refresh}}
 
 ### Refresh access token
@@ -374,3 +375,181 @@ GET {{coreUrl}}/metrics/
 
 ### Get non-existent endpoint (error case)
 GET {{coreUrl}}/not-found/
+
+#######################
+### Doctors ###
+#######################
+
+### Register new doctor
+# @name registerDoctor
+POST {{doctorsUrl}}/register/
+Content-Type: application/json
+
+{
+    "email": "dr.john@example.com",
+    "password": "DoctorPass123!",
+    "first_name": "John",
+    "last_name": "Smith",
+    "phone": "+251912345678",
+    "license_number": "MED123456",
+    "specialization": "Cardiologist",
+    "consultation_fee": 150.00
+}
+
+### Login as doctor
+# @name loginDoctor
+POST {{authUrl}}/login/
+Content-Type: application/json
+
+{
+    "email": "dr.john@example.com",
+    "password": "DoctorPass123!"
+}
+
+### Save doctor access token
+@doctorAccessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MTA0ODEzLCJpYXQiOjE3NDYxMDEyMTMsImp0aSI6IjQyOGI2OTUxM2NiNTQ5NjFiNGRhM2Q5NmU0NDgzOTc2IiwidXNlcl9pZCI6OH0.nkaD4AAF0crn2prl3IOQBLhbRtiVh1KYhiJaHhhuMDU
+
+### List all doctors
+GET {{doctorsUrl}}/profiles/
+Authorization: Bearer {{doctorAccessToken}}
+
+### List doctors with pagination
+GET {{doctorsUrl}}/profiles/?page=1&page_size=5
+Authorization: Bearer {{doctorAccessToken}}
+
+### Get specific doctor profile
+GET {{doctorsUrl}}/profiles/me/
+Authorization: Bearer {{doctorAccessToken}}
+
+### Update doctor profile
+PATCH {{doctorsUrl}}/profiles/me/
+Authorization: Bearer {{doctorAccessToken}}
+Content-Type: application/json
+
+{
+    "specialization": "Senior Cardiologist",
+    "consultation_fee": 200.00
+}
+
+### List doctor availabilities
+GET {{doctorsUrl}}/availability/
+Authorization: Bearer {{doctorAccessToken}}
+
+### List availabilities with date range
+GET {{doctorsUrl}}/availability/?start_date=2025-05-01&end_date=2025-05-31
+Authorization: Bearer {{doctorAccessToken}}
+
+### Create availability slot
+POST {{doctorsUrl}}/availability/
+Authorization: Bearer {{doctorAccessToken}}
+Content-Type: application/json
+
+{
+    "day": "2025-05-15",
+    "start_time": "09:00:00",
+    "end_time": "17:00:00"
+}
+
+### Update availability slot
+PATCH {{doctorsUrl}}/availability/1/
+Authorization: Bearer {{doctorAccessToken}}
+Content-Type: application/json
+
+{
+    "start_time": "10:00:00",
+    "end_time": "18:00:00"
+}
+
+### Delete availability slot
+DELETE {{doctorsUrl}}/availability/1/
+Authorization: Bearer {{doctorAccessToken}}
+
+### List teleconsultations
+GET {{doctorsUrl}}/teleconsults/
+Authorization: Bearer {{doctorAccessToken}}
+
+### List teleconsultations with filters
+GET {{doctorsUrl}}/teleconsults/?status=scheduled&start_date=2025-05-01&end_date=2025-05-31
+Authorization: Bearer {{doctorAccessToken}}
+
+### Create teleconsultation request
+POST {{doctorsUrl}}/teleconsults/
+Authorization: Bearer {{doctorAccessToken}}
+Content-Type: application/json
+
+{
+    "patient_id": 1,
+    "doctor_id": 1,
+    "scheduled_time": "2025-05-15T10:00:00Z",
+    "duration": 30,
+    "meeting_url": "https://meet.example.com/consult-123"
+}
+
+### Update teleconsultation status
+PATCH {{doctorsUrl}}/teleconsults/1/
+Authorization: Bearer {{doctorAccessToken}}
+Content-Type: application/json
+
+{
+    "status": "completed"
+}
+
+### Get specific teleconsultation
+GET {{doctorsUrl}}/teleconsults/1/
+Authorization: Bearer {{doctorAccessToken}}
+
+### Delete teleconsultation
+DELETE {{doctorsUrl}}/teleconsults/1/
+Authorization: Bearer {{doctorAccessToken}}
+
+### Error Cases ###
+
+### Register with invalid data
+POST {{doctorsUrl}}/register/
+Content-Type: application/json
+
+{
+    "email": "invalid-email",
+    "password": "short",
+    "license_number": "",
+    "specialization": "",
+    "consultation_fee": -100
+}
+
+### Get non-existent doctor profile
+GET {{doctorsUrl}}/profiles/999/
+Authorization: Bearer {{doctorAccessToken}}
+
+### Create availability with invalid time
+POST {{doctorsUrl}}/availability/
+Authorization: Bearer {{doctorAccessToken}}
+Content-Type: application/json
+
+{
+    "day": "2025-05-15",
+    "start_time": "17:00:00",
+    "end_time": "09:00:00"
+}
+
+### Create teleconsultation with invalid duration
+POST {{doctorsUrl}}/teleconsults/
+Authorization: Bearer {{doctorAccessToken}}
+Content-Type: application/json
+
+{
+    "patient_id": 1,
+    "doctor_id": 1,
+    "scheduled_time": "2025-05-15T10:00:00Z",
+    "duration": 5,
+    "meeting_url": "https://meet.example.com/consult-123"
+}
+
+### Update non-existent teleconsultation
+PATCH {{doctorsUrl}}/teleconsults/999/
+Authorization: Bearer {{doctorAccessToken}}
+Content-Type: application/json
+
+{
+    "status": "completed"
+}   
+

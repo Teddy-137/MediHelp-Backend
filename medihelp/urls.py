@@ -39,6 +39,7 @@ api_patterns = [
     path("firstaid/", include("firstaid.urls")),
     path("content/", include("education.urls")),
     path("core/", include("core.urls")),
+    path("doctors/", include("doctors.urls")),
 ]
 
 urlpatterns = [
