@@ -4,13 +4,12 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class UserManager(BaseUserManager):
-    use_in_migrations = True
-
     def create_user(
         self, email, first_name, last_name, phone, password=None, **extra_fields
     ):
         if not email:
             raise ValueError("Users must have an email address")
+
         email = self.normalize_email(email)
         user = self.model(
             email=email,
@@ -29,11 +28,7 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_active", True)
-
-        if extra_fields.get("is_staff") is not True:
-            raise ValueError("Superuser must have is_staff=True.")
-        if extra_fields.get("is_superuser") is not True:
-            raise ValueError("Superuser must have is_superuser=True.")
+        extra_fields.setdefault("role", User.Role.ADMIN)
 
         return self.create_user(
             email, first_name, last_name, phone, password, **extra_fields
@@ -41,17 +36,34 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+    class Role(models.TextChoices):
+        PATIENT = "patient", "Patient"
+        DOCTOR = "doctor", "Doctor"
+        ADMIN = "admin", "Admin"
+
     username = None
-    email = models.EmailField(unique=True, max_length=254)
+    email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
-    phone = PhoneNumberField(unique=True)
+    phone = PhoneNumberField()
     date_of_birth = models.DateField(null=True, blank=True)
+    role = models.CharField(
+        max_length=10,
+        choices=Role.choices,
+        default=Role.PATIENT,
+        help_text="User role in the system",
+    )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["first_name", "last_name", "phone"]
 
     objects = UserManager()
 
+    class Meta:
+        ordering = ["-date_joined"]
+        indexes = [
+            models.Index(fields=["email", "role"]),
+        ]
+
     def __str__(self):
-        return f"{self.first_name} {self.last_name} <{self.email}>"
+        return f"{self.get_full_name()} <{self.email}>"
