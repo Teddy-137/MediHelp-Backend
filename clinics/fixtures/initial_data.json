@@ -1,0 +1,143 @@
+[
+  {
+    "model": "clinics.clinic",
+    "pk": 1,
+    "fields": {
+      "name": "Health Center Addis",
+      "location": "SRID=4326;POINT(38.7578 8.9806)",
+      "address": "123 Main St, Addis Ababa",
+      "phone": "+251911234567",
+      "opening_hours": {
+        "Mon–Fri": "08:00-17:00",
+        "Sat": "09:00-13:00"
+      }
+    }
+  },
+  {
+    "model": "clinics.clinic",
+    "pk": 2,
+    "fields": {
+      "name": "Mekelle Medical Center",
+      "location": "SRID=4326;POINT(39.4753 13.4967)",
+      "address": "45 Hospital Road, Mekelle",
+      "phone": "+251922345678",
+      "opening_hours": {
+        "Mon–Fri": "08:30-18:00",
+        "Sat": "09:00-15:00",
+        "Sun": "10:00-13:00"
+      }
+    }
+  },
+  {
+    "model": "clinics.clinic",
+    "pk": 3,
+    "fields": {
+      "name": "Bahir Dar Health Clinic",
+      "location": "SRID=4326;POINT(37.3908 11.5936)",
+      "address": "78 Lake Tana Blvd, Bahir Dar",
+      "phone": "+251933456789",
+      "opening_hours": {
+        "Mon–Fri": "08:00-19:00",
+        "Sat–Sun": "10:00-16:00"
+      }
+    }
+  },
+  {
+    "model": "clinics.clinic",
+    "pk": 4,
+    "fields": {
+      "name": "Hawassa Community Hospital",
+      "location": "SRID=4326;POINT(38.4837 7.0504)",
+      "address": "12 Lake View Road, Hawassa",
+      "phone": "+251944567890",
+      "opening_hours": {
+        "Mon–Sun": "24 hours"
+      }
+    }
+  },
+  {
+    "model": "clinics.clinic",
+    "pk": 5,
+    "fields": {
+      "name": "Dire Dawa Medical Center",
+      "location": "SRID=4326;POINT(41.8661 9.5913)",
+      "address": "34 Railway Avenue, Dire Dawa",
+      "phone": "+251955678901",
+      "opening_hours": {
+        "Mon–Fri": "07:30-20:00",
+        "Sat": "08:00-17:00",
+        "Sun": "09:00-14:00"
+      }
+    }
+  },
+  {
+    "model": "clinics.clinic",
+    "pk": 6,
+    "fields": {
+      "name": "Gondar Health Institute",
+      "location": "SRID=4326;POINT(37.4440 12.6030)",
+      "address": "56 Castle Road, Gondar",
+      "phone": "+251966789012",
+      "opening_hours": {
+        "Mon–Fri": "08:00-18:00",
+        "Sat": "09:00-16:00"
+      }
+    }
+  },
+  {
+    "model": "clinics.clinic",
+    "pk": 7,
+    "fields": {
+      "name": "Jimma University Medical Center",
+      "location": "SRID=4326;POINT(36.8344 7.6733)",
+      "address": "University Campus, Jimma",
+      "phone": "+251977890123",
+      "opening_hours": {
+        "Mon–Sun": "24 hours"
+      }
+    }
+  },
+  {
+    "model": "clinics.clinic",
+    "pk": 8,
+    "fields": {
+      "name": "Adama Referral Hospital",
+      "location": "SRID=4326;POINT(39.2908 8.5411)",
+      "address": "23 Main Street, Adama",
+      "phone": "+251988901234",
+      "opening_hours": {
+        "Mon–Fri": "08:00-19:00",
+        "Sat–Sun": "09:00-17:00"
+      }
+    }
+  },
+  {
+    "model": "clinics.clinic",
+    "pk": 9,
+    "fields": {
+      "name": "Harar Health Center",
+      "location": "SRID=4326;POINT(42.1155 9.3137)",
+      "address": "67 Old Town Road, Harar",
+      "phone": "+251999012345",
+      "opening_hours": {
+        "Mon–Fri": "08:30-17:30",
+        "Sat": "09:00-14:00"
+      }
+    }
+  },
+  {
+    "model": "clinics.clinic",
+    "pk": 10,
+    "fields": {
+      "name": "Dessie Medical Clinic",
+      "location": "SRID=4326;POINT(39.6352 11.1311)",
+      "address": "89 Highland Avenue, Dessie",
+      "phone": "+251910123456",
+      "opening_hours": {
+        "Mon–Fri": "08:00-18:00",
+        "Sat": "09:00-15:00",
+        "Sun": "10:00-13:00"
+      }
+    }
+  }
+]

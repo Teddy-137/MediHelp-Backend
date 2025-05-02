@@ -75,6 +75,14 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+8. **Populate db**
+```bash
+python manage.py loaddata symptoms/fixtures/initial_data.json
+python manage.py loaddata education/fixtures/initial_data.json
+python manage.py loaddata firstaid/fixtures/initial_data.json
+python manage.py loaddata clinics/fixtures/initial_data.json
+```
+
 The API will be available at http://localhost:8000/api/
 
 ## 📚 API Documentation
