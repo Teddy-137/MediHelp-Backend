@@ -8,6 +8,7 @@ from rest_framework import filters
 from .models import Clinic
 from .serializers import ClinicSerializer
 import logging
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +21,38 @@ class ClinicViewSet(viewsets.ReadOnlyModelViewSet):
     search_fields = ["name", "address"]
     filter_backends = [filters.SearchFilter]
 
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name="lat",
+                description="Latitude of the user",
+                required=True,
+                type=float,
+            ),
+            OpenApiParameter(
+                name="lng",
+                description="Longitude of the user",
+                required=True,
+                type=float,
+            ),
+            OpenApiParameter(
+                name="distance",
+                description="Maximum distance in kilometers",
+                required=False,
+                type=float,
+                default=5,
+            ),
+        ],
+        responses={200: ClinicSerializer(many=True)},
+        description="Get nearby clinics based on user location",
+        examples=[
+            OpenApiExample(
+                "Example request",
+                value={"lat": 9.0054, "lng": 38.7636, "distance": 10},
+                request_only=True,
+            ),
+        ],
+    )
     @action(detail=False, url_path="nearby")
     def nearby(self, request):
         lat = request.query_params.get("lat")

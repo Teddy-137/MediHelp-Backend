@@ -6,6 +6,7 @@ from .models import ChatSession, ChatMessage
 from .serializers import ChatSessionSerializer
 from .ai import generate_chat_response, get_fallback_response
 import logging
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +22,33 @@ class ChatViewSet(viewsets.ModelViewSet):
             .order_by("-created_at")
         )
 
+    @extend_schema(
+        summary="Interact with the chatbot",
+        description="Send a message to the chatbot and receive an AI-generated response.",
+        request={
+            "application/json": {
+                "type": "object",
+                "properties": {
+                    "message": {"type": "string", "maxLength": 500},
+                },
+                "required": ["message"],
+            }
+        },
+        responses={
+            200: {
+                "description": "Successful response from the chatbot",
+                "content": {
+                    "application/json": {
+                        "example": {
+                            "response": "Here's the AI-generated response...",
+                        }
+                    }
+                },
+            },
+            400: {"description": "Bad request, empty message"},
+            500: {"description": "Internal server error"},
+        },
+    )
     @action(detail=False, methods=["post"], url_path="interact")
     def chat_interaction(self, request):
         user = request.user
@@ -66,6 +94,23 @@ class ChatViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
+    @extend_schema(
+        summary="Close a chat session",
+        description="Mark a chat session as inactive.",
+        responses={
+            200: {
+                "description": "Session closed successfully",
+                "content": {
+                    "application/json": {
+                        "example": {
+                            "status": "session closed",
+                        }
+                    }
+                },
+            },
+            500: {"description": "Internal server error"},
+        },
+    )
     @action(detail=True, methods=["post"], url_path="close")
     def close_session(self, request, pk=None):
         try:
