@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "doctors",
     "clinics",
     "skin_diagnosis",
+    "chatbot",
     # installed dependencies
     "rest_framework",
     "rest_framework_simplejwt",
@@ -80,9 +81,10 @@ REST_FRAMEWORK = {
         "rest_framework.throttling.ScopedRateThrottle",
     ],
     "DEFAULT_THROTTLE_RATES": {
-        "symptom_checks": "10/hour",  # Limit symptom checks to 5 per hour per user
+        "symptom_checks": "10/hour",
         "firstaid": "60/minute",
         "skin_diagnosis": "5/hour",
+        "chatbot": "10/minute",
     },
 }
 

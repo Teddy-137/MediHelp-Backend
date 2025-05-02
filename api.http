@@ -45,8 +45,8 @@ Content-Type: application/json
 }
 
 ### Save tokens from login response
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MDI2OTI2LCJpYXQiOjE3NDYwMjMzMjYsImp0aSI6IjgzMzJhNmFjZjM3ODRhMjJiMDZjYzg5YWNlZWJhOTNlIiwidXNlcl9pZCI6MX0.U2nIxKQD6tX8qu5Cfri5YaQx3DgLXQZqFDCc9Mx7MCg
-@refreshToken = {{login.response.body.refresh}}
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MjA1Nzc4LCJpYXQiOjE3NDYyMDIxNzgsImp0aSI6ImVhZTc5ZjAzZDNmMjRhMWI4MGIyYzQ0Yjc0Mzk0NGEyIiwidXNlcl9pZCI6MX0.vk_3CptTsnIGHp3AM-68ZfP6vu61RwQqRUENPpsxD-o
+@refreshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0NjEwOTMyNiwiYXV0aF90aW1lIjoxNzQ2MDIzMzI2LCJqdGkiOiIw
 
 ### Refresh access token
 # @name refresh
@@ -126,7 +126,7 @@ Authorization: Bearer {{accessToken}}
 Content-Type: application/json
 
 {
-    "symptoms": [1]
+    "symptoms": [1,2]
 }
 
 ### Save symptom check ID
@@ -584,3 +584,25 @@ Content-Type: multipart/form-data
 
 
 
+
+
+#### chatbot
+POST {{baseUrl}}/chat/interact/
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "message": "I encounter nosebleeding"
+}
+
+
+### Create an Article with Invalid Data
+# @name createArticleInvalid
+POST {{educationUrl}}/articles/
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "title": "",
+  "related_conditions": [999]
+}
