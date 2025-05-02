@@ -19,6 +19,9 @@ load_dotenv()
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -51,6 +54,7 @@ INSTALLED_APPS = [
     "education",
     "core",
     "doctors",
+    "clinics",
     # installed dependencies
     "rest_framework",
     "rest_framework_simplejwt",
@@ -59,6 +63,8 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "phonenumber_field",
     "django_filters",
+    "django.contrib.gis",
+    "rest_framework_gis",
 ]
 
 REST_FRAMEWORK = {
@@ -139,7 +145,7 @@ WSGI_APPLICATION = "medihelp.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
+        "ENGINE": "django.contrib.gis.db.backends.spatialite",
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
@@ -186,5 +192,6 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
 AUTH_USER_MODEL = "accounts.User"
+
+SPATIALITE_LIBRARY_PATH = "/usr/lib/x86_64-linux-gnu/mod_spatialite.so"

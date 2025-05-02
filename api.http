@@ -45,7 +45,7 @@ Content-Type: application/json
 }
 
 ### Save tokens from login response
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MDI2OTI2LCJpYXQiOjE3NDYwMjMzMjYsImp0aSI6IjgzMzJhNmFjZjM3ODRhMjJiMDZjYzg5YWNlZWJhOTNlIiwidXNlcl9pZCI6MX0.U2nIxKQD6tX8qu5Cfri5YaQx3DgLXQZqFDCc9Mx7MCg
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MTY4NDI3LCJpYXQiOjE3NDYxNjQ4MjcsImp0aSI6ImE3ZDQ0MGJjMzE2NTQ5OWQ5MDA5NWIwNTRhYzM2MjE0IiwidXNlcl9pZCI6MX0.azzan0x2AnC9FNE05Hat0W-sQSVJrXsYv3TbABaCsg8
 @refreshToken = {{login.response.body.refresh}}
 
 ### Refresh access token
@@ -126,7 +126,7 @@ Authorization: Bearer {{accessToken}}
 Content-Type: application/json
 
 {
-    "symptoms": [1]
+    "symptoms": [2,5]
 }
 
 ### Save symptom check ID
@@ -553,3 +553,16 @@ Content-Type: application/json
     "status": "completed"
 }   
 
+
+
+
+####clincis
+
+### Get all clinics
+GET {{baseUrl}}/clinics/
+
+### Get specific clinic
+GET {{baseUrl}}/clinics/1/
+
+### Find nearby clinics
+GET {{baseUrl}}/clinics/nearby/?lat=9.0054&lng=38.7636
