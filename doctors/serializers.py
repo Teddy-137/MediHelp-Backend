@@ -103,23 +103,74 @@ class DoctorRegistrationSerializer(serializers.ModelSerializer):
             "last_name": instance.last_name,
         }
 
+
 class AvailabilitySerializer(serializers.ModelSerializer):
+    doctor = serializers.PrimaryKeyRelatedField(
+        queryset=DoctorProfile.objects.all(),
+        required=False,  # Not required because we'll set it in perform_create
+    )
+
     class Meta:
         model = Availability
-        fields = ['id', 'day', 'start_time', 'end_time']
-        read_only_fields = ['id']
+        fields = ["id", "doctor", "day", "start_time", "end_time"]
+        read_only_fields = ["id"]
 
     def validate(self, data):
-        existing = Availability.objects.filter(
-            doctor=self.context['doctor'],
-            day=data['day'],
-            start_time__lt=data['end_time'],
-            end_time__gt=data['start_time']
-        ).exists()
-        
-        if existing:
-            raise serializers.ValidationError("This slot overlaps with existing availability")
+        # Validate time range
+        start_time = data.get("start_time")
+        end_time = data.get("end_time")
+
+        # Only validate times if both are provided
+        if start_time and end_time and start_time >= end_time:
+            raise serializers.ValidationError(
+                {"time_range": "End time must be after start time"}
+            )
+
+        # For partial updates (PATCH), we need to get the instance's existing values
+        if self.instance:
+            # Get values from data or from instance if not in data
+            day = data.get("day", self.instance.day)
+            start_time = data.get("start_time", self.instance.start_time)
+            end_time = data.get("end_time", self.instance.end_time)
+            doctor = data.get("doctor", self.instance.doctor)
+
+            # Check for overlapping availability, excluding the current instance
+            query = Availability.objects.filter(
+                doctor=doctor, day=day, start_time__lt=end_time, end_time__gt=start_time
+            ).exclude(pk=self.instance.pk)
+
+            if query.exists():
+                raise serializers.ValidationError(
+                    {"overlap": "This slot overlaps with existing availability"}
+                )
+
+        # For new instances (POST), check if all required fields are present
+        elif all(k in data for k in ["day", "start_time", "end_time"]):
+            day = data["day"]
+            start_time = data["start_time"]
+            end_time = data["end_time"]
+
+            # Get doctor from data or context
+            doctor = data.get("doctor")
+            if not doctor and "doctor" in self.context:
+                doctor = self.context["doctor"]
+
+            if doctor:
+                # Check for overlapping availability
+                query = Availability.objects.filter(
+                    doctor=doctor,
+                    day=day,
+                    start_time__lt=end_time,
+                    end_time__gt=start_time,
+                )
+
+                if query.exists():
+                    raise serializers.ValidationError(
+                        {"overlap": "This slot overlaps with existing availability"}
+                    )
+
         return data
+
 
 class TeleconsultationSerializer(serializers.ModelSerializer):
     patient = UserPublicSerializer(read_only=True)
@@ -142,21 +193,34 @@ class TeleconsultationSerializer(serializers.ModelSerializer):
             "scheduled_time",
             "duration",
             "meeting_url",
+            "status",
         ]
         read_only_fields = ["id"]
 
     def validate(self, attrs):
+        # Validate scheduled_time if it's being updated
         scheduled_time = attrs.get("scheduled_time")
-        duration = attrs.get("duration")
-
-        if scheduled_time < timezone.now():
+        if scheduled_time and scheduled_time < timezone.now():
             raise serializers.ValidationError(
                 {"scheduled_time": "Scheduled time cannot be in the past."}
             )
 
-        if not (15 <= duration <= 60):
+        # Validate duration if it's being updated
+        duration = attrs.get("duration")
+        if duration and not (15 <= duration <= 60):
             raise serializers.ValidationError(
                 {"duration": "Duration must be between 15 and 60 minutes."}
+            )
+
+        # Validate status if it's being updated
+        status = attrs.get("status")
+        if status and status not in [
+            choice[0] for choice in Teleconsultation.Status.choices
+        ]:
+            raise serializers.ValidationError(
+                {
+                    "status": f"Invalid status. Must be one of: {', '.join([choice[0] for choice in Teleconsultation.Status.choices])}"
+                }
             )
 
         return attrs

@@ -1,7 +1,8 @@
-from rest_framework import viewsets, status, permissions
+from rest_framework import viewsets, status, permissions, serializers
 from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.exceptions import NotFound
 from .models import DoctorProfile, Availability, Teleconsultation
 from .serializers import (
     DoctorProfileSerializer,
@@ -10,6 +11,7 @@ from .serializers import (
     TeleconsultationSerializer,
 )
 from .permissions import IsDoctorOrReadOnly, IsPatientOwner
+
 
 class DoctorRegistrationAPI(APIView):
     permission_classes = [permissions.AllowAny]
@@ -25,13 +27,11 @@ class DoctorRegistrationAPI(APIView):
 class DoctorProfileViewSet(viewsets.ModelViewSet):
     serializer_class = DoctorProfileSerializer
     permission_classes = [permissions.IsAuthenticated]
-    lookup_field = 'user__id'
 
     def get_queryset(self):
-        """Return all profiles for superuser, otherwise only the current user's profile."""
         if self.request.user.is_superuser:
             return DoctorProfile.objects.all()
-        return DoctorProfile.objects.filter(user=self.request.user)
+        return DoctorProfile.objects.filter(available=True)
 
     @action(detail=False, methods=["get", "patch"], url_path="me")
     def me(self, request):
@@ -49,36 +49,88 @@ class DoctorProfileViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
 
         elif request.method == "PATCH":
-            serializer = self.get_serializer(doctor_profile, data=request.data, partial=True)
+            serializer = self.get_serializer(
+                doctor_profile, data=request.data, partial=True
+            )
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data)
+
 
 class AvailabilityViewSet(viewsets.ModelViewSet):
     serializer_class = AvailabilitySerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return Availability.objects.filter(
-            doctor__user=self.request.user
-        ).order_by('day', 'start_time')
+        # For superusers, return all availabilities
+        if self.request.user.is_superuser:
+            return Availability.objects.all().order_by("day", "start_time")
+
+        # For doctors, return their own availabilities
+        try:
+            doctor_profile = DoctorProfile.objects.get(user=self.request.user)
+            return Availability.objects.filter(doctor=doctor_profile).order_by(
+                "day", "start_time"
+            )
+        except DoctorProfile.DoesNotExist:
+            # If the user is not a doctor, return an empty queryset
+            return Availability.objects.none()
 
     def perform_create(self, serializer):
-        serializer.save(doctor=self.request.user.doctorprofile)
+        try:
+            doctor_profile = DoctorProfile.objects.get(user=self.request.user)
+            serializer.save(doctor=doctor_profile)
+        except DoctorProfile.DoesNotExist:
+            raise serializers.ValidationError(
+                {"doctor": "You must be a doctor to create availability slots"}
+            )
+
+    def perform_update(self, serializer):
+        # Ensure users can only update their own availability slots
+        instance = self.get_object()
+        if (
+            instance.doctor.user != self.request.user
+            and not self.request.user.is_superuser
+        ):
+            raise serializers.ValidationError(
+                {"permission": "You can only update your own availability slots"}
+            )
+        serializer.save()
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        context['doctor'] = self.request.user.doctorprofile
+        try:
+            context["doctor"] = DoctorProfile.objects.get(user=self.request.user)
+        except DoctorProfile.DoesNotExist:
+            # Don't add doctor to context if the user doesn't have a doctor profile
+            pass
         return context
+
 
 class TeleconsultationViewSet(viewsets.ModelViewSet):
     serializer_class = TeleconsultationSerializer
-    permission_classes = [IsPatientOwner]
+    permission_classes = [permissions.IsAuthenticated, IsPatientOwner]
 
     def get_queryset(self):
-        if self.request.user.role == "doctor":
-            return Teleconsultation.objects.filter(doctor__user=self.request.user)
-        return Teleconsultation.objects.filter(patient=self.request.user)
+        user = self.request.user
+
+        # Print debug information
+        print(f"User: {user.email}, Role: {user.role}")
+
+        if user.role == "doctor":
+            try:
+                doctor_profile = DoctorProfile.objects.get(user=user)
+                queryset = Teleconsultation.objects.filter(doctor=doctor_profile)
+                print(f"Doctor teleconsults count: {queryset.count()}")
+                return queryset
+            except DoctorProfile.DoesNotExist:
+                print("No doctor profile found")
+                return Teleconsultation.objects.none()
+        else:
+            # For patients or other roles
+            queryset = Teleconsultation.objects.filter(patient=user)
+            print(f"Patient teleconsults count: {queryset.count()}")
+            return queryset
 
     def perform_create(self, serializer):
         serializer.save(patient=self.request.user)
