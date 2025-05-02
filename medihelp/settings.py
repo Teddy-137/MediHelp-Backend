@@ -15,15 +15,18 @@ from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
 
-load_dotenv()
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-
-
+if not GEMINI_API_KEY:
+    print("Warning: GEMINI_API_KEY not found in environment or .env file!")
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -55,6 +58,7 @@ INSTALLED_APPS = [
     "core",
     "doctors",
     "clinics",
+    "skin_diagnosis",
     # installed dependencies
     "rest_framework",
     "rest_framework_simplejwt",
@@ -77,7 +81,8 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_THROTTLE_RATES": {
         "symptom_checks": "10/hour",  # Limit symptom checks to 5 per hour per user
-        "firstaid": "60/minute",  # Allow 60 requests per minute for first aid information
+        "firstaid": "60/minute",
+        "skin_diagnosis": "5/hour",
     },
 }
 
@@ -186,6 +191,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

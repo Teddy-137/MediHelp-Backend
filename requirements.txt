@@ -28,6 +28,7 @@ inflection==0.5.1
 jsonschema==4.23.0
 jsonschema-specifications==2025.4.1
 phonenumbers==9.0.4
+pillow==11.2.1
 proto-plus==1.26.1
 protobuf==5.29.4
 pyasn1==0.6.1

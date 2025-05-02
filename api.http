@@ -45,7 +45,7 @@ Content-Type: application/json
 }
 
 ### Save tokens from login response
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MTY4NDI3LCJpYXQiOjE3NDYxNjQ4MjcsImp0aSI6ImE3ZDQ0MGJjMzE2NTQ5OWQ5MDA5NWIwNTRhYzM2MjE0IiwidXNlcl9pZCI6MX0.azzan0x2AnC9FNE05Hat0W-sQSVJrXsYv3TbABaCsg8
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MTc5ODIwLCJpYXQiOjE3NDYxNzYyMjAsImp0aSI6IjczZmRlMWI1NmYwYTQ5ZTVhZjZmODU3NDI3MDdiM2JhIiwidXNlcl9pZCI6MX0.m1hG_SXCFp3XwYr9sFqfQZTtA_lFMQqChQQWCDg4Np0
 @refreshToken = {{login.response.body.refresh}}
 
 ### Refresh access token
@@ -566,3 +566,18 @@ GET {{baseUrl}}/clinics/1/
 
 ### Find nearby clinics
 GET {{baseUrl}}/clinics/nearby/?lat=9.0054&lng=38.7636
+
+
+
+###skin diagnosis
+POST {{baseUrl}}/skin-diagnosis/
+Authorization: Bearer {{accessToken}}
+Content-Type: multipart/form-data
+
+{
+    "image": "/home/teddy/Downloads/image_skin.jpg"
+}   
+
+
+
+
