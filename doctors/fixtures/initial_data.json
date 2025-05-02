@@ -1,0 +1,102 @@
+[
+    {
+      "model": "accounts.user",
+      "pk": 10,
+      "fields": {
+        "email": "dr.beka@example.com",
+        "first_name": "Beka",
+        "last_name": "Yohannes",
+        "phone": "+251911223344",
+        "role": "doctor",
+        "password": "DoctorPass123!", 
+        "is_active": true,
+        "is_staff": false
+      }
+    },
+    {
+      "model": "accounts.user",
+      "pk": 11,
+      "fields": {
+        "email": "dr.sarah@example.com",
+        "first_name": "Sarah",
+        "last_name": "Johnson",
+        "phone": "+251922334455",
+        "role": "doctor",
+        "password": "DoctorPass456!", 
+        "is_active": true,
+        "is_staff": false
+      }
+    },
+    {
+      "model": "accounts.user",
+      "pk": 12,
+      "fields": {
+        "email": "dr.michael@example.com",
+        "first_name": "Michael",
+        "last_name": "Chen",
+        "phone": "+251933445566",
+        "role": "doctor",
+        "password": "DoctorPass789!", 
+        "is_active": true,
+        "is_staff": false
+      }
+    },
+    {
+      "model": "accounts.user",
+      "pk": 13,
+      "fields": {
+        "email": "dr.amina@example.com",
+        "first_name": "Amina",
+        "last_name": "Hassan",
+        "phone": "+251944556677",
+        "role": "doctor",
+        "password": "DoctorPass101!", 
+        "is_active": true,
+        "is_staff": false
+      }
+    },
+    {
+      "model": "doctors.doctorprofile",
+      "pk": 1,
+      "fields": {
+        "user": 10,
+        "license_number": "DOC123456",
+        "specialization": "General Practitioner",
+        "consultation_fee": "100.00",
+        "available": true
+      }
+    },
+    {
+      "model": "doctors.availability",
+      "pk": 1,
+      "fields": {
+        "doctor": 1,
+        "day": "2025-05-10",
+        "start_time": "09:00:00",
+        "end_time": "12:00:00"
+      }
+    },
+    {
+      "model": "doctors.availability",
+      "pk": 2,
+      "fields": {
+        "doctor": 1,
+        "day": "2025-05-11",
+        "start_time": "14:00:00",
+        "end_time": "18:00:00"
+      }
+    },
+    {
+      "model": "doctors.teleconsultation",
+      "pk": 1,
+      "fields": {
+        "patient": 2,   
+        "doctor": 1,
+        "scheduled_time": "2025-05-12T10:00:00Z",
+        "status": "scheduled",
+        "duration": 30,
+        "meeting_url": "https://meet.example.com/test"
+      }
+    }
+  ]
+  

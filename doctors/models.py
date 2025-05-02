@@ -32,15 +32,16 @@ class Teleconsultation(models.Model):
         CANCELLED = "cancelled"
 
     patient = models.ForeignKey(
-        settings.AUTH_USER_MODEL, 
+        settings.AUTH_USER_MODEL,
         related_name="patient_consults",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
     doctor = models.ForeignKey(
-        DoctorProfile, 
+        DoctorProfile,
         related_name="doctor_consults",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
+
     scheduled_time = models.DateTimeField()
     status = models.CharField(max_length=20, default=Status.SCHEDULED)
     duration = models.PositiveIntegerField()
@@ -57,7 +58,7 @@ class Teleconsultation(models.Model):
         if self.scheduled_time < timezone.now():
             raise ValidationError("Cannot schedule consultation in the past")
 
-        if not 15 <= self.duration <= 180: 
+        if not 15 <= self.duration <= 180:
             raise ValidationError("Duration must be between 15 and 180 minutes")
 
     def save(self, *args, **kwargs):
