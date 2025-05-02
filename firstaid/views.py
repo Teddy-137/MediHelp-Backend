@@ -5,7 +5,12 @@ from rest_framework.response import Response
 from rest_framework.throttling import ScopedRateThrottle
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-from drf_spectacular.utils import extend_schema, OpenApiParameter
+from drf_spectacular.utils import (
+    extend_schema,
+    OpenApiParameter,
+    OpenApiExample,
+    OpenApiResponse,
+)
 from .models import FirstAidInstruction, HomeRemedy
 from .serializers import (
     FirstAidInstructionSerializer,
@@ -80,6 +85,25 @@ class FirstAidListAPIView(FirstAidBaseAPIView, ListAPIView):
             )
 
 
+@extend_schema(
+    tags=["First Aid"],
+    description="""Get detailed first aid instruction by ID""",
+    parameters=[
+        OpenApiParameter(
+            name="id",
+            type=int,
+            location=OpenApiParameter.PATH,
+            description="First aid instruction ID",
+        )
+    ],
+    responses={
+        200: FirstAidInstructionSerializer,
+        404: OpenApiResponse(
+            description="Not Found",
+            examples=[OpenApiExample("Error Response", value={"detail": "Not found."})],
+        ),
+    },
+)
 class FirstAidDetailAPIView(FirstAidBaseAPIView, RetrieveAPIView):
     queryset = FirstAidInstruction.objects.select_related("condition")
     serializer_class = FirstAidInstructionSerializer
