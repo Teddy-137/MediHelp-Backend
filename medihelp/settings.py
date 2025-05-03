@@ -42,10 +42,13 @@ else:
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv(
+    "SECRET_KEY", "django-insecure-_*a4_pz+(mw^oiq(a5qew-g7(^=l1@n#)3=ao!99t7-sko_#p%"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
+# Allow all hosts for now to avoid deployment issues
 ALLOWED_HOSTS = ["*"]
 
 # No special configuration needed for Windows
@@ -135,7 +138,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "medihelp.urls"
 
-CORS_ALLOW_ALL_ORIGINS = True  # allow all origins, later change to specific origins
+# CORS settings - allow all origins for now
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 TEMPLATES = [
     {
@@ -167,26 +172,8 @@ DATABASES = {
     }
 }
 
-# Check if we're running on Railway
-ON_RAILWAY = os.environ.get("RAILWAY_ENVIRONMENT") == "production"
-
-# Use DATABASE_URL if provided and we're on Railway
-if os.environ.get("DATABASE_URL") and ON_RAILWAY:
-    import dj_database_url
-
-    DATABASES["default"] = dj_database_url.config(
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
-    print(f"Using database URL from Railway environment")
-# For local development, ignore DATABASE_URL if it contains 'railway.internal'
-elif os.environ.get("DATABASE_URL") and "railway.internal" in os.environ.get(
-    "DATABASE_URL"
-):
-    print("Ignoring Railway internal DATABASE_URL for local development")
-    print("Using SQLite database instead")
-# Use DATABASE_URL for other environments (like local PostgreSQL)
-elif os.environ.get("DATABASE_URL"):
+# Use DATABASE_URL if provided (Railway automatically sets this)
+if os.environ.get("DATABASE_URL"):
     import dj_database_url
 
     DATABASES["default"] = dj_database_url.config(
@@ -196,8 +183,6 @@ elif os.environ.get("DATABASE_URL"):
     print(f"Using database URL from environment")
 else:
     print("Using SQLite database")
-
-    # No additional database configuration needed
 
 
 # Password validation

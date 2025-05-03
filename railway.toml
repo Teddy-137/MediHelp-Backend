@@ -3,8 +3,12 @@ builder = "nixpacks"
 buildCommand = "pip install -r requirements.txt"
 
 [deploy]
-startCommand = "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn medihelp.wsgi"
-healthcheckPath = "/api/health/"
+startCommand = "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn medihelp.wsgi"
+healthcheckPath = "/api/core/healthz/"
 healthcheckTimeout = 300
 restartPolicyType = "on_failure"
 numReplicas = 1
+
+[variables]
+PYTHON_VERSION = "3.12"
+NIXPACKS_PYTHON_VERSION = "3.12"
