@@ -172,13 +172,14 @@ DATABASES = {
     }
 }
 
-# Use DATABASE_URL if provided (Railway automatically sets this)
+# Use DATABASE_URL if provided (Render automatically sets this)
 if os.environ.get("DATABASE_URL"):
     import dj_database_url
 
     DATABASES["default"] = dj_database_url.config(
         conn_max_age=600,
         conn_health_checks=True,
+        ssl_require=True,  # Required for Render PostgreSQL
     )
     print(f"Using database URL from environment")
 else:
@@ -223,10 +224,22 @@ STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-
+# Media files
 MEDIA_URL = "/media/"
-
 MEDIA_ROOT = BASE_DIR / "media"
+
+# Render-specific settings
+if os.environ.get("RENDER"):
+    # Tell Django to copy statics to the `staticfiles` directory
+    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+    # Turn on WhiteNoise storage backend that takes care of compressing static files
+    # and creating unique names for each version so they can safely be cached forever
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    # Enable HTTPS redirect
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

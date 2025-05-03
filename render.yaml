@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: medihelp-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn medihelp.wsgi:application
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: false
+      - key: ENVIRONMENT
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: medihelp-db
+          property: connectionString
+      - key: GEMINI_API_KEY
+        sync: false
+
+databases:
+  - name: medihelp-db
+    databaseName: medihelp
+    user: medihelp
+    plan: free

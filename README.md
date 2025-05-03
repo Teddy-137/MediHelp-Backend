@@ -16,18 +16,24 @@ MediHelp is a comprehensive healthcare platform that connects patients with medi
 
 - **Framework**: Django 5.2 with Django REST Framework
 - **Authentication**: JWT (Simple JWT)
-- **Database**: SQLite with SpatiaLite extension for geospatial data
+- **Database**:
+  - Development: SQLite
+  - Production: PostgreSQL (on Render)
 - **API Documentation**: drf-spectacular (OpenAPI)
 - **AI Integration**: Google Gemini API for symptom analysis
-- **Geospatial**: GeoDjango and DRF-GIS
+- **Static Files**: WhiteNoise for serving static files
+- **Deployment**: Render (PaaS)
 
 ## 📋 Prerequisites
 
 - Python 3.10+
-- SpatiaLite and its dependencies
 - Google Gemini API key (for AI features)
+- Git (for version control)
+- GitHub account (for deployment to Render)
 
 ## 🚀 Installation
+
+### Local Development
 
 1. **Clone the repository**
 
@@ -80,10 +86,53 @@ python manage.py runserver
 python manage.py loaddata symptoms/fixtures/initial_data.json
 python manage.py loaddata education/fixtures/initial_data.json
 python manage.py loaddata firstaid/fixtures/initial_data.json
-python manage.py loaddata clinics/fixtures/initial_data.json
 ```
 
 The API will be available at http://localhost:8000/api/
+
+### Deployment on Render
+
+1. **Fork or clone this repository to your GitHub account**
+
+2. **Sign up for Render**
+   - Go to [render.com](https://render.com/) and sign up for an account
+   - Connect your GitHub account
+
+3. **Create a new Web Service**
+   - Click "New +" and select "Web Service"
+   - Connect your GitHub repository
+   - Give your service a name (e.g., "medihelp-backend")
+   - Select "Python 3" as the runtime
+   - Set the build command: `./build.sh`
+   - Set the start command: `gunicorn medihelp.wsgi:application`
+
+4. **Set Environment Variables**
+   - In the "Environment" section, add the following variables:
+     - `SECRET_KEY`: Generate a secure random string
+     - `DEBUG`: Set to "False"
+     - `ENVIRONMENT`: Set to "production"
+     - `GEMINI_API_KEY`: Your Gemini API key
+     - `RENDER`: Set to "True"
+
+5. **Add a PostgreSQL Database**
+   - Click "New +" and select "PostgreSQL"
+   - Give your database a name (e.g., "medihelp-db")
+   - Render will automatically link the database to your web service
+
+6. **Deploy**
+   - Click "Create Web Service"
+   - Render will automatically deploy your application
+   - The first deployment may take a few minutes
+
+7. **Load Initial Data (Optional)**
+   - After deployment, you can load initial data using the Render shell:
+     ```bash
+     python manage.py loaddata symptoms/fixtures/initial_data.json
+     python manage.py loaddata education/fixtures/initial_data.json
+     python manage.py loaddata firstaid/fixtures/initial_data.json
+     ```
+
+Your API will be available at `https://your-service-name.onrender.com/api/`
 
 ## 📚 API Documentation
 
@@ -152,12 +201,14 @@ MediHelp-Backend/
 ├── doctors/           # Doctor profiles and teleconsultations
 ├── firstaid/          # Emergency first aid information
 ├── education/         # Health articles and educational videos
-├── clinics/           # Clinic locations and services
 ├── skin_diagnosis/    # Skin condition analysis
 ├── core/              # Core functionality and utilities
 ├── medihelp/          # Project settings and main URLs
 ├── api.http           # API testing file
-└── requirements.txt   # Project dependencies
+├── requirements.txt   # Project dependencies
+├── build.sh           # Build script for Render deployment
+├── render.yaml        # Render configuration file
+└── runtime.txt        # Python version specification
 ```
 
 ## 🔒 Security Notes
