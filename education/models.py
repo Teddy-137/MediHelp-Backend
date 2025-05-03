@@ -2,7 +2,7 @@ from django.db import models
 from symptoms.models import Condition, Symptom
 from .validators import (
     validate_string_list,
-    validate_youtube_url,
+    validate_video_url,
     validate_image_url,
     validate_duration_minutes,
 )
@@ -46,9 +46,16 @@ class Article(PublishableModel):
 
 class Video(PublishableModel):
     title = models.CharField(max_length=200)
+    video_url = models.URLField(
+        help_text="URL to the video (can be YouTube, Vimeo, or any other video platform)",
+        validators=[validate_video_url],
+        blank=True,
+        null=True,
+    )
     youtube_url = models.URLField(
-        help_text="Full YouTube URL (e.g. https://youtube.com/watch?v=ID)",
-        validators=[validate_youtube_url],
+        help_text="Legacy field - will be removed",
+        blank=True,
+        null=True,
     )
     duration_minutes = models.PositiveSmallIntegerField(
         help_text="Duration in minutes (max 600 minutes / 10 hours)",

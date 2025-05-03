@@ -47,7 +47,7 @@ class VideoSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "title",
-            "youtube_url",
+            "video_url",
             "duration_minutes",
             "related_symptoms",
             "symptom_ids",

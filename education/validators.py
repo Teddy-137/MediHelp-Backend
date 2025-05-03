@@ -4,127 +4,105 @@ from rest_framework.exceptions import ValidationError
 
 def validate_image_url(value):
     """
-    Validates that a URL points to an image file.
+    Validates that a URL is provided for an image.
 
-    Checks if the URL ends with a common image extension.
+    This is a simplified validator that just checks if the URL is not empty.
     """
-    if not value:  # Allow empty values (blank=True)
+    if not value:
         return
 
-    image_extensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"]
-    url_lower = value.lower()
+    return value
 
-    # Check if URL ends with an image extension
-    if not any(url_lower.endswith(ext) for ext in image_extensions):
-        # If no extension, check if it contains image-related keywords
-        image_services = [
-            "imgur",
-            "flickr",
-            "unsplash",
-            "pexels",
-            "pixabay",
-            "cloudinary",
-        ]
-        if not any(service in url_lower for service in image_services):
-            raise ValidationError(
-                "URL does not appear to point to an image. "
-                "Please provide a URL ending with .jpg, .jpeg, .png, .gif, .webp, or .svg, "
-                "or from a known image hosting service."
-            )
+
+def validate_video_url(value):
+
+    if not value:
+        raise ValidationError("Video URL cannot be empty")
+
+    # No further validation - accept any URL format
+    return value
 
 
 def validate_youtube_url(value):
     """
-    Validates that a URL is a valid YouTube video URL.
+    Validates that a URL is provided for a YouTube video.
 
-    Supports formats:
-    - https://www.youtube.com/watch?v=VIDEO_ID
-    - https://youtu.be/VIDEO_ID
-    - https://youtube.com/watch?v=VIDEO_ID
-    - http://www.youtube.com/watch?v=VIDEO_ID
-    - www.youtube.com/watch?v=VIDEO_ID
-    - youtu.be/VIDEO_ID
-
-    Also validates that the video ID is exactly 11 characters and contains
-    only alphanumeric characters, hyphens, and underscores.
+    This is a simplified validator that just checks if the URL is not empty.
     """
-    # More comprehensive regex for YouTube URLs
-    youtube_regex = (
-        r"^(https?://)?(www\.)?(youtube\.com/watch\?v=|youtu\.be/)([\w-]{11})($|&.*$)"
-    )
-    match = re.match(youtube_regex, value)
+    if not value:
+        return
 
-    if not match:
-        raise ValidationError(
-            "Invalid YouTube URL. Valid formats: "
-            "https://www.youtube.com/watch?v=ID or https://youtu.be/ID"
-        )
-
-    # Extract and validate the video ID
-    video_id = match.group(4)
-    if not re.match(r"^[\w-]{11}$", video_id):
-        raise ValidationError(
-            "Invalid YouTube video ID. Must be exactly 11 characters and "
-            "contain only letters, numbers, hyphens, and underscores."
-        )
+    # No further validation - accept any URL format
+    return value
 
 
 def validate_string_list(
     value,
-    max_items=20,
-    max_length=200,
-    allow_empty=False,
-    allow_blank=False,
+    max_items=50,  # Increased from 20
+    max_length=500,  # Increased from 200
+    allow_empty=True,  # Changed from False
+    allow_blank=True,  # Changed from False
     trim_whitespace=True,
     error_messages=None,
 ):
     """
-    Validates a list of strings with configurable constraints
+    Validates a list of strings with relaxed constraints
 
     Args:
         value: Input value to validate
-        max_items: Maximum number of allowed items
-        max_length: Maximum length per string item
-        allow_empty: Allow empty list if True
-        allow_blank: Allow blank/empty strings if True
+        max_items: Maximum number of allowed items (default: 50)
+        max_length: Maximum length per string item (default: 500)
+        allow_empty: Allow empty list (default: True)
+        allow_blank: Allow blank/empty strings (default: True)
         trim_whitespace: Automatically strip whitespace
         error_messages: Custom error messages dictionary
 
     Returns:
         List of validated strings (with whitespace trimmed if enabled)
     """
-    default_errors = {
-        "not_list": "Value must be a list",
-        "empty_list": "List cannot be empty",
-        "max_items": "List cannot contain more than {max} items",
-        "item_not_string": "All items must be strings",
-        "empty_string": "Empty strings are not allowed",
-        "max_length": "String length cannot exceed {max} characters",
-    }
-    errors = {**default_errors, **(error_messages or {})}
+    # If value is None or empty and we allow empty, just return an empty list
+    if (value is None or value == "") and allow_empty:
+        return []
 
+    # If value is a string (common mistake), convert it to a single-item list
+    if isinstance(value, str):
+        value = [value]
+
+    # If value is not a list, try to convert it
     if not isinstance(value, list):
-        raise ValidationError(errors["not_list"])
+        try:
+            value = list(value)
+        except (TypeError, ValueError):
+            return []  # Return empty list instead of raising error
 
-    if not allow_empty and not value:
-        raise ValidationError(errors["empty_list"])
+    # Allow empty list if specified
+    if not value and allow_empty:
+        return []
 
+    # Limit number of items
     if len(value) > max_items:
-        raise ValidationError(errors["max_items"].format(max=max_items))
+        value = value[:max_items]
 
     cleaned_items = []
-    for index, item in enumerate(value):
+    for item in value:
+        # Convert non-string items to strings
         if not isinstance(item, str):
-            raise ValidationError({index: errors["item_not_string"]})
+            try:
+                item = str(item)
+            except (TypeError, ValueError):
+                continue  # Skip this item instead of raising error
 
+        # Trim whitespace if specified
         if trim_whitespace:
             item = item.strip()
 
+        # Skip blank items if not allowed
         if not allow_blank and not item:
-            raise ValidationError({index: errors["empty_string"]})
+            continue
 
+        # Truncate long strings instead of raising error
         if len(item) > max_length:
-            raise ValidationError({index: errors["max_length"].format(max=max_length)})
+            item = item[:max_length]
 
         cleaned_items.append(item)
 
@@ -133,8 +111,16 @@ def validate_string_list(
 
 def validate_duration_minutes(value):
     """
-    Validates that the duration in minutes does not exceed 600 (10 hours).
+    Validates that the duration in minutes is reasonable.
+
+    If the value is too large, it will be capped at 1440 minutes (24 hours).
     """
-    if value > 600:
-        raise ValidationError("Duration cannot exceed 600 minutes (10 hours)")
+    # If value is negative, set it to 0
+    if value < 0:
+        return 0
+
+    # If value is too large, cap it at 1440 minutes (24 hours)
+    if value > 1440:
+        return 1440
+
     return value

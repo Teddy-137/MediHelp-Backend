@@ -1,3 +1,4 @@
+
 @baseUrl = http://localhost:8000/api
 @authUrl = {{baseUrl}}/auth
 @healthUrl = {{baseUrl}}/health
@@ -35,6 +36,17 @@ Content-Type: application/json
     "password": "short"
 }
 
+##### 
+@name login
+POST {{authUrl}}/login/
+Content-Type: application/json
+
+{
+    "email": "mail@gmail.com",
+    "password": "pass"
+}
+
+@admintoken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MjUzMDAxLCJpYXQiOjE3NDYyNDk0MDEsImp0aSI6IjM0Mjc4
 ### Login to get access token
 # @name login
 POST {{authUrl}}/login/
@@ -577,16 +589,16 @@ Content-Type: application/json
 
 
 
-####clincis
+# ####clincis
 
-### Get all clinics
-GET {{baseUrl}}/clinics/
+# ### Get all clinics
+# GET {{baseUrl}}/clinics/
 
-### Get specific clinic
-GET {{baseUrl}}/clinics/1/
+# ### Get specific clinic
+# GET {{baseUrl}}/clinics/1/
 
-### Find nearby clinics
-GET {{baseUrl}}/clinics/nearby/?lat=9.0054&lng=38.7636
+# ### Find nearby clinics
+# GET {{baseUrl}}/clinics/nearby/?lat=9.0054&lng=38.7636
 
 
 
