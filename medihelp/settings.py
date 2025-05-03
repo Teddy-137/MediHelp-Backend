@@ -158,7 +158,8 @@ WSGI_APPLICATION = "medihelp.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# Use SQLite for all platforms
+# Database configuration
+# Default to SQLite for local development
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -166,10 +167,37 @@ DATABASES = {
     }
 }
 
-POSTGRES_LOCALLY = True
+# Check if we're running on Railway
+ON_RAILWAY = os.environ.get("RAILWAY_ENVIRONMENT") == "production"
 
-if ENVIRONMENT == "production" or POSTGRES_LOCALLY == "True":
-    DATABASES["default"] = dj_database_url.parse(os.getenv("DATABASE_URL"))
+# Use DATABASE_URL if provided and we're on Railway
+if os.environ.get("DATABASE_URL") and ON_RAILWAY:
+    import dj_database_url
+
+    DATABASES["default"] = dj_database_url.config(
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
+    print(f"Using database URL from Railway environment")
+# For local development, ignore DATABASE_URL if it contains 'railway.internal'
+elif os.environ.get("DATABASE_URL") and "railway.internal" in os.environ.get(
+    "DATABASE_URL"
+):
+    print("Ignoring Railway internal DATABASE_URL for local development")
+    print("Using SQLite database instead")
+# Use DATABASE_URL for other environments (like local PostgreSQL)
+elif os.environ.get("DATABASE_URL"):
+    import dj_database_url
+
+    DATABASES["default"] = dj_database_url.config(
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
+    print(f"Using database URL from environment")
+else:
+    print("Using SQLite database")
+
+    # No additional database configuration needed
 
 
 # Password validation
