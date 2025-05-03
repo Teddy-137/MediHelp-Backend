@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-import os, platform
+import os
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
@@ -40,8 +40,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-if platform.system() == "Windows":
-    SPATIALITE_LIBRARY_PATH = "/usr/lib/x86_64-linux-gnu/mod_spatialite.so"
+# No special configuration needed for Windows
 
 
 INSTALLED_APPS = [
@@ -58,7 +57,6 @@ INSTALLED_APPS = [
     "education",
     "core",
     "doctors",
-    "clinics",
     "skin_diagnosis",
     "chatbot",
     # installed dependencies
@@ -69,8 +67,6 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "phonenumber_field",
     "django_filters",
-    "django.contrib.gis",
-    "rest_framework_gis",
 ]
 
 
@@ -152,25 +148,13 @@ WSGI_APPLICATION = "medihelp.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-if platform.system() == "Windows":
-    # plain SQLite
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
+# Use SQLite for all platforms
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
-    # remove Spatialite
-    if "SPATIALITE_LIBRARY_PATH" in globals():
-        del SPATIALITE_LIBRARY_PATH
-else:
-    # use Spatialite on Linux/macOS
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.contrib.gis.db.backends.spatialite",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
+}
 
 
 # Password validation
@@ -219,5 +203,3 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.User"
-
-# SpatiaLite library path for Linux/macOS

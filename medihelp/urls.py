@@ -40,7 +40,6 @@ api_patterns = [
     path("content/", include("education.urls")),
     path("core/", include("core.urls")),
     path("doctors/", include("doctors.urls")),
-    path("clinics/", include("clinics.urls")),
     path("skin-diagnosis/", include("skin_diagnosis.urls")),
     path("chat/", include("chatbot.urls")),
 ]
