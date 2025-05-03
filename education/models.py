@@ -1,6 +1,11 @@
 from django.db import models
 from symptoms.models import Condition, Symptom
-from .validators import validate_string_list, validate_youtube_url, validate_image_url
+from .validators import (
+    validate_string_list,
+    validate_youtube_url,
+    validate_image_url,
+    validate_duration_minutes,
+)
 
 
 class PublishableModel(models.Model):
@@ -47,12 +52,7 @@ class Video(PublishableModel):
     )
     duration_minutes = models.PositiveSmallIntegerField(
         help_text="Duration in minutes (max 600 minutes / 10 hours)",
-        validators=[
-            lambda value: (
-                value <= 600
-                or ValueError("Duration cannot exceed 600 minutes (10 hours)")
-            )
-        ],
+        validators=[validate_duration_minutes],
     )
     related_symptoms = models.ManyToManyField(Symptom, blank=True)
 

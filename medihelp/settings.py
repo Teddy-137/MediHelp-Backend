@@ -14,6 +14,7 @@ import os, platform
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
+import dj_database_url
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,10 +34,12 @@ if not GEMINI_API_KEY:
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-_*a4_pz+(mw^oiq(a5qew-g7(^=l1@n#)3=ao!99t7-sko_#p%"
+SECRET_KEY = os.getenv(
+    "SECRET_KEY", "django-insecure-_*a4_pz+(mw^oiq(a5qew-g7(^=l1@n#)3=ao!99t7-sko_#p%"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "True").lower() == "true"
 
 ALLOWED_HOSTS = ["*"]
 
@@ -71,6 +74,7 @@ INSTALLED_APPS = [
     "django_filters",
     "django.contrib.gis",
     "rest_framework_gis",
+    "whitenoise.runserver_nostatic",
 ]
 
 
@@ -118,6 +122,7 @@ SIMPLE_JWT = {
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # Add whitenoise for static files
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -152,26 +157,40 @@ WSGI_APPLICATION = "medihelp.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-if platform.system() == "Windows":
-    # plain SQLite
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
-    # remove Spatialite
-    if "SPATIALITE_LIBRARY_PATH" in globals():
-        del SPATIALITE_LIBRARY_PATH
-else:
-    # use Spatialite on Linux/macOS
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.contrib.gis.db.backends.spatialite",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
 
+# Database configuration
+# Default to SQLite for development
+DATABASES = {
+    "default": {
+        "ENGINE": "django.contrib.gis.db.backends.spatialite",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
+
+# Check for Docker/production environment
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+# Check for both POSTGRES_HOST and PGHOST (PostgreSQL standard env var)
+POSTGRES_HOST = os.getenv("POSTGRES_HOST") or os.getenv("PGHOST")
+
+# If we're in Docker or production, use PostgreSQL
+if ENVIRONMENT == "production" or POSTGRES_HOST:
+    # Check for DATABASE_URL first (Heroku style)
+    if os.getenv("DATABASE_URL"):
+        DATABASES["default"] = dj_database_url.config(conn_max_age=600)
+    # Otherwise use individual environment variables
+    elif POSTGRES_HOST:
+        DATABASES["default"] = {
+            "ENGINE": "django.contrib.gis.db.backends.postgis",
+            "NAME": os.getenv("POSTGRES_DB", "medihelp"),
+            "USER": os.getenv("POSTGRES_USER") or os.getenv("PGUSER", "medihelp"),
+            "PASSWORD": os.getenv("POSTGRES_PASSWORD", "medihelp"),
+            "HOST": POSTGRES_HOST,
+            "PORT": os.getenv("POSTGRES_PORT") or os.getenv("PGPORT", "5432"),
+        }
+
+    print(
+        f"Using PostgreSQL database at {DATABASES['default'].get('HOST', 'unknown host')}"
+    )
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -208,9 +227,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = "/media/"
-
 MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type

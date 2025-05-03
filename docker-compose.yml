@@ -1,0 +1,41 @@
+services:
+  web:
+    build: .
+    command: gunicorn --bind 0.0.0.0:8000 --workers 3 medihelp.wsgi:application
+    volumes:
+      # Only mount media and static files, not the entire project
+      - media_volume:/app/media
+      - static_volume:/app/staticfiles
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=${SECRET_KEY:-your-production-secret-key}
+      # Use PostgreSQL configuration that matches settings.py
+      - POSTGRES_DB=medihelp
+      - POSTGRES_USER=medihelp
+      - POSTGRES_PASSWORD=medihelp
+      - POSTGRES_HOST=db
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgis/postgis:15-3.4
+    environment:
+      - POSTGRES_DB=medihelp
+      - POSTGRES_USER=medihelp
+      - POSTGRES_PASSWORD=medihelp
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U medihelp"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+  media_volume:
+  static_volume:

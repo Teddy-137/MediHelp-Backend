@@ -129,3 +129,12 @@ def validate_string_list(
         cleaned_items.append(item)
 
     return cleaned_items
+
+
+def validate_duration_minutes(value):
+    """
+    Validates that the duration in minutes does not exceed 600 (10 hours).
+    """
+    if value > 600:
+        raise ValidationError("Duration cannot exceed 600 minutes (10 hours)")
+    return value
