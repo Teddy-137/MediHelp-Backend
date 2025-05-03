@@ -59,7 +59,4 @@ class HomeRemedySerializer(serializers.ModelSerializer):
     def get_type(self, obj):
         return "homeremedy"
 
-    def validate_ingredients(self, value):
-        if len(value) < 1:
-            raise serializers.ValidationError("At least one ingredient required")
-        return value
+    # Removed redundant validation as it's already handled by validate_json_array in the model

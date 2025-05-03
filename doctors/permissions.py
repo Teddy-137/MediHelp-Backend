@@ -13,6 +13,25 @@ class IsDoctorOrReadOnly(permissions.BasePermission):
         return obj.user == request.user
 
 
+class IsDoctorProfileOwner(permissions.BasePermission):
+    """
+    Permission class that ensures a doctor can only modify their own profile.
+    Superusers can modify any profile.
+    """
+
+    def has_permission(self, request, view):
+        # Allow all authenticated users to list and read
+        return request.user and request.user.is_authenticated
+
+    def has_object_permission(self, request, view, obj):
+        # Allow read access to all authenticated users
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        # For write operations, only allow the owner or superusers
+        return obj.user == request.user or request.user.is_superuser
+
+
 class IsPatientOwner(permissions.BasePermission):
     def has_permission(self, request, view):
         # Allow all authenticated users to list and create
@@ -38,6 +57,13 @@ class IsPatientOwner(permissions.BasePermission):
             and "status" in request.data
             and len(request.data) == 1
         ):
+            # Validate the status value
+            from .models import Teleconsultation
+
+            valid_statuses = [choice[0] for choice in Teleconsultation.Status.choices]
+            if request.data["status"] not in valid_statuses:
+                return False
+
             # Allow doctors to update only the status field
             if hasattr(obj, "doctor") and hasattr(obj.doctor, "user"):
                 is_doctor = obj.doctor.user == request.user

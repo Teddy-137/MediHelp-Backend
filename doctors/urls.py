@@ -14,6 +14,6 @@ router.register(r"teleconsults", TeleconsultationViewSet, basename="teleconsult"
 
 urlpatterns = [
     path("register/", DoctorRegistrationAPI.as_view(), name="doctor-register"),
-    path("profiles/me/", DoctorProfileViewSet.as_view({"get": "me", "patch": "me"})),
+    # Removed duplicate "profiles/me/" path - use the @action decorator in the viewset instead
     path("", include(router.urls)),
 ]

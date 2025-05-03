@@ -1,11 +1,16 @@
 import json
 import logging
+import time
 from django.conf import settings
 from google.generativeai import configure, GenerativeModel
-from google.api_core.exceptions import GoogleAPIError
+from google.api_core.exceptions import GoogleAPIError, RetryError, ServiceUnavailable
 import mimetypes  # Import mimetypes to guess the file type
 
 logger = logging.getLogger(__name__)
+
+
+MAX_RETRIES = 3
+RETRY_DELAY = 1
 
 
 def analyze_skin_image(image_path: str) -> dict:
@@ -20,12 +25,12 @@ def analyze_skin_image(image_path: str) -> dict:
     }
     """
     try:
-        if not getattr(settings, "GEMINI_API_KEY", None):
+        api_key = getattr(settings, "GEMINI_API_KEY", None)
+        if not api_key:
             raise ValueError("Missing Gemini API key in settings")
 
-        configure(api_key="AIzaSyCc_Gw2Oi9NO3s96du3N9bhNQlH3fXQbBo")
-        # Use the appropriate model for vision tasks
-        model = GenerativeModel("models/gemini-1.5-flash")
+        configure(api_key=api_key)
+        model = GenerativeModel("gemini-1.5-flash")
 
         prompt = """Analyze this skin condition image and provide:
         1. Top 3 possible conditions (array)
@@ -41,11 +46,46 @@ def analyze_skin_image(image_path: str) -> dict:
             "urgency": ""
         }"""
 
-        # --- FIX START ---
-        # Read the image file content
         try:
+            # Validate file existence
             with open(image_path, "rb") as f:
                 image_data = f.read()
+
+            # Validate file size
+            file_size = len(image_data)
+            max_size = 10 * 1024 * 1024  # 10MB
+            if file_size > max_size:
+                logger.warning(f"Image too large: {file_size} bytes (max: {max_size})")
+                return {"error": "Image file too large (max 10MB)"}
+
+            # Validate file is not empty
+            if file_size == 0:
+                logger.error(f"Empty image file: {image_path}")
+                return {"error": "Image file is empty"}
+
+            # Basic image header validation
+            # Check for common image file signatures
+            is_valid_image = False
+            signatures = {
+                b"\xff\xd8\xff": "JPEG",
+                b"\x89PNG\r\n\x1a\n": "PNG",
+                b"GIF87a": "GIF",
+                b"GIF89a": "GIF",
+                b"RIFF": "WEBP",
+            }
+
+            for sig, format_name in signatures.items():
+                if image_data.startswith(sig):
+                    is_valid_image = True
+                    logger.info(f"Detected image format: {format_name}")
+                    break
+
+            if not is_valid_image:
+                logger.warning(
+                    f"File does not appear to be a valid image: {image_path}"
+                )
+                return {"error": "File does not appear to be a valid image"}
+
         except FileNotFoundError:
             logger.error(f"Image file not found at {image_path}")
             return {"error": "Image file not found"}
@@ -65,14 +105,72 @@ def analyze_skin_image(image_path: str) -> dict:
         # Pass the prompt and image data with MIME type to the model
         image_part = {"mime_type": mime_type, "data": image_data}
 
-        response = model.generate_content([prompt, image_part])
-        # --- FIX END ---
+        # Implement retry mechanism for transient errors
+        response = None
+        for attempt in range(1, MAX_RETRIES + 1):
+            try:
+                logger.info(f"API call attempt {attempt}/{MAX_RETRIES}")
+                response = model.generate_content([prompt, image_part])
+                break  # Success, exit the retry loop
+            except (RetryError, ServiceUnavailable) as e:
+                if attempt < MAX_RETRIES:
+                    # Calculate exponential backoff delay: 1s, 2s, 4s, etc.
+                    delay = RETRY_DELAY * (2 ** (attempt - 1))
+                    logger.warning(
+                        f"Transient API error: {str(e)}. Retrying in {delay}s..."
+                    )
+                    time.sleep(delay)
+                else:
+                    logger.error(
+                        f"API call failed after {MAX_RETRIES} attempts: {str(e)}"
+                    )
+                    raise  # Re-raise the exception after all retries failed
+
+        if not response:
+            raise ValueError("Failed to get response from API after retries")
 
         try:
-            # This parsing logic is fragile and depends on the model's exact output format.
-            # A more robust approach might be needed if the format varies.
-            json_str = response.text.split("```json")[1].split("```")[0].strip()
+            # More robust JSON extraction using regex
+            import re
+
+            # First, try to extract JSON from code blocks
+            json_match = re.search(
+                r"```(?:json)?\s*({.*?})\s*```", response.text, re.DOTALL
+            )
+
+            if json_match:
+                # Found JSON in code block
+                json_str = json_match.group(1).strip()
+            else:
+                # Try to find JSON without code blocks - look for a pattern that looks like JSON
+                json_match = re.search(r'({[\s\S]*"conditions"[\s\S]*})', response.text)
+                if json_match:
+                    json_str = json_match.group(1).strip()
+                else:
+                    # Fallback to the entire response if no JSON pattern found
+                    json_str = response.text
+
+            # Parse the JSON
             result = json.loads(json_str)
+
+            # Validate required fields
+            required_fields = ["conditions", "confidence", "recommendations", "urgency"]
+            missing_fields = [field for field in required_fields if field not in result]
+
+            if missing_fields:
+                logger.warning(f"Missing fields in response: {missing_fields}")
+                # Add missing fields with default values
+                for field in missing_fields:
+                    if field == "conditions":
+                        result[field] = []
+                    elif field == "confidence":
+                        result[field] = 0.0
+                    elif field == "recommendations":
+                        result[field] = ["Consult a dermatologist"]
+                    elif field == "urgency":
+                        result[field] = "medium"
+
+            # Add the raw response for debugging
             result["raw_response"] = response.text
             return result
         except (IndexError, json.JSONDecodeError) as e:

@@ -1,6 +1,6 @@
 from django.db import models
 from symptoms.models import Condition, Symptom
-from .validators import validate_string_list, validate_youtube_url
+from .validators import validate_string_list, validate_youtube_url, validate_image_url
 
 
 class PublishableModel(models.Model):
@@ -19,14 +19,20 @@ class Article(PublishableModel):
     )
     content = models.TextField()
     related_conditions = models.ManyToManyField(Condition, blank=True)
+
+    def default_tags():
+        return []
+
     tags = models.JSONField(
         blank=True,
-        default=list,
-        help_text="Comma-separated list of tags",
+        default=default_tags,
+        help_text="List of tag strings, e.g., ['tag1', 'tag2']",
         validators=[validate_string_list],
     )
     cover_image = models.URLField(
-        blank=True, help_text="URL to cover image (16:9 aspect ratio recommended)"
+        blank=True,
+        help_text="URL to cover image (16:9 aspect ratio recommended)",
+        validators=[validate_image_url],
     )
 
     def __str__(self):
@@ -39,7 +45,15 @@ class Video(PublishableModel):
         help_text="Full YouTube URL (e.g. https://youtube.com/watch?v=ID)",
         validators=[validate_youtube_url],
     )
-    duration_minutes = models.PositiveSmallIntegerField(help_text="Duration in minutes")
+    duration_minutes = models.PositiveSmallIntegerField(
+        help_text="Duration in minutes (max 600 minutes / 10 hours)",
+        validators=[
+            lambda value: (
+                value <= 600
+                or ValueError("Duration cannot exceed 600 minutes (10 hours)")
+            )
+        ],
+    )
     related_symptoms = models.ManyToManyField(Symptom, blank=True)
 
     def __str__(self):

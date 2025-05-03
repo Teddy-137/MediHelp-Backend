@@ -40,11 +40,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+if platform.system() == "Windows":
+    SPATIALITE_LIBRARY_PATH = "/usr/lib/x86_64-linux-gnu/mod_spatialite.so"
 
-SPATIALITE_LIBRARY_PATH = "/usr/lib/x86_64-linux-gnu/mod_spatialite.so"
-
-
-# Application definition
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -74,6 +72,7 @@ INSTALLED_APPS = [
     "django.contrib.gis",
     "rest_framework_gis",
 ]
+
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [

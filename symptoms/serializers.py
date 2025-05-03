@@ -8,12 +8,37 @@ from django.utils.encoding import force_str
 logger = logging.getLogger(__name__)
 
 
-def _clean_json(value):
-    """Recursively convert values to JSON-safe types"""
+def _clean_json(value, max_depth=10, current_depth=0):
+    """
+    Recursively convert values to JSON-safe types with depth limit
+
+    Args:
+        value: The value to convert
+        max_depth: Maximum recursion depth to prevent stack overflow
+        current_depth: Current recursion depth (used internally)
+
+    Returns:
+        JSON-safe representation of the value
+    """
+    # Check if we've reached the maximum depth
+    if current_depth >= max_depth:
+        if isinstance(value, (dict, list)):
+            return str(
+                value
+            )  # Convert complex structures to string if max depth reached
+        return force_str(value)
+
+    # Process dictionaries
     if isinstance(value, dict):
-        return {k: _clean_json(v) for k, v in value.items()}
+        return {
+            k: _clean_json(v, max_depth, current_depth + 1) for k, v in value.items()
+        }
+
+    # Process lists
     if isinstance(value, list):
-        return [_clean_json(v) for v in value]
+        return [_clean_json(v, max_depth, current_depth + 1) for v in value]
+
+    # Convert other values to string
     return force_str(value)
 
 
@@ -88,7 +113,7 @@ class SymptomCheckSerializer(serializers.ModelSerializer):
 
             # Generate AI diagnosis
             raw_data = generate_diagnosis(symptoms)
-            diagnosis_data = _clean_json(raw_data)
+            diagnosis_data = _clean_json(raw_data, max_depth=10)
 
             # Store and process results
             check.ai_diagnosis = diagnosis_data

@@ -2,12 +2,70 @@ import re
 from rest_framework.exceptions import ValidationError
 
 
+def validate_image_url(value):
+    """
+    Validates that a URL points to an image file.
+
+    Checks if the URL ends with a common image extension.
+    """
+    if not value:  # Allow empty values (blank=True)
+        return
+
+    image_extensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"]
+    url_lower = value.lower()
+
+    # Check if URL ends with an image extension
+    if not any(url_lower.endswith(ext) for ext in image_extensions):
+        # If no extension, check if it contains image-related keywords
+        image_services = [
+            "imgur",
+            "flickr",
+            "unsplash",
+            "pexels",
+            "pixabay",
+            "cloudinary",
+        ]
+        if not any(service in url_lower for service in image_services):
+            raise ValidationError(
+                "URL does not appear to point to an image. "
+                "Please provide a URL ending with .jpg, .jpeg, .png, .gif, .webp, or .svg, "
+                "or from a known image hosting service."
+            )
+
+
 def validate_youtube_url(value):
-    youtube_regex = r"^(https?://)?(www\.)?(youtube\.com/watch\?v=|youtu\.be/)[\w-]{11}"
-    if not re.match(youtube_regex, value):
+    """
+    Validates that a URL is a valid YouTube video URL.
+
+    Supports formats:
+    - https://www.youtube.com/watch?v=VIDEO_ID
+    - https://youtu.be/VIDEO_ID
+    - https://youtube.com/watch?v=VIDEO_ID
+    - http://www.youtube.com/watch?v=VIDEO_ID
+    - www.youtube.com/watch?v=VIDEO_ID
+    - youtu.be/VIDEO_ID
+
+    Also validates that the video ID is exactly 11 characters and contains
+    only alphanumeric characters, hyphens, and underscores.
+    """
+    # More comprehensive regex for YouTube URLs
+    youtube_regex = (
+        r"^(https?://)?(www\.)?(youtube\.com/watch\?v=|youtu\.be/)([\w-]{11})($|&.*$)"
+    )
+    match = re.match(youtube_regex, value)
+
+    if not match:
         raise ValidationError(
             "Invalid YouTube URL. Valid formats: "
             "https://www.youtube.com/watch?v=ID or https://youtu.be/ID"
+        )
+
+    # Extract and validate the video ID
+    video_id = match.group(4)
+    if not re.match(r"^[\w-]{11}$", video_id):
+        raise ValidationError(
+            "Invalid YouTube video ID. Must be exactly 11 characters and "
+            "contain only letters, numbers, hyphens, and underscores."
         )
 
 

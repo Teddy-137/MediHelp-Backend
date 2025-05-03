@@ -9,6 +9,7 @@ class ChatSession(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
+    context = models.JSONField(default=dict, blank=True)  # Store conversation context
 
     class Meta:
         ordering = ["-created_at"]
@@ -21,7 +22,7 @@ class ChatMessage(models.Model):
     session = models.ForeignKey(
         ChatSession, on_delete=models.CASCADE, related_name="messages"
     )
-    content = models.JSONField()
+    content = models.JSONField()  # Stores both input and output
     is_bot = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 

@@ -119,6 +119,13 @@ class AvailabilitySerializer(serializers.ModelSerializer):
         # Validate time range
         start_time = data.get("start_time")
         end_time = data.get("end_time")
+        day = data.get("day")
+
+        # Validate day is not in the past
+        if day and day < timezone.now().date():
+            raise serializers.ValidationError(
+                {"day": "Availability day cannot be in the past"}
+            )
 
         # Only validate times if both are provided
         if start_time and end_time and start_time >= end_time:
@@ -207,9 +214,9 @@ class TeleconsultationSerializer(serializers.ModelSerializer):
 
         # Validate duration if it's being updated
         duration = attrs.get("duration")
-        if duration and not (15 <= duration <= 60):
+        if duration and not (15 <= duration <= 180):
             raise serializers.ValidationError(
-                {"duration": "Duration must be between 15 and 60 minutes."}
+                {"duration": "Duration must be between 15 and 180 minutes."}
             )
 
         # Validate status if it's being updated

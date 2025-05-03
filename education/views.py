@@ -1,8 +1,14 @@
-from rest_framework import viewsets, filters, pagination, permissions
+from rest_framework import viewsets, filters, pagination, permissions, status
+from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema_view, extend_schema
 from django_filters.rest_framework import DjangoFilterBackend
+from django.utils.translation import gettext_lazy as _
+from django.db.utils import IntegrityError
 from .models import Article, Video
 from .serializers import ArticleSerializer, VideoSerializer
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class EducationPagination(pagination.PageNumberPagination):
@@ -40,8 +46,66 @@ class ArticleViewSet(viewsets.ModelViewSet):
     ordering_fields = ["published_date", "updated_at"]
     pagination_class = EducationPagination
 
+    # Custom filter for tags (JSONField)
     def get_queryset(self):
-        return Article.objects.prefetch_related("related_conditions").all()
+        queryset = Article.objects.prefetch_related("related_conditions").all()
+
+        # Filter by tag if provided
+        tag = self.request.query_params.get("tag", None)
+        if tag:
+            # Filter articles that have the specified tag in their tags list
+            queryset = queryset.filter(tags__contains=[tag])
+
+        return queryset
+
+    def create(self, request, *args, **kwargs):
+        try:
+            return super().create(request, *args, **kwargs)
+        except IntegrityError as e:
+            logger.error(f"Database integrity error: {str(e)}")
+            return Response(
+                {"error": _("Could not create article due to database constraints")},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        except Exception as e:
+            logger.error(f"Unexpected error creating article: {str(e)}", exc_info=True)
+            return Response(
+                {"error": _("Failed to create article")},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+    def update(self, request, *args, **kwargs):
+        try:
+            return super().update(request, *args, **kwargs)
+        except IntegrityError as e:
+            logger.error(f"Database integrity error: {str(e)}")
+            return Response(
+                {"error": _("Could not update article due to database constraints")},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        except Exception as e:
+            logger.error(f"Unexpected error updating article: {str(e)}", exc_info=True)
+            return Response(
+                {"error": _("Failed to update article")},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+    def list(self, request, *args, **kwargs):
+        try:
+            return super().list(request, *args, **kwargs)
+        except pagination.InvalidPage as e:
+            logger.warning(f"Invalid page error: {str(e)}")
+            return Response(
+                {"error": _("Invalid page number")}, status=status.HTTP_400_BAD_REQUEST
+            )
+        except Exception as e:
+            logger.error(f"Unexpected error listing articles: {str(e)}", exc_info=True)
+            return Response(
+                {"error": _("Failed to retrieve articles")},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+    # Removed duplicate get_queryset method
 
 
 @extend_schema_view(
@@ -66,3 +130,50 @@ class VideoViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Video.objects.prefetch_related("related_symptoms").all()
+
+    def create(self, request, *args, **kwargs):
+        try:
+            return super().create(request, *args, **kwargs)
+        except IntegrityError as e:
+            logger.error(f"Database integrity error: {str(e)}")
+            return Response(
+                {"error": _("Could not create video due to database constraints")},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        except Exception as e:
+            logger.error(f"Unexpected error creating video: {str(e)}", exc_info=True)
+            return Response(
+                {"error": _("Failed to create video")},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+    def update(self, request, *args, **kwargs):
+        try:
+            return super().update(request, *args, **kwargs)
+        except IntegrityError as e:
+            logger.error(f"Database integrity error: {str(e)}")
+            return Response(
+                {"error": _("Could not update video due to database constraints")},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        except Exception as e:
+            logger.error(f"Unexpected error updating video: {str(e)}", exc_info=True)
+            return Response(
+                {"error": _("Failed to update video")},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+    def list(self, request, *args, **kwargs):
+        try:
+            return super().list(request, *args, **kwargs)
+        except pagination.InvalidPage as e:
+            logger.warning(f"Invalid page error: {str(e)}")
+            return Response(
+                {"error": _("Invalid page number")}, status=status.HTTP_400_BAD_REQUEST
+            )
+        except Exception as e:
+            logger.error(f"Unexpected error listing videos: {str(e)}", exc_info=True)
+            return Response(
+                {"error": _("Failed to retrieve videos")},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )

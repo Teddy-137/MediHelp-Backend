@@ -40,10 +40,20 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("A user with this email already exists.")
         return value
 
+    def validate_phone(self, value):
+        if User.objects.filter(phone=value).exists():
+            raise serializers.ValidationError(
+                "A user with this phone number already exists."
+            )
+        return value
+
     def create(self, validated_data):
-        validated_data.pop("confirm_password")
-        user = User(**validated_data)
-        user.set_password(validated_data["password"])
+        validated_data.pop(
+            "confirm_password"
+        )  # Remove confirm_password from validated_data
+        password = validated_data.pop("password")  # Remove password from validated_data
+        user = User(**validated_data)  # Create user without password
+        user.set_password(password)  # Set password with proper hashing
         user.save()
         return user
 
@@ -66,3 +76,20 @@ class UserLoginSerializer(serializers.Serializer):
         attrs["user"] = user
 
         return attrs
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            "id",
+            "email",
+            "first_name",
+            "last_name",
+            "phone",
+            "date_of_birth",
+            "role",
+            "date_joined",
+            "last_login",
+        ]
+        read_only_fields = ["email", "role", "date_joined", "last_login"]

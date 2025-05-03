@@ -5,13 +5,18 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
+from rest_framework_simplejwt.tokens import RefreshToken
 from django.utils.translation import gettext_lazy as _
 
 from .models import User
 from .serializers import (
     UserRegisterSerializer,
     UserLoginSerializer,
+    UserProfileSerializer,
 )
+
+
+from rest_framework_simplejwt.tokens import RefreshToken  # Add this import
 
 
 class UserRegisterView(generics.CreateAPIView):
@@ -21,10 +26,22 @@ class UserRegisterView(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
+        user = self.perform_create(serializer)
+
+        refresh = RefreshToken.for_user(user)
+        access = refresh.access_token
+
         return Response(
-            {"message": _("User created successfully.")}, status=status.HTTP_201_CREATED
+            {
+                "message": _("User created successfully."),
+                "tokens": {"refresh": str(refresh), "access": str(access)},
+            },
+            status=status.HTTP_201_CREATED,
         )
+
+    def perform_create(self, serializer):
+        user = serializer.save()
+        return user
 
 
 class UserLoginView(TokenObtainPairView):
@@ -50,7 +67,7 @@ class UserLogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        refresh_token = request.data.get("refresh_token")
+        refresh_token = request.data.get("refresh_token") or request.data.get("refresh")
 
         if not refresh_token:
             return Response(
@@ -70,3 +87,19 @@ class UserLogoutView(APIView):
                 {"error": _("Invalid or expired refresh token.")},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+
+class UserProfileView(generics.RetrieveUpdateAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop("partial", False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
