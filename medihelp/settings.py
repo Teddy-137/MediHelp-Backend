@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
+import dj_database_url
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +27,14 @@ if not GEMINI_API_KEY:
     print("Warning: GEMINI_API_KEY not found in environment or .env file!")
 
 
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+
+
+if ENVIRONMENT == "development":
+    DEBUG = True
+else:
+    DEBUG = False
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 
@@ -33,10 +42,9 @@ if not GEMINI_API_KEY:
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-_*a4_pz+(mw^oiq(a5qew-g7(^=l1@n#)3=ao!99t7-sko_#p%"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -67,6 +75,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "phonenumber_field",
     "django_filters",
+    "whitenoise.runserver_nostatic",
 ]
 
 
@@ -114,6 +123,7 @@ SIMPLE_JWT = {
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -156,6 +166,11 @@ DATABASES = {
     }
 }
 
+POSTGRES_LOCALLY = True
+
+if ENVIRONMENT == "production" or POSTGRES_LOCALLY == "True":
+    DATABASES["default"] = dj_database_url.parse(os.getenv("DATABASE_URL"))
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -192,6 +207,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 
 MEDIA_URL = "/media/"
 
