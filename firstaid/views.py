@@ -209,3 +209,93 @@ class HomeRemedyDetailAPIView(FirstAidBaseAPIView, RetrieveAPIView):
     queryset = HomeRemedy.objects.prefetch_related("symptoms")
     serializer_class = HomeRemedySerializer
     lookup_field = "id"
+
+
+@extend_schema(
+    tags=["First Aid"],
+    description="""List all home remedies with optional filtering""",
+    parameters=[
+        OpenApiParameter(
+            name="q",
+            type=str,
+            description="Search query (searches name, preparation, and symptoms)",
+        ),
+        OpenApiParameter(
+            name="ordering",
+            type=str,
+            description="Order by field (prefix with '-' for descending)",
+            examples=[
+                OpenApiExample("Created Date", value="-created_at"),
+                OpenApiExample("Name", value="name"),
+            ],
+        ),
+    ],
+    responses={
+        200: HomeRemedySerializer(many=True),
+        400: OpenApiResponse(
+            description="Bad Request",
+            examples=[
+                OpenApiExample("Error Response", value={"error": "Invalid page number"})
+            ],
+        ),
+    },
+)
+class HomeRemedyListAPIView(FirstAidBaseAPIView, ListAPIView):
+    serializer_class = HomeRemedySerializer
+    search_fields = ["name", "preparation", "symptoms__name"]
+    ordering_fields = ["created_at", "name"]
+    ordering = ["-created_at"]
+
+    def get_queryset(self):
+        queryset = HomeRemedy.objects.prefetch_related("symptoms")
+        search_query = self.request.query_params.get("q", "")
+
+        if search_query:
+            queryset = queryset.filter(
+                Q(name__icontains=search_query)
+                | Q(symptoms__name__icontains=search_query)
+                | Q(preparation__icontains=search_query)
+            ).distinct()
+
+            # Manual filtering for ingredients (JSON field)
+            if not queryset.exists():
+                all_remedies = HomeRemedy.objects.all()
+                filtered_ids = []
+
+                for remedy in all_remedies:
+                    # Case-insensitive search in ingredients list
+                    if any(
+                        search_query.lower() in ingredient.lower()
+                        for ingredient in remedy.ingredients
+                    ):
+                        filtered_ids.append(remedy.id)
+
+                if filtered_ids:
+                    queryset = HomeRemedy.objects.filter(
+                        id__in=filtered_ids
+                    ).prefetch_related("symptoms")
+
+        return queryset
+
+    def list(self, request, *args, **kwargs):
+        import logging
+
+        logger = logging.getLogger(__name__)
+
+        try:
+            return super().list(request, *args, **kwargs)
+        except pagination.InvalidPage as e:
+            logger.warning(f"Invalid page error: {str(e)}")
+            return Response(
+                {"error": _("Invalid page number")},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        except Exception as e:
+            logger.error(
+                f"Unexpected error in HomeRemedyListAPIView.list: {str(e)}",
+                exc_info=True,
+            )
+            return Response(
+                {"error": _("Failed to retrieve data")},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
