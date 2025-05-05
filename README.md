@@ -38,7 +38,7 @@ MediHelp is a comprehensive healthcare platform that connects patients with medi
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/yourusername/MediHelp-Backend.git
+git clone https://github.com/Teddy-137/MediHelp-Backend.git
 cd MediHelp-Backend
 ```
 
@@ -132,7 +132,7 @@ The API will be available at http://localhost:8000/api/
      python manage.py loaddata firstaid/fixtures/initial_data.json
      ```
 
-Your API will be available at `https://your-service-name.onrender.com/api/`
+Your API will be available at `https://medihelp-backend.onrender.com/api/`
 
 ## 📚 API Documentation
 
