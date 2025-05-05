@@ -230,8 +230,6 @@ MediHelp-Backend/
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 📞 Contact
 
-Your Name - your.email@example.com
+Project Link: [https://github.com/Teddy-137/MediHelp-Backend](https://github.com/Teddy-137/MediHelp-Backend)
 
-Project Link: [https://github.com/yourusername/MediHelp-Backend](https://github.com/yourusername/MediHelp-Backend)
