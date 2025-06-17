@@ -28,9 +28,13 @@ def generate_diagnosis(symptoms):
 
     symptom_list = [s.name for s in symptoms]
     prompt = (
-        f"Analyze these symptoms: {', '.join(symptom_list)}. "
-        "Respond only with raw JSON, no markdown, using keys: "
-        "conditions (list of condition names), recommendations (list of steps), urgency (low/medium/high)."
+        f"Analyze the following symptoms: {', '.join(symptom_list)}. "
+        "Use clinical knowledge and symptom severity to assess risk. "
+        "Return ONLY raw JSON (no markdown, no explanation) with the following keys: "
+        '"conditions" (list of likely medical conditions), '
+        '"recommendations" (list of actionable next steps), '
+        "\"urgency\" (one of: low, medium, high — where 'high' means potentially life-threatening, "
+        "'medium' means needs medical attention soon, and 'low' means can be monitored at home)."
     )
 
     for attempt in range(1, MAX_RETRIES + 1):
@@ -42,20 +46,23 @@ def generate_diagnosis(symptoms):
                     temperature=0.3,
                     max_output_tokens=500,
                 ),
-                # remove safety_settings to simplify initial debugging
             )
             raw = response.text.strip()
             logger.debug(f"Raw Gemini response: {raw}")
 
             # strip code fences if present
             if raw.startswith("```json"):
-                raw = raw[len("```json"):].strip()
+                raw = raw[len("```json") :].strip()
             if raw.endswith("```"):
                 raw = raw[:-3].strip()
 
             diagnosis = json.loads(raw)
             # ensure required keys
-            missing = {k for k in ["conditions","recommendations","urgency"] if k not in diagnosis}
+            missing = {
+                k
+                for k in ["conditions", "recommendations", "urgency"]
+                if k not in diagnosis
+            }
             if missing:
                 raise ValueError(f"Missing keys: {missing}")
             return diagnosis
