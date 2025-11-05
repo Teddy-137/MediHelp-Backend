@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
-import dj_database_url
+from urllib.parse import urlparse, parse_qsl
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -165,25 +165,26 @@ WSGI_APPLICATION = "medihelp.wsgi.application"
 
 # Database configuration
 # Default to SQLite for local development
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if os.getenv("ENVIRONMENT") == "development":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
-
-# Use DATABASE_URL if provided (Render automatically sets this)
-if os.environ.get("DATABASE_URL"):
-    import dj_database_url
-
-    DATABASES["default"] = dj_database_url.config(
-        conn_max_age=600,
-        conn_health_checks=True,
-        ssl_require=True,  # Required for Render PostgreSQL
-    )
-    print(f"Using database URL from environment")
 else:
-    print("Using SQLite database")
+    tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": tmpPostgres.path.replace("/", ""),
+            "USER": tmpPostgres.username,
+            "PASSWORD": tmpPostgres.password,
+            "HOST": tmpPostgres.hostname,
+            "PORT": 5432,
+            "OPTIONS": dict(parse_qsl(tmpPostgres.query)),
+        }
+    }
 
 
 # Password validation
