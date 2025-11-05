@@ -15,6 +15,7 @@ from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
 from urllib.parse import urlparse, parse_qsl
+import re
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -173,18 +174,79 @@ if os.getenv("ENVIRONMENT") == "development":
         }
     }
 else:
-    tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": tmpPostgres.path.replace("/", ""),
-            "USER": tmpPostgres.username,
-            "PASSWORD": tmpPostgres.password,
-            "HOST": tmpPostgres.hostname,
-            "PORT": 5432,
-            "OPTIONS": dict(parse_qsl(tmpPostgres.query)),
+    # Production database configuration
+    database_url = os.getenv("DATABASE_URL")
+    if database_url:
+        try:
+            # Parse the DATABASE_URL using urlparse
+            tmpPostgres = urlparse(database_url)
+            
+            # Extract database components
+            db_name = tmpPostgres.path.lstrip("/")
+            db_user = tmpPostgres.username
+            db_password = tmpPostgres.password
+            db_host = tmpPostgres.hostname
+            db_port = tmpPostgres.port or 5432
+            
+            # Parse query parameters for SSL options
+            query_params = dict(parse_qsl(tmpPostgres.query))
+            
+            # Ensure database name is not empty and not too long
+            if not db_name or len(db_name) > 63:
+                db_name = "neondb"
+                
+            # Build OPTIONS dict with SSL settings
+            db_options = {"sslmode": "require"}
+            if "sslmode" in query_params:
+                db_options["sslmode"] = query_params["sslmode"]
+            if "channel_binding" in query_params:
+                db_options["channel_binding"] = query_params["channel_binding"]
+                
+            DATABASES = {
+                "default": {
+                    "ENGINE": "django.db.backends.postgresql",
+                    "NAME": db_name,
+                    "USER": db_user,
+                    "PASSWORD": db_password,
+                    "HOST": db_host,
+                    "PORT": db_port,
+                    "OPTIONS": db_options,
+                }
+            }
+            
+            # Debug print for deployment troubleshooting
+            print(f"Database config - Name: {db_name}, Host: {db_host}, User: {db_user}")
+        except Exception as e:
+            print(f"Error parsing DATABASE_URL: {e}")
+            # Fallback configuration using individual environment variables
+            DATABASES = {
+                "default": {
+                    "ENGINE": "django.db.backends.postgresql",
+                    "NAME": os.getenv("DB_NAME", "neondb"),
+                    "USER": os.getenv("DB_USER"),
+                    "PASSWORD": os.getenv("DB_PASSWORD"),
+                    "HOST": os.getenv("DB_HOST"),
+                    "PORT": os.getenv("DB_PORT", "5432"),
+                    "OPTIONS": {
+                        "sslmode": "require",
+                    },
+                }
+            }
+    else:
+        # Fallback configuration using individual environment variables
+        DATABASES = {
+            "default": {
+                "ENGINE": "django.db.backends.postgresql",
+                "NAME": os.getenv("DB_NAME", "neondb"),
+                "USER": os.getenv("DB_USER"),
+                "PASSWORD": os.getenv("DB_PASSWORD"),
+                "HOST": os.getenv("DB_HOST"),
+                "PORT": os.getenv("DB_PORT", "5432"),
+                "OPTIONS": {
+                    "sslmode": "require",
+                },
+            }
         }
-    }
 
 
 # Password validation
