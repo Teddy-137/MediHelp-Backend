@@ -1,1062 +1,185 @@
 [
     {
-        "model": "symptoms.symptom",
+        "model": "education.article",
         "pk": 1,
         "fields": {
-            "name": "Headache",
-            "description": "Pain in the head or neck region",
-            "created_at": "2025-04-30T09:58:27+00:00",
-            "updated_at": "2025-04-30T09:58:27+00:00"
+            "title": "Understanding Migraines: Causes, Symptoms, and Management",
+            "summary": "Learn about migraine triggers, symptoms, and effective management strategies to reduce frequency and severity.",
+            "content": "Migraines are more than just headaches. They are a neurological condition that affects millions of people worldwide. Understanding the causes, recognizing the symptoms, and knowing how to manage them can significantly improve quality of life.\n\n**What Causes Migraines?**\nMigraines can be triggered by various factors including:\n- Hormonal changes\n- Certain foods (chocolate, aged cheese, processed meats)\n- Stress and anxiety\n- Changes in sleep patterns\n- Environmental factors (bright lights, strong smells)\n- Weather changes\n\n**Common Symptoms:**\n- Intense, throbbing headache (usually on one side)\n- Nausea and vomiting\n- Sensitivity to light and sound\n- Visual disturbances (aura)\n- Fatigue\n\n**Management Strategies:**\n1. **Identify Triggers**: Keep a migraine diary to track potential triggers\n2. **Maintain Regular Sleep**: Go to bed and wake up at consistent times\n3. **Stay Hydrated**: Drink plenty of water throughout the day\n4. **Manage Stress**: Practice relaxation techniques like meditation or yoga\n5. **Medication**: Work with your healthcare provider to find the right treatment\n\n**When to Seek Medical Help:**\n- Sudden, severe headache unlike any you've had before\n- Headache with fever, stiff neck, confusion, or vision changes\n- Headache after a head injury\n- Chronic headaches that worsen over time\n\nRemember, effective migraine management often requires a combination of lifestyle changes and medical treatment. Consult with a healthcare professional for personalized advice.",
+            "related_conditions": [1],
+            "tags": ["migraine", "headache", "neurological", "pain management", "triggers"],
+            "cover_image": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+            "is_published": true,
+            "published_date": "2025-04-30T10:00:00+00:00",
+            "updated_at": "2025-04-30T10:00:00+00:00"
         }
     },
     {
-        "model": "symptoms.symptom",
+        "model": "education.article",
         "pk": 2,
         "fields": {
-            "name": "Fever",
-            "description": "Elevated body temperature above 38°C (100.4°F)",
-            "created_at": "2025-04-30T09:58:27+00:00",
-            "updated_at": "2025-04-30T09:58:27+00:00"
+            "title": "Common Cold vs Flu: How to Tell the Difference",
+            "summary": "Learn to distinguish between cold and flu symptoms to get appropriate treatment and prevent complications.",
+            "content": "Both the common cold and flu are respiratory illnesses, but they're caused by different viruses and have distinct characteristics. Knowing the difference can help you get the right treatment and take appropriate precautions.\n\n**Common Cold Symptoms:**\n- Gradual onset\n- Runny or stuffy nose\n- Sneezing\n- Mild cough\n- Slight body aches\n- Low-grade fever (rare)\n- Mild fatigue\n- Sore throat\n\n**Flu Symptoms:**\n- Sudden onset\n- High fever (100.4°F or higher)\n- Severe body aches\n- Extreme fatigue\n- Dry cough\n- Headache\n- Chills\n- Sometimes nausea and vomiting\n\n**Duration:**\n- Cold: 7-10 days\n- Flu: 1-2 weeks, but fatigue can last longer\n\n**Treatment:**\n**For Colds:**\n- Rest and stay hydrated\n- Use saline nasal sprays\n- Consider over-the-counter pain relievers\n- Throat lozenges for sore throat\n\n**For Flu:**\n- Antiviral medications (if started within 48 hours)\n- Rest and plenty of fluids\n- Fever reducers\n- Avoid antibiotics (they don't work on viruses)\n\n**Prevention:**\n- Wash hands frequently\n- Avoid touching face\n- Get annual flu vaccination\n- Maintain distance from sick individuals\n- Disinfect surfaces regularly\n\n**When to See a Doctor:**\n- Difficulty breathing\n- Chest pain\n- Persistent high fever\n- Severe headache\n- Signs of dehydration\n- Symptoms worsen after initial improvement",
+            "related_conditions": [2, 3],
+            "tags": ["cold", "flu", "respiratory", "viral infection", "prevention"],
+            "cover_image": "https://images.unsplash.com/photo-1584515933487-779824d29309?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+            "is_published": true,
+            "published_date": "2025-04-30T10:15:00+00:00",
+            "updated_at": "2025-04-30T10:15:00+00:00"
         }
     },
     {
-        "model": "symptoms.symptom",
+        "model": "education.article",
         "pk": 3,
         "fields": {
-            "name": "Cough",
-            "description": "A sudden, forceful hacking sound to release air and clear irritation in the throat or airway",
-            "created_at": "2025-04-30T09:58:27+00:00",
-            "updated_at": "2025-04-30T09:58:27+00:00"
+            "title": "First Aid: How to Treat Minor Cuts and Wounds",
+            "summary": "Essential first aid steps for treating minor cuts, scrapes, and wounds safely at home.",
+            "content": "Knowing how to properly treat minor cuts and wounds can prevent infection and promote faster healing. Here's a step-by-step guide to basic wound care.\n\n**Immediate Steps:**\n1. **Stay Calm**: Assess the severity of the wound\n2. **Stop the Bleeding**: Apply direct pressure with a clean cloth\n3. **Protect Yourself**: Wear gloves if available to avoid contact with blood\n\n**Cleaning the Wound:**\n1. **Wash Your Hands**: Use soap and water thoroughly\n2. **Rinse the Wound**: Use clean water to remove dirt and debris\n3. **Clean Around the Wound**: Use soap around (not in) the wound\n4. **Remove Debris**: Use tweezers cleaned with alcohol if needed\n\n**Treating the Wound:**\n1. **Apply Antibiotic Ointment**: Use a thin layer to prevent infection\n2. **Cover the Wound**: Use a sterile bandage or adhesive bandage\n3. **Change Dressing**: Replace daily or when it becomes wet/dirty\n\n**Signs of Infection to Watch For:**\n- Increased pain, redness, or swelling\n- Warmth around the wound\n- Pus or unusual discharge\n- Red streaking from the wound\n- Fever\n\n**When to Seek Medical Attention:**\n- Deep cuts that gape open\n- Cuts longer than 1/2 inch\n- Bleeding that won't stop after 10 minutes of direct pressure\n- Signs of infection\n- Cuts from dirty or rusty objects\n- If you can't clean the wound properly\n- If tetanus vaccination is not up to date\n\n**Supplies to Keep in Your First Aid Kit:**\n- Sterile gauze pads\n- Adhesive bandages (various sizes)\n- Medical tape\n- Antibiotic ointment\n- Disposable gloves\n- Scissors\n- Tweezers\n- Instant cold compress\n\n**Prevention Tips:**\n- Keep first aid supplies easily accessible\n- Maintain a clean environment\n- Use proper safety equipment when needed\n- Keep tetanus vaccination current",
+            "related_conditions": [],
+            "tags": ["first aid", "wound care", "cuts", "bleeding", "infection prevention"],
+            "cover_image": "https://images.unsplash.com/photo-1603398938795-b8e5c3b7b6e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+            "is_published": true,
+            "published_date": "2025-04-30T10:30:00+00:00",
+            "updated_at": "2025-04-30T10:30:00+00:00"
         }
     },
     {
-        "model": "symptoms.symptom",
+        "model": "education.article",
         "pk": 4,
         "fields": {
-            "name": "Sore Throat",
-            "description": "Pain, scratchiness, or irritation of the throat",
-            "created_at": "2025-04-30T09:58:27+00:00",
-            "updated_at": "2025-04-30T09:58:27+00:00"
+            "title": "Managing Asthma: Triggers, Symptoms, and Emergency Response",
+            "summary": "Comprehensive guide to understanding asthma triggers, recognizing symptoms, and responding to asthma emergencies.",
+            "content": "Asthma is a chronic respiratory condition that affects the airways, making breathing difficult. Understanding how to manage asthma effectively can prevent attacks and improve quality of life.\n\n**What is Asthma?**\nAsthma causes the airways to become inflamed, narrow, and produce extra mucus, making it difficult to breathe. It's a long-term condition that requires ongoing management.\n\n**Common Triggers:**\n- Allergens (pollen, dust mites, pet dander, mold)\n- Irritants (smoke, strong odors, pollution)\n- Weather changes (cold air, humidity)\n- Exercise\n- Respiratory infections\n- Stress and strong emotions\n- Certain medications\n\n**Recognizing Asthma Symptoms:**\n- Shortness of breath\n- Chest tightness or pain\n- Wheezing (whistling sound when breathing)\n- Coughing, especially at night or early morning\n- Difficulty speaking in full sentences\n\n**Daily Management:**\n1. **Take Controller Medications**: Use daily as prescribed\n2. **Avoid Known Triggers**: Identify and minimize exposure\n3. **Monitor Symptoms**: Use a peak flow meter if recommended\n4. **Stay Active**: Exercise regularly with proper precautions\n5. **Follow Your Action Plan**: Work with your doctor to create one\n\n**Emergency Response - When to Use Rescue Inhaler:**\n- Sudden onset of symptoms\n- Difficulty breathing\n- Chest tightness\n- Persistent coughing\n\n**Severe Asthma Attack - Call 911 if:**\n- Severe difficulty breathing\n- Cannot speak in full sentences\n- Lips or fingernails turn blue\n- Rescue inhaler doesn't help\n- Peak flow reading in red zone\n- Feeling panicked about breathing\n\n**Using an Inhaler Properly:**\n1. Remove cap and shake inhaler\n2. Breathe out fully\n3. Place lips around mouthpiece\n4. Press down while breathing in slowly and deeply\n5. Hold breath for 10 seconds\n6. Breathe out slowly\n\n**Prevention Strategies:**\n- Keep rescue inhaler always accessible\n- Take controller medications as prescribed\n- Get annual flu vaccination\n- Maintain good indoor air quality\n- Exercise regularly with proper warm-up\n- Manage stress effectively\n\n**Working with Healthcare Providers:**\n- Regular check-ups every 3-6 months\n- Review and update asthma action plan\n- Discuss any changes in symptoms\n- Ensure proper inhaler technique",
+            "related_conditions": [7],
+            "tags": ["asthma", "respiratory", "breathing", "emergency", "inhaler", "triggers"],
+            "cover_image": "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+            "is_published": true,
+            "published_date": "2025-04-30T10:45:00+00:00",
+            "updated_at": "2025-04-30T10:45:00+00:00"
         }
     },
     {
-        "model": "symptoms.symptom",
+        "model": "education.article",
         "pk": 5,
         "fields": {
-            "name": "Fatigue",
-            "description": "A state of extreme tiredness resulting from mental or physical exertion",
-            "created_at": "2025-04-30T09:58:27+00:00",
-            "updated_at": "2025-04-30T09:58:27+00:00"
+            "title": "First Aid: Choking Emergency Response",
+            "summary": "Learn the Heimlich maneuver and other life-saving techniques for choking emergencies in adults, children, and infants.",
+            "content": "Choking is a life-threatening emergency that requires immediate action. Knowing how to respond can save a life. Here's what you need to know about choking first aid.\n\n**Recognizing Choking:**\n**Universal Choking Sign**: Hands clutched to throat\n**Other Signs:**\n- Cannot cough, speak, or breathe\n- Face turns red, then blue\n- Makes high-pitched sounds or no sound\n- Loses consciousness\n\n**For Conscious Adults and Children (over 1 year):**\n\n**Step 1: Encourage Coughing**\n- If person can cough, encourage them to keep coughing\n- Stay with them and be ready to help\n\n**Step 2: Back Blows (if coughing doesn't work)**\n- Stand behind the person\n- Lean them forward\n- Give 5 sharp back blows between shoulder blades\n\n**Step 3: Abdominal Thrusts (Heimlich Maneuver)**\n- Stand behind the person\n- Place arms around their waist\n- Make a fist with one hand\n- Place fist above navel, below ribcage\n- Grasp fist with other hand\n- Give 5 quick upward thrusts\n\n**Step 4: Alternate**\n- Continue alternating 5 back blows and 5 abdominal thrusts\n- Continue until object is expelled or person becomes unconscious\n\n**For Infants (under 1 year):**\n\n**Back Blows:**\n- Hold infant face down on your forearm\n- Support head and neck with your hand\n- Give 5 back blows between shoulder blades\n\n**Chest Thrusts:**\n- Turn infant face up\n- Place 2 fingers on breastbone just below nipples\n- Give 5 quick chest thrusts\n- Alternate back blows and chest thrusts\n\n**If Person Becomes Unconscious:**\n1. Call 911 immediately\n2. Begin CPR\n3. Before giving rescue breaths, look in mouth\n4. Remove visible objects with finger sweep\n5. Continue CPR until help arrives\n\n**Self-Help for Choking:**\n- Make a fist and place above navel\n- Grasp with other hand and thrust upward\n- Or lean over a chair back and thrust abdomen against it\n\n**Prevention:**\n- Cut food into small pieces\n- Chew food thoroughly\n- Avoid talking while eating\n- Don't give hard candies to young children\n- Keep small objects away from children\n- Supervise children while eating\n\n**After the Emergency:**\n- Seek medical attention even if successful\n- Abdominal thrusts can cause internal injuries\n- Watch for signs of complications\n\n**Important Notes:**\n- Never perform abdominal thrusts on infants\n- Don't use finger sweeps on conscious victims\n- If pregnant or obese, use chest thrusts instead of abdominal thrusts\n- Learn CPR and first aid from certified instructors",
+            "related_conditions": [],
+            "tags": ["first aid", "choking", "heimlich maneuver", "emergency", "CPR", "life saving"],
+            "cover_image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+            "is_published": true,
+            "published_date": "2025-04-30T11:00:00+00:00",
+            "updated_at": "2025-04-30T11:00:00+00:00"
         }
     },
     {
-        "model": "symptoms.symptom",
+        "model": "education.article",
         "pk": 6,
         "fields": {
-          "name": "Runny Nose",
-          "description": "Excess drainage from the nose, often due to a cold or allergy",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
+            "title": "Understanding High Blood Pressure: The Silent Killer",
+            "summary": "Learn about hypertension causes, symptoms, and lifestyle changes to manage and prevent high blood pressure.",
+            "content": "High blood pressure, or hypertension, is often called the 'silent killer' because it usually has no symptoms but can lead to serious health problems. Understanding and managing blood pressure is crucial for long-term health.\n\n**What is Blood Pressure?**\nBlood pressure is the force of blood pushing against artery walls. It's measured in two numbers:\n- **Systolic** (top number): Pressure when heart beats\n- **Diastolic** (bottom number): Pressure when heart rests\n\n**Blood Pressure Categories:**\n- **Normal**: Less than 120/80 mmHg\n- **Elevated**: 120-129 systolic, less than 80 diastolic\n- **Stage 1 Hypertension**: 130-139/80-89 mmHg\n- **Stage 2 Hypertension**: 140/90 mmHg or higher\n- **Hypertensive Crisis**: Higher than 180/120 mmHg\n\n**Risk Factors:**\n- Age (risk increases with age)\n- Family history\n- Being overweight or obese\n- Lack of physical activity\n- High sodium diet\n- Excessive alcohol consumption\n- Smoking\n- Chronic stress\n- Certain chronic conditions (diabetes, kidney disease)\n\n**Symptoms (Usually None, But May Include):**\n- Headaches\n- Dizziness\n- Blurred vision\n- Nausea\n- Chest pain\n- Shortness of breath\n\n**Complications of Untreated Hypertension:**\n- Heart attack and heart disease\n- Stroke\n- Kidney damage\n- Vision loss\n- Sexual dysfunction\n- Peripheral artery disease\n\n**Lifestyle Changes to Lower Blood Pressure:**\n\n**1. Diet Modifications:**\n- Reduce sodium intake (less than 2,300mg daily)\n- Follow DASH diet (fruits, vegetables, whole grains)\n- Limit processed foods\n- Reduce saturated and trans fats\n- Moderate alcohol consumption\n\n**2. Physical Activity:**\n- At least 150 minutes moderate exercise weekly\n- Include aerobic and strength training\n- Start slowly and gradually increase\n- Find activities you enjoy\n\n**3. Weight Management:**\n- Maintain healthy BMI (18.5-24.9)\n- Even small weight loss can help\n- Focus on sustainable changes\n\n**4. Stress Management:**\n- Practice relaxation techniques\n- Get adequate sleep (7-9 hours)\n- Consider meditation or yoga\n- Maintain social connections\n\n**5. Avoid Tobacco:**\n- Quit smoking\n- Avoid secondhand smoke\n- Seek support for quitting\n\n**Monitoring Blood Pressure:**\n- Regular check-ups with healthcare provider\n- Consider home blood pressure monitoring\n- Keep a blood pressure log\n- Take medications as prescribed\n\n**When to Seek Emergency Care:**\n- Blood pressure higher than 180/120\n- Severe headache\n- Chest pain\n- Difficulty breathing\n- Vision changes\n- Symptoms of stroke\n\n**Working with Healthcare Providers:**\n- Regular monitoring and check-ups\n- Medication management\n- Lifestyle counseling\n- Treatment of underlying conditions",
+            "related_conditions": [12],
+            "tags": ["hypertension", "blood pressure", "heart health", "lifestyle", "prevention"],
+            "cover_image": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+            "is_published": true,
+            "published_date": "2025-04-30T11:15:00+00:00",
+            "updated_at": "2025-04-30T11:15:00+00:00"
         }
-      },
-      {
-        "model": "symptoms.symptom",
+    },
+    {
+        "model": "education.article",
         "pk": 7,
         "fields": {
-          "name": "Nasal Congestion",
-          "description": "Blocked nasal passages due to inflammation or mucus",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 8,
-        "fields": {
-          "name": "Sneezing",
-          "description": "A sudden, forceful expulsion of air from the nose and mouth",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 9,
-        "fields": {
-          "name": "Shortness of Breath",
-          "description": "Difficulty or discomfort in breathing",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 10,
-        "fields": {
-          "name": "Chest Pain",
-          "description": "Pain or discomfort in the chest area",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 11,
-        "fields": {
-          "name": "Body Aches",
-          "description": "General muscle and joint pain throughout the body",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 12,
-        "fields": {
-          "name": "Nausea",
-          "description": "Uneasy feeling in the stomach often preceding vomiting",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 13,
-        "fields": {
-          "name": "Vomiting",
-          "description": "Forceful expulsion of stomach contents through the mouth",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 14,
-        "fields": {
-          "name": "Diarrhea",
-          "description": "Frequent, loose, or watery bowel movements",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 15,
-        "fields": {
-          "name": "Loss of Smell",
-          "description": "Reduced or complete loss of the ability to smell",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 16,
-        "fields": {
-          "name": "Chills",
-          "description": "A feeling of coldness often accompanied by shivering, commonly occurring with fever",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 17,
-        "fields": {
-          "name": "Muscle Aches",
-          "description": "Pain or discomfort in the muscles, often due to infection or exertion",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 18,
-        "fields": {
-          "name": "Sweating",
-          "description": "Excessive perspiration that can occur with fever or stress",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 19,
-        "fields": {
-          "name": "Loss of Appetite",
-          "description": "Decreased desire to eat, often associated with illness",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 20,
-        "fields": {
-          "name": "Loss of Taste",
-          "description": "Reduced or absent ability to taste flavors",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 21,
-        "fields": {
-          "name": "Skin Rashes",
-          "description": "Visible changes in the skin’s appearance, often as red, itchy patches",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 22,
-        "fields": {
-          "name": "Post-nasal Drip",
-          "description": "Mucus dripping down the back of the throat from the nasal passages",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 23,
-        "fields": {
-          "name": "Watery Eyes",
-          "description": "Excessive tear production from the eyes",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 24,
-        "fields": {
-          "name": "Sudden Onset Sore Throat",
-          "description": "A sore throat that begins abruptly, often due to bacterial infection",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 25,
-        "fields": {
-          "name": "Pain When Swallowing",
-          "description": "Discomfort or pain felt in the throat while swallowing",
-          "created_at": "2025-04-30T10:00:00+00:00",
-          "updated_at": "2025-04-30T10:00:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 26,
-        "fields": {
-          "name": "Swollen Lymph Nodes",
-          "description": "Enlargement of the glands in the neck, armpits, or groin, often indicating infection",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 27,
-        "fields": {
-          "name": "Joint Pain",
-          "description": "Discomfort, soreness, or aching in one or more joints",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 28,
-        "fields": {
-          "name": "Dizziness",
-          "description": "A sensation of lightheadedness, unsteadiness, or loss of balance",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 29,
-        "fields": {
-          "name": "Blurred Vision",
-          "description": "Loss of sharpness of eyesight, making objects appear out of focus",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 30,
-        "fields": {
-          "name": "Numbness",
-          "description": "Loss of sensation in a part of the body",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 31,
-        "fields": {
-          "name": "Tingling",
-          "description": "A prickly or stinging sensation, often in the hands or feet",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 32,
-        "fields": {
-          "name": "Heart Palpitations",
-          "description": "A feeling of rapid, fluttering, or pounding heartbeats",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 33,
-        "fields": {
-          "name": "Wheezing",
-          "description": "A high-pitched whistling sound during breathing, often due to narrowed airways",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 34,
-        "fields": {
-          "name": "Abdominal Pain",
-          "description": "Pain or discomfort felt in the belly area",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 35,
-        "fields": {
-          "name": "Back Pain",
-          "description": "Aches or soreness felt in the back, ranging from mild to severe",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 36,
-        "fields": {
-          "name": "Constipation",
-          "description": "Infrequent bowel movements or difficulty passing stool",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 37,
-        "fields": {
-          "name": "Heartburn",
-          "description": "A burning sensation in the chest, often caused by stomach acid reflux",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 38,
-        "fields": {
-          "name": "Indigestion",
-          "description": "Discomfort or pain in the upper abdomen, often after eating",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 39,
-        "fields": {
-          "name": "Bloating",
-          "description": "A feeling of fullness or swelling in the abdomen",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 40,
-        "fields": {
-          "name": "Frequent Urination",
-          "description": "Needing to urinate more often than usual",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 41,
-        "fields": {
-          "name": "Painful Urination",
-          "description": "Discomfort or burning sensation while urinating",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 42,
-        "fields": {
-          "name": "Blood in Urine",
-          "description": "The presence of red blood cells in the urine",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 43,
-        "fields": {
-          "name": "Weight Loss (Unintentional)",
-          "description": "Losing a significant amount of weight without trying",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 44,
-        "fields": {
-          "name": "Night Sweats",
-          "description": "Excessive sweating that occurs during sleep",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 45,
-        "fields": {
-          "name": "Skin Bruising Easily",
-          "description": "Developing bruises more readily than usual from minor injuries",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 46,
-        "fields": {
-          "name": "Persistent Hoarseness",
-          "description": "A rough or raspy voice that lasts for an extended period",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 47,
-        "fields": {
-          "name": "Difficulty Sleeping (Insomnia)",
-          "description": "Trouble falling asleep or staying asleep",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 48,
-        "fields": {
-          "name": "Swollen Ankles",
-          "description": "Accumulation of fluid causing puffiness in the ankles and feet",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 49,
-        "fields": {
-          "name": "Change in Bowel Habits",
-          "description": "Noticeable and persistent alterations in the frequency or consistency of bowel movements",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 50,
-        "fields": {
-          "name": "Unexplained Bruising",
-          "description": "Bruises appearing on the skin without a known injury",
-          "created_at": "2025-04-30T10:05:00+00:00",
-          "updated_at": "2025-04-30T10:05:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 51,
-        "fields": {
-          "name": "Persistent Dry Cough",
-          "description": "A cough that lasts for several weeks or more and does not produce mucus. It can be triggered by various factors like allergies, asthma, or infections.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 52,
-        "fields": {
-          "name": "Productive Cough",
-          "description": "A cough that brings up mucus or phlegm from the lungs. The color and consistency of the mucus can provide clues about the underlying cause, such as a bacterial or viral infection.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 53,
-        "fields": {
-          "name": "Sputum Production",
-          "description": "The act of coughing up and expelling mucus or other material from the lower airways. The characteristics of the sputum (color, thickness, odor) are important diagnostic indicators.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 54,
-        "fields": {
-          "name": "Nasal Discharge",
-          "description": "The release of fluid from the nose, which can vary in consistency and color depending on the cause, ranging from clear and watery (allergies) to thick and yellow or green (infection).",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 55,
-        "fields": {
-          "name": "Sinus Pressure",
-          "description": "A feeling of fullness, pain, or tenderness in the sinuses, which are air-filled cavities in the skull. This is often associated with inflammation or infection of the sinuses (sinusitis).",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 56,
-        "fields": {
-          "name": "Ear Pain",
-          "description": "Discomfort or aching in one or both ears, which can be a symptom of an ear infection (otitis media or otitis externa), pressure changes, or referred pain from other areas.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 57,
-        "fields": {
-          "name": "Hearing Loss",
-          "description": "A partial or total inability to hear sounds. This can occur suddenly or gradually and can be caused by various factors, including ear infections, noise exposure, or age-related changes.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 58,
-        "fields": {
-          "name": "Tinnitus",
-          "description": "The perception of sound when no external noise is present, often described as ringing, buzzing, hissing, or clicking in the ears. It can be a symptom of underlying conditions or noise exposure.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 59,
-        "fields": {
-          "name": "Eye Redness",
-          "description": "Inflammation of the blood vessels in the sclera (white part of the eye), causing it to appear pink or red. This can be due to allergies, infections (conjunctivitis), or irritation.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 60,
-        "fields": {
-          "name": "Eye Itching",
-          "description": "An irritating sensation in one or both eyes that creates an urge to rub them. This is a common symptom of allergies (allergic conjunctivitis) or dry eye syndrome.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 61,
-        "fields": {
-          "name": "Excessive Tearing",
-          "description": "The production of more tears than normal, which can be caused by eye irritation, allergies, blocked tear ducts, or certain medical conditions.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 62,
-        "fields": {
-          "name": "Swollen Eyelids",
-          "description": "Inflammation or fluid buildup in the eyelids, causing them to appear puffy or swollen. This can be due to allergies, infections (like styes), or other medical conditions.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 63,
-        "fields": {
-          "name": "Mouth Sores",
-          "description": "Painful lesions or ulcers that can appear on the lips, gums, tongue, or inner cheeks. Common causes include canker sores, herpes simplex virus (cold sores), or fungal infections.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 64,
-        "fields": {
-          "name": "Bad Breath (Halitosis)",
-          "description": "An unpleasant odor emanating from the mouth, which can be caused by poor oral hygiene, dry mouth, certain foods, or underlying medical conditions.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 65,
-        "fields": {
-          "name": "Gum Swelling",
-          "description": "Inflammation of the gums, making them appear red, puffy, or enlarged. This is often a sign of gum disease (gingivitis or periodontitis).",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 66,
-        "fields": {
-          "name": "Toothache",
-          "description": "Pain in or around a tooth, which can be caused by tooth decay, gum disease, a cracked tooth, or an abscess.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 67,
-        "fields": {
-          "name": "Nosebleeds (Epistaxis)",
-          "description": "Bleeding from the nose, which can be caused by dry air, nose picking, injury, allergies, or certain medical conditions.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 68,
-        "fields": {
-          "name": "Difficulty Breathing at Night (Orthopnea)",
-          "description": "Shortness of breath that occurs when lying flat, relieved by sitting or standing up. This is often a sign of heart or lung conditions.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 69,
-        "fields": {
-          "name": "Swollen Legs",
-          "description": "Edema or swelling in the legs and feet due to fluid retention, which can be caused by prolonged standing, heart failure, kidney disease, or vein problems.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 70,
-        "fields": {
-          "name": "Skin Itching (Pruritus)",
-          "description": "An uncomfortable sensation on the skin that leads to the urge to scratch. It can be caused by dry skin, allergies, eczema, or underlying medical conditions.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 71,
-        "fields": {
-          "name": "Hives (Urticaria)",
-          "description": "Raised, itchy welts on the skin that can vary in size and appear suddenly, often as a result of an allergic reaction.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 72,
-        "fields": {
-          "name": "Dry Skin (Xerosis)",
-          "description": "A common condition characterized by rough, scaly, and itchy skin due to a lack of moisture in the outer layer.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 73,
-        "fields": {
-          "name": "Hair Loss (Alopecia)",
-          "description": "The thinning or shedding of hair from the scalp or other parts of the body, which can have various causes including genetics, hormonal changes, or medical conditions.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 74,
-        "fields": {
-          "name": "Brittle Nails",
-          "description": "Nails that are prone to splitting, cracking, or breaking easily, often due to dryness, aging, or nutritional deficiencies.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 75,
-        "fields": {
-          "name": "Headache with Stiff Neck",
-          "description": "A combination of head pain and difficulty moving the neck, often associated with muscle tension, meningitis, or other serious conditions.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 76,
-        "fields": {
-          "name": "Severe Abdominal Cramps",
-          "description": "Intense, often wave-like pain in the abdominal area, which can be caused by gas, indigestion, infections, or other gastrointestinal issues.",
-          "created_at": "2025-04-30T10:10:00+00:00",
-          "updated_at": "2025-04-30T10:10:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 77,
-        "fields": {
-          "name": "Blood in Stool",
-          "description": "The presence of red or dark, tarry blood in bowel movements, which can indicate bleeding in the digestive tract from various causes such as hemorrhoids, anal fissures, or more serious conditions like inflammatory bowel disease or cancer.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 78,
-        "fields": {
-          "name": "Heartburn (Acid Reflux)",
-          "description": "A burning sensation in the chest, often rising up towards the throat, caused by stomach acid flowing back into the esophagus. It can be triggered by certain foods, lying down after eating, or hiatal hernia.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 79,
-        "fields": {
-          "name": "Frequent Heartburn",
-          "description": "Experiencing heartburn multiple times a week, which could be a sign of gastroesophageal reflux disease (GERD), a chronic condition requiring medical attention.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 80,
-        "fields": {
-          "name": "Difficulty Swallowing (Dysphagia)",
-          "description": "Trouble or discomfort when swallowing food or liquids, which can be caused by various conditions affecting the throat or esophagus, including infections, blockages, or neurological disorders.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 81,
-        "fields": {
-          "name": "Abdominal Bloating and Gas",
-          "description": "A feeling of fullness and pressure in the abdomen accompanied by excessive flatulence. This can be caused by diet, food intolerances, or gastrointestinal disorders like irritable bowel syndrome (IBS).",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 82,
-        "fields": {
-          "name": "Change in Bowel Movement Frequency",
-          "description": "A noticeable and persistent alteration in how often one has bowel movements, which can range from increased frequency (diarrhea) to decreased frequency (constipation) and may indicate an underlying issue.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 83,
-        "fields": {
-          "name": "Change in Stool Consistency",
-          "description": "Alterations in the form and texture of stool, such as becoming very hard and difficult to pass, or very loose and watery, which can be related to diet, hydration, or gastrointestinal problems.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 84,
-        "fields": {
-          "name": "Feeling Full Quickly (Early Satiety)",
-          "description": "Experiencing a sense of fullness after eating only a small amount of food, which can be a symptom of various conditions affecting the stomach or digestive system.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 85,
-        "fields": {
-          "name": "Unexplained Weight Gain",
-          "description": "Putting on weight without any changes in diet or activity level, which can be a sign of hormonal imbalances, fluid retention, or other medical conditions.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 86,
-        "fields": {
-          "name": "Increased Thirst (Polydipsia)",
-          "description": "Feeling unusually thirsty and having a strong urge to drink more fluids than normal, which can be a symptom of diabetes, dehydration, or certain medications.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 87,
-        "fields": {
-          "name": "Frequent Nighttime Urination (Nocturia)",
-          "description": "Waking up during the night to urinate more often than usual, which can be caused by fluid imbalances, prostate issues (in men), or other medical conditions.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 88,
-        "fields": {
-          "name": "Muscle Weakness",
-          "description": "A reduction in the strength of one or more muscles, making it difficult to perform everyday tasks. It can be caused by nerve damage, muscle disorders, or general illness.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 89,
-        "fields": {
-          "name": "Balance Problems",
-          "description": "Difficulty maintaining stability while standing or walking, often accompanied by dizziness or unsteadiness. This can be due to inner ear problems, neurological conditions, or medication side effects.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 90,
-        "fields": {
-          "name": "Memory Problems",
-          "description": "Difficulties with remembering recent events, names, or information, which can range from mild forgetfulness to more significant cognitive impairment.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 91,
-        "fields": {
-          "name": "Concentration Difficulties",
-          "description": "Trouble focusing or maintaining attention, which can be a symptom of stress, fatigue, ADHD, or other underlying conditions.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 92,
-        "fields": {
-          "name": "Mood Swings",
-          "description": "Rapid and significant shifts in emotional state, which can be a normal reaction to circumstances or a symptom of hormonal changes or mood disorders.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 93,
-        "fields": {
-          "name": "Anxiety",
-          "description": "A feeling of worry, nervousness, or unease, typically about an imminent event or something with an uncertain outcome. When excessive or persistent, it can be a sign of an anxiety disorder.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 94,
-        "fields": {
-          "name": "Depressed Mood",
-          "description": "A persistent feeling of sadness, loss of interest, or hopelessness, which, if prolonged, can be a symptom of depression.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 95,
-        "fields": {
-          "name": "Chest Tightness",
-          "description": "A feeling of constriction or pressure in the chest, which can be associated with anxiety, asthma, or heart problems.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 96,
-        "fields": {
-          "name": "Rapid Heartbeat (Tachycardia)",
-          "description": "A heart rate that is faster than normal, which can be caused by exercise, stress, fever, or underlying heart conditions.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 97,
-        "fields": {
-          "name": "Irregular Heartbeat (Arrhythmia)",
-          "description": "An abnormal rhythm of the heart, which can feel like skipping beats, fluttering, or pounding. Some arrhythmias are harmless, while others can be serious.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 98,
-        "fields": {
-          "name": "Swollen Joints",
-          "description": "Enlargement of one or more joints due to inflammation or fluid buildup, often accompanied by pain and stiffness, and can be a sign of arthritis or injury.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 99,
-        "fields": {
-          "name": "Joint Stiffness",
-          "description": "A feeling of restricted movement in one or more joints, often worse in the morning or after periods of inactivity, and commonly associated with arthritis.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-        "model": "symptoms.symptom",
-        "pk": 100,
-        "fields": {
-          "name": "Limited Range of Motion",
-          "description": "Difficulty moving a joint through its full normal range, which can be due to injury, inflammation, or stiffness.",
-          "created_at": "2025-04-30T10:15:00+00:00",
-          "updated_at": "2025-04-30T10:15:00+00:00"
-        }
-      },
-      {
-          "model": "symptoms.condition",
-          "pk": 101,
-          "fields": {
-              "name": "Migraine",
-              "severity": 3,
-              "description": "Neurological condition characterized by severe headaches",
-              "symptoms": [1],
-              "created_at": "2025-04-30T09:58:27+00:00",
-              "updated_at": "2025-04-30T09:58:27+00:00"
-          }
-      },
-      {
-          "model": "symptoms.condition",
-          "pk": 102,
-          "fields": {
-              "name": "Common Cold",
-              "severity": 1,
-              "description": "Viral infection of the upper respiratory tract",
-              "symptoms": [2],
-              "created_at": "2025-04-30T09:58:27+00:00",
-              "updated_at": "2025-04-30T09:58:27+00:00"
-          }
-      },
-      {
-          "model": "symptoms.condition",
-          "pk": 103,
-          "fields": {
-              "name": "Flu",
-              "severity": 2,
-              "description": "Viral infection that affects the respiratory system",
-              "symptoms": [1, 2],
-              "created_at": "2025-04-30T09:58:27+00:00",
-              "updated_at": "2025-04-30T09:58:27+00:00"
-          }
-      },
-      {
-          "model": "symptoms.condition",
-          "pk": 104,
-          "fields": {
-              "name": "COVID-19",
-              "severity": 4,
-              "description": "Infectious disease caused by the SARS-CoV-2 virus",
-              "symptoms": [1, 2],
-              "created_at": "2025-04-30T09:58:27+00:00",
-              "updated_at": "2025-04-30T09:58:27+00:00"
-          }
-      },
-      {
-          "model": "symptoms.condition",
-          "pk": 105,
-          "fields": {
-              "name": "Allergy",
-              "severity": 1,
-              "description": "Immune response to a substance that is usually harmless",
-              "symptoms": [2],
-              "created_at": "2025-04-30T09:58:27+00:00",
-              "updated_at": "2025-04-30T09:58:27+00:00"
-          }
-      }
+            "title": "First Aid: Burns - Assessment and Treatment",
+            "summary": "Learn to assess burn severity and provide appropriate first aid treatment for different types of burns.",
+            "content": "Burns can happen anywhere and knowing how to assess and treat them properly can prevent complications and promote healing. Here's a comprehensive guide to burn first aid.\n\n**Types of Burns:**\n\n**By Cause:**\n- **Thermal**: Heat, fire, hot liquids, steam\n- **Chemical**: Acids, alkalis, cleaning products\n- **Electrical**: Contact with electrical current\n- **Radiation**: Sun, UV lamps, X-rays\n\n**By Severity:**\n\n**First-Degree Burns (Superficial):**\n- Affects only outer layer of skin\n- Red, painful, dry\n- No blisters\n- Heals in 3-7 days\n- Example: Mild sunburn\n\n**Second-Degree Burns (Partial Thickness):**\n- Affects outer and underlying layer\n- Red, painful, swollen\n- Blisters present\n- Heals in 2-3 weeks\n- May cause scarring\n\n**Third-Degree Burns (Full Thickness):**\n- Destroys all layers of skin\n- White, brown, or charred appearance\n- Little to no pain (nerve damage)\n- Requires medical treatment\n- Always causes scarring\n\n**Immediate First Aid:**\n\n**Step 1: Ensure Safety**\n- Remove person from heat source\n- Turn off electricity if electrical burn\n- Don't touch person if still in contact with electricity\n\n**Step 2: Cool the Burn**\n- Run cool (not cold) water over burn for 10-20 minutes\n- Remove jewelry/clothing before swelling starts\n- Don't use ice, butter, or home remedies\n\n**Step 3: Assess Severity**\n- Size: Larger than palm = serious\n- Location: Face, hands, feet, genitals = serious\n- Depth: Blistering or white/charred = serious\n\n**Treatment by Severity:**\n\n**First-Degree Burns:**\n- Cool with water\n- Apply aloe vera or moisturizer\n- Take over-the-counter pain relievers\n- Protect from sun\n- Keep hydrated\n\n**Second-Degree Burns (Small):**\n- Cool with water\n- Don't break blisters\n- Apply antibiotic ointment\n- Cover with sterile gauze\n- Change dressing daily\n- Watch for infection signs\n\n**What NOT to Do:**\n- Don't use ice or very cold water\n- Don't apply butter, oil, or home remedies\n- Don't break blisters\n- Don't remove stuck clothing\n- Don't use cotton balls on open burns\n\n**Seek Emergency Medical Care for:**\n- Third-degree burns\n- Burns larger than 3 inches\n- Burns on face, hands, feet, or genitals\n- Chemical or electrical burns\n- Signs of infection\n- Burns in children under 5 or adults over 60\n- Difficulty breathing (possible inhalation injury)\n\n**Chemical Burns:**\n- Remove contaminated clothing\n- Flush with large amounts of water (20+ minutes)\n- Don't neutralize with other chemicals\n- Call Poison Control: 1-800-222-1222\n\n**Electrical Burns:**\n- May have internal injuries not visible\n- Always seek medical attention\n- Watch for heart rhythm problems\n\n**Signs of Infection:**\n- Increased pain, redness, swelling\n- Pus or unusual discharge\n- Red streaking from burn\n- Fever\n- Burn doesn't heal as expected\n\n**Prevention:**\n- Install smoke detectors\n- Keep hot liquids away from children\n- Use sunscreen\n- Check water temperature before bathing\n- Store chemicals safely\n- Use proper electrical safety",
+            "related_conditions": [],
+            "tags": ["first aid", "burns", "thermal injury", "emergency", "wound care"],
+            "cover_image": "https://images.unsplash.com/photo-1584515933487-779824d29309?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+            "is_published": true,
+            "published_date": "2025-04-30T11:30:00+00:00",
+            "updated_at": "2025-04-30T11:30:00+00:00"
+        }
+    },
+    {
+        "model": "education.video",
+        "pk": 1,
+        "fields": {
+            "title": "How to Perform CPR: Adult CPR Step-by-Step Guide",
+            "video_url": "https://www.youtube.com/watch?v=yYvAIW1zJcM",
+            "duration_minutes": 8,
+            "related_symptoms": [8, 9],
+            "is_published": true,
+            "published_date": "2025-04-30T12:00:00+00:00",
+            "updated_at": "2025-04-30T12:00:00+00:00"
+        }
+    },
+    {
+        "model": "education.video",
+        "pk": 2,
+        "fields": {
+            "title": "Proper Hand Washing Technique to Prevent Infections",
+            "video_url": "https://www.youtube.com/watch?v=3PmVJQUCm4E",
+            "duration_minutes": 3,
+            "related_symptoms": [2, 3, 4],
+            "is_published": true,
+            "published_date": "2025-04-30T12:15:00+00:00",
+            "updated_at": "2025-04-30T12:15:00+00:00"
+        }
+    },
+    {
+        "model": "education.video",
+        "pk": 3,
+        "fields": {
+            "title": "Using an Inhaler Correctly for Asthma Management",
+            "video_url": "https://www.youtube.com/watch?v=WeY4KJUnfMc",
+            "duration_minutes": 5,
+            "related_symptoms": [9, 3],
+            "is_published": true,
+            "published_date": "2025-04-30T12:30:00+00:00",
+            "updated_at": "2025-04-30T12:30:00+00:00"
+        }
+    },
+    {
+        "model": "education.video",
+        "pk": 4,
+        "fields": {
+            "title": "Heimlich Maneuver: How to Help Someone Who is Choking",
+            "video_url": "https://www.youtube.com/watch?v=-0VgR9CMSWU",
+            "duration_minutes": 6,
+            "related_symptoms": [9],
+            "is_published": true,
+            "published_date": "2025-04-30T12:45:00+00:00",
+            "updated_at": "2025-04-30T12:45:00+00:00"
+        }
+    },
+    {
+        "model": "education.video",
+        "pk": 5,
+        "fields": {
+            "title": "How to Take Blood Pressure at Home",
+            "video_url": "https://www.youtube.com/watch?v=_6YlHbWt4Q0",
+            "duration_minutes": 7,
+            "related_symptoms": [1, 7],
+            "is_published": true,
+            "published_date": "2025-04-30T13:00:00+00:00",
+            "updated_at": "2025-04-30T13:00:00+00:00"
+        }
+    },
+    {
+        "model": "education.video",
+        "pk": 6,
+        "fields": {
+            "title": "Basic Wound Care and Bandaging Techniques",
+            "video_url": "https://www.youtube.com/watch?v=WeY4KJUnfMc",
+            "duration_minutes": 10,
+            "related_symptoms": [12],
+            "is_published": true,
+            "published_date": "2025-04-30T13:15:00+00:00",
+            "updated_at": "2025-04-30T13:15:00+00:00"
+        }
+    }
 ]

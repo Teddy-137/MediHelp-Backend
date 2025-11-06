@@ -50,6 +50,106 @@
         }
     },
     {
+        "model": "symptoms.symptom",
+        "pk": 6,
+        "fields": {
+            "name": "Nausea",
+            "description": "Feeling of sickness with an inclination to vomit",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 7,
+        "fields": {
+            "name": "Dizziness",
+            "description": "Feeling of unsteadiness or lightheadedness",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 8,
+        "fields": {
+            "name": "Chest Pain",
+            "description": "Discomfort or pain in the chest area",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 9,
+        "fields": {
+            "name": "Shortness of Breath",
+            "description": "Difficulty breathing or feeling breathless",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 10,
+        "fields": {
+            "name": "Abdominal Pain",
+            "description": "Pain or discomfort in the stomach area",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 11,
+        "fields": {
+            "name": "Joint Pain",
+            "description": "Pain, stiffness, or swelling in joints",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 12,
+        "fields": {
+            "name": "Skin Rash",
+            "description": "Red, inflamed, or irritated skin patches",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 13,
+        "fields": {
+            "name": "Muscle Aches",
+            "description": "Pain or soreness in muscles throughout the body",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 14,
+        "fields": {
+            "name": "Loss of Appetite",
+            "description": "Reduced desire to eat or lack of hunger",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.symptom",
+        "pk": 15,
+        "fields": {
+            "name": "Runny Nose",
+            "description": "Excessive nasal discharge or congestion",
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
         "model": "symptoms.condition",
         "pk": 1,
         "fields": {
@@ -105,6 +205,90 @@
             "severity": 1,
             "description": "Immune response to a substance that is usually harmless",
             "symptoms": [2],
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.condition",
+        "pk": 6,
+        "fields": {
+            "name": "Gastroenteritis",
+            "severity": 2,
+            "description": "Inflammation of the stomach and intestines",
+            "symptoms": [6, 10, 5, 14],
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.condition",
+        "pk": 7,
+        "fields": {
+            "name": "Asthma",
+            "severity": 3,
+            "description": "Chronic respiratory condition causing breathing difficulties",
+            "symptoms": [9, 3, 8],
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.condition",
+        "pk": 8,
+        "fields": {
+            "name": "Arthritis",
+            "severity": 2,
+            "description": "Inflammation of joints causing pain and stiffness",
+            "symptoms": [11, 5],
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.condition",
+        "pk": 9,
+        "fields": {
+            "name": "Sinusitis",
+            "severity": 1,
+            "description": "Inflammation of the sinuses causing congestion and pain",
+            "symptoms": [1, 15, 4, 5],
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.condition",
+        "pk": 10,
+        "fields": {
+            "name": "Pneumonia",
+            "severity": 4,
+            "description": "Infection that inflames air sacs in lungs",
+            "symptoms": [2, 3, 9, 8, 5, 13],
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.condition",
+        "pk": 11,
+        "fields": {
+            "name": "Eczema",
+            "severity": 1,
+            "description": "Chronic skin condition causing inflammation and irritation",
+            "symptoms": [12],
+            "created_at": "2025-04-30T09:58:27+00:00",
+            "updated_at": "2025-04-30T09:58:27+00:00"
+        }
+    },
+    {
+        "model": "symptoms.condition",
+        "pk": 12,
+        "fields": {
+            "name": "Hypertension",
+            "severity": 3,
+            "description": "High blood pressure condition",
+            "symptoms": [1, 7, 5],
             "created_at": "2025-04-30T09:58:27+00:00",
             "updated_at": "2025-04-30T09:58:27+00:00"
         }
